@@ -228,6 +228,7 @@ skills you installed. When the menu shows **★ New skills are available!**, the
 
 Type a number and press Enter. An empty Enter does nothing, so you never get kicked out.
 `0` or `q` quits. Install `fzf` for arrow-key menus. `NO_COLOR=1 4rmory` turns colours off.
+Numbers show as round badges when a [Nerd Font](https://www.nerdfonts.com) is installed; force a style with `ARMORY_BADGES=round` or `ARMORY_BADGES=plain`.
 Still stuck? Run `4rmory help`, or open an [issue](https://github.com/Z1esco/4rmory/issues).
 </details>
 

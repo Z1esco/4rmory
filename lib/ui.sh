@@ -46,16 +46,26 @@ ar_err()   { printf '%s✖%s %s\n' "$C_RED" "$C_RESET" "$*" >&2; }
 ar_die()   { ar_err "$*"; exit 1; }
 ar_hint()  { printf '%s  %s%s\n' "$C_GREY" "$*" "$C_RESET"; }
 
-# A small circled number: ⓪ ① … ⑳ (plain "21." style beyond 20).
-AR_CIRCLES="⓪ ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳"
+# Number badges. "round" draws a full-height circle with Nerd Font caps ( 1 );
+# "plain" is a bold cyan number for fonts without them. Override: ARMORY_BADGES=round|plain
+ar_badge_style() {
+  if [ -z "${AR_BADGE_STYLE:-}" ]; then
+    case "${ARMORY_BADGES:-}" in
+      round|plain) AR_BADGE_STYLE="$ARMORY_BADGES" ;;
+      *) if ar_have fc-list && fc-list 2>/dev/null | grep -qi 'nerd font'; then AR_BADGE_STYLE=round; else AR_BADGE_STYLE=plain; fi ;;
+    esac
+  fi
+  printf '%s' "$AR_BADGE_STYLE"
+}
+
 ar_pill() {
-  local n="$1" glyph
-  if [ "$n" -le 20 ] 2>/dev/null; then
-    # shellcheck disable=SC2086
-    set -- $AR_CIRCLES; shift "$n"; glyph="$1"
-    printf '%s%s%s' "$C_CYAN$C_BOLD" "$glyph" "$C_RESET"
+  local n="$1" pad=""
+  [ ${#n} -eq 1 ] && pad=" "
+  if [ -z "$C_RESET" ]; then printf '(%s)%s' "$n" "$pad"; return; fi
+  if [ "$(ar_badge_style)" = round ]; then
+    printf '%s\xee\x82\xb6%s%s%s\xee\x82\xb4%s%s' "$C_BADGE_EDGE" "$C_BADGE" "$n" "$C_BADGE_EDGE" "$C_RESET" "$pad"
   else
-    printf '%s%s%s' "$C_CYAN$C_BOLD" "$n" "$C_RESET"
+    printf ' %s%s%s %s' "$C_CYAN$C_BOLD" "$n" "$C_RESET" "$pad"
   fi
 }
 

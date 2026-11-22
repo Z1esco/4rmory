@@ -164,6 +164,7 @@ ar_menu() {
 }
 
 ar_main() {
+  AR_BADGE_STYLE="$(ar_badge_style)"
   local args=() a
   for a in "$@"; do
     case "$a" in -y|--yes) AR_YES=1 ;; -q|--quiet) AR_QUIET=1 ;; *) args+=("$a") ;; esac
