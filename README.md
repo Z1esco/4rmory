@@ -13,7 +13,7 @@
 [![Scanned](https://img.shields.io/badge/scanned%20with-SkillSpector%20%2B%20Cisco-76B900)](#safety-first)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-[Quick start](#quick-start) · [Commands](#commands) · [Categories](#categories) · [Safety](#safety-first) · [Contributing](#add-your-own) · [Security](SECURITY.md)
+[Quick start](#quick-start) · [Commands](#commands) · [Categories](#categories) · [Safety](#safety-first) · [Contributing](#add-your-own) · [Help](#help) · [Security](SECURITY.md)
 
 </div>
 
@@ -118,7 +118,7 @@ Every install is scanned **before** anything is linked into your agent:
 3. **Built-in check** — fast grep for pipe-to-shell, reverse shells, credential paths, webhooks and miners.
 
 Verdicts: ✅ `clean` · ⚠️ `review` · ⛔ `high risk` (install blocked unless you pass `--force` after reading the report).
-Results are logged locally in `catalog/audit.tsv`.
+Results are logged in `~/.local/share/4rmory/audit.tsv`, with full reports in `reports/`.
 Scanners find known risk patterns; they don't prove a skill is safe. Read what you install.
 
 ## Get new skills
@@ -156,6 +156,81 @@ survive updates. Removing a shared entry hides it for you (`4rmory unhide <id>` 
 The shared catalog is one tab-separated file, [`catalog/armory.tsv`](catalog/armory.tsv):
 `id · category · kind · name · description · url`. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Help
+
+<details open>
+<summary><b>📥 How do I install 4rmory?</b></summary>
+
+```bash
+git clone https://github.com/Z1esco/4rmory.git
+cd 4rmory
+./install.sh          # adds the 4rmory command to ~/.local/bin
+4rmory doctor         # checks git, scanners and optional extras
+```
+
+If `4rmory` is "command not found", add `~/.local/bin` to your PATH:
+`echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc`
+</details>
+
+<details>
+<summary><b>🧭 How do I set it up for my agent?</b></summary>
+
+Run `4rmory setup` (or `4rmory` → **3 Guided Setup**):
+
+1. Pick your agent: Claude, Codex, OpenCode or Agents.
+2. Pick the areas you work in, one per number. Press **Enter** when done.
+3. Confirm. Each skill is scanned, then linked into your agent's skills folder.
+4. Restart your agent so it loads the new skills.
+</details>
+
+<details>
+<summary><b>🔍 How do I find and install one skill?</b></summary>
+
+- In the menu: **1 Search** → type words → type the result's number → **Install**.
+- From the shell: `4rmory search <words>`, then `4rmory install <id> --agent claude`.
+- Not sure of the id? `4rmory info <id>` shows it, or browse with `4rmory list <category>`.
+</details>
+
+<details>
+<summary><b>🔄 How do I update?</b></summary>
+
+`4rmory update` (menu **5**) gets the newest catalog, lists the new skills, and updates the
+skills you installed. When the menu shows **★ New skills are available!**, there is something new.
+</details>
+
+<details>
+<summary><b>➕ How do I add, edit or remove a skill?</b></summary>
+
+- Add: `4rmory add` (it asks for name, link, category, kind and a one-line description).
+- Edit: `4rmory edit <id>` · Remove: `4rmory remove <id>` · Undo a remove: `4rmory unhide <id>`.
+- Your changes stay on your machine. To share with everyone, open a pull request
+  (see [CONTRIBUTING.md](CONTRIBUTING.md)).
+</details>
+
+<details>
+<summary><b>🛡️ A scan says "Needs review" or "High risk". What now?</b></summary>
+
+- **Needs review:** one scanner flagged something. Open the report path it prints. Often it is
+  a security guide quoting attack text. You choose whether to install.
+- **High risk:** both scanners agree. The install is blocked. Only use `--force` if you have read
+  the code and trust it.
+</details>
+
+<details>
+<summary><b>🗑️ How do I uninstall?</b></summary>
+
+- One skill: `4rmory uninstall <id>` (removes its links and downloaded copy).
+- 4rmory itself: `rm ~/.local/bin/4rmory`, delete the cloned folder, and optionally `~/.local/share/4rmory`.
+</details>
+
+<details>
+<summary><b>⌨️ Menu tips</b></summary>
+
+Type a number and press Enter. An empty Enter does nothing, so you never get kicked out.
+`0` or `q` quits. Install `fzf` for arrow-key menus. `NO_COLOR=1 4rmory` turns colours off.
+Still stuck? Run `4rmory help`, or open an [issue](https://github.com/Z1esco/4rmory/issues).
+</details>
+
 ## Project layout
 
 ```
@@ -166,7 +241,7 @@ lib/ui.sh         banner, prompts, menus
 lib/catalog.sh    search, list, add, edit, remove, export
 lib/install.sh    clone, link, uninstall, update, setup
 lib/audit.sh      SkillSpector + Cisco + built-in scans
-catalog/          armory.tsv (the list) and audit.tsv (scan log)
+catalog/          armory.tsv (the shared list)
 tools/            import_md.py: rebuild the catalog from a Markdown directory
 ```
 

@@ -1,7 +1,7 @@
 # audit.sh - scan skills with NVIDIA SkillSpector, Cisco Skill Scanner and a built-in check.
 # Verdicts: clean | warn | danger. Results are logged to catalog/audit.tsv.
 
-AR_AUDIT_LOG="$AR_HOME/catalog/audit.tsv"
+AR_AUDIT_LOG="$AR_DATA/audit.tsv"
 AR_LAST_VERDICT=""; AR_LAST_REPORT=""
 
 ar_audit_status() {
@@ -97,7 +97,7 @@ ar_audit_dir() {
   [ -z "$ss_v$cs_v" ] && [ -n "$out" ] && verdict=warn
 
   AR_LAST_VERDICT="$verdict"; AR_LAST_REPORT="$report"
-  if [ -w "$AR_AUDIT_LOG" ] || [ -w "$(dirname "$AR_AUDIT_LOG")" ]; then
+  if true; then
     [ -f "$AR_AUDIT_LOG" ] || printf '# id\tdate\tverdict\tscanners\n' > "$AR_AUDIT_LOG"
     printf '%s\t%s\t%s\t%s\n' "$id" "$(date +%F)" "$verdict" "$used" >> "$AR_AUDIT_LOG"
   fi

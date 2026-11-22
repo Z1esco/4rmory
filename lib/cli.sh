@@ -6,6 +6,12 @@ ar_help() {
   cat <<HELP
 ${b}Usage${r}   4rmory ${c}<command>${r}      ${g}Just type 4rmory for the easy menu.${r}
 
+${b}Getting Started${r}
+  1. ${c}4rmory doctor${r}           Check that everything needed is installed
+  2. ${c}4rmory setup${r}            Pick your agent and areas; skills are scanned and installed
+  3. Restart your agent      It loads the new skills
+  4. ${c}4rmory update${r}           Run any time to get newly added skills
+
 ${b}Find${r}
   ${c}search${r} <words>          Search everything        ${g}-c <category>  -k <kind>${r}
   ${c}list${r} [category]         Show all, or one category
