@@ -97,10 +97,8 @@ ar_audit_dir() {
   [ -z "$ss_v$cs_v" ] && [ -n "$out" ] && verdict=warn
 
   AR_LAST_VERDICT="$verdict"; AR_LAST_REPORT="$report"
-  if true; then
-    [ -f "$AR_AUDIT_LOG" ] || printf '# id\tdate\tverdict\tscanners\n' > "$AR_AUDIT_LOG"
-    printf '%s\t%s\t%s\t%s\n' "$id" "$(date +%F)" "$verdict" "$used" >> "$AR_AUDIT_LOG"
-  fi
+  [ -f "$AR_AUDIT_LOG" ] || printf '# id\tdate\tverdict\tscanners\n' > "$AR_AUDIT_LOG"
+  printf '%s\t%s\t%s\t%s\n' "$id" "$(date +%F)" "$verdict" "$used" >> "$AR_AUDIT_LOG"
   case "$verdict" in
     clean) ar_ok "Clean. No problems found ($used)." ;;
     warn) ar_warn "Needs review: a scanner flagged something ($used). Report: $report" ;;
