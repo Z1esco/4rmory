@@ -35,9 +35,14 @@ if kind == "skillspector":
     rec = str(ra.get("recommendation", "")).upper()
     head = f"recommendation={rec} score={ra.get('score')}"
 else:
-    items = [(f.get("severity", ""), f.get("file_path", ""), f.get("line_number", ""), f.get("title", "")) for f in d.get("findings", [])]
-    top = d.get("max_severity", "INFO")
-    head = f"is_safe={d.get('is_safe')}"
+    skills = d.get("results", [d])  # scan-all wraps one result per skill
+    items = [(f.get("severity", ""), f.get("file_path", ""), f.get("line_number", ""), f.get("title", ""))
+             for x in skills for f in x.get("findings", [])]
+    sevs = [str(x.get("max_severity", "INFO")).upper() for x in skills] or ["INFO"]
+    top = max(sevs, key=lambda v: rank.get(v, 0))
+    unsafe = [x.get("skill_name") for x in skills if x.get("is_safe") is False]
+    d = {"is_safe": not unsafe}
+    head = f"is_safe={not unsafe} skills={len(skills)}" + (f" unsafe={','.join(map(str, unsafe))}" if unsafe else "")
 r = rank.get(str(top).upper(), 0)
 if kind == "skillspector":
     v = "danger" if rec == "DO_NOT_INSTALL" else "warn" if rec in ("CAUTION", "REVIEW") or r >= 2 else "clean"
@@ -80,7 +85,12 @@ ar_audit_dir() {
 
   if ar_have skill-scanner; then
     used="$used+cisco"
-    skill-scanner scan "$dir" --format json > "$js.cisco.json" 2>/dev/null
+    # A repo of many skills has no SKILL.md at its root: use Cisco's multi-skill mode.
+    if [ -f "$dir/SKILL.md" ]; then
+      skill-scanner scan "$dir" --format json > "$js.cisco.json" 2>/dev/null
+    else
+      skill-scanner scan-all "$dir" --recursive --format json > "$js.cisco.json" 2>/dev/null
+    fi
     out="$(ar_json_verdict cisco "$js.cisco.json")"
     printf '== Cisco Skill Scanner: %s\n\n' "$out" >> "$report"
     cs_v="${out%% *}"

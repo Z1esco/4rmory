@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **Added** [AI MemoryCore](https://github.com/Kiyoraka/Project-AI-MemoryCore) to Essentials (scan: needs review).
+- **Fixed** Cisco scans of repos that hold many skills (uses `scan-all --recursive`; before, they returned nothing).
+
 ## 1.1.0 · 2026-11-23
 
 - **Update brings new skills:** `4rmory update` pulls the shared catalog and lists what's new;

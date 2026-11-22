@@ -182,3 +182,4 @@ openai-hyperframes-plugin	youtube	skill	OpenAI HyperFrames Plugin	Agent skills f
 remotion	youtube	tool	Remotion	Create videos programmatically with React.	https://github.com/remotion-dev/remotion
 remotion-skills	youtube	skill	Remotion Skills	Agent skills for Remotion workflows.	https://github.com/remotion-dev/skills
 take-one	youtube	tool	Take One	Claude Code video-production workflow from idea to script, visuals, voice, music, edit, and review.	https://github.com/talsiach/take-one
+ai-memorycore	essentials	skill	AI MemoryCore	Gives your AI a lasting memory and personality using plain Markdown files, plus 20+ add-ons like diary, reminders, decision log and project tracking. Scan: needs review (hooks run on every prompt; auto-commit pushes to git).	https://github.com/Kiyoraka/Project-AI-MemoryCore
