@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="4rmory logo">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3fd9ff"/><stop offset="1" stop-color="#2a6bff"/></linearGradient></defs>
+<path d="M80 8 L144 30 V78 C144 116 116 140 80 152 C44 140 16 116 16 78 V30 Z" fill="#0b1020" stroke="url(#g)" stroke-width="6"/>
+<path d="M80 24 L130 41 V78 C130 107 109 126 80 136 C51 126 30 107 30 78 V41 Z" fill="none" stroke="#1f2a4a" stroke-width="2"/>
+<text x="80" y="106" text-anchor="middle" font-family="DejaVu Sans Mono,Menlo,Consolas,monospace" font-size="72" font-weight="800" fill="url(#g)">4</text>
+</svg>
