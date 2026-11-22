@@ -1,0 +1,184 @@
+# id	category	kind	name	description	url
+audacity	audio	tool	Audacity	Audio recording and editing.	https://github.com/audacity/audacity
+audiocraft	audio	tool	AudioCraft	Audio generation research and tooling.	https://github.com/facebookresearch/audiocraft
+clearervoice-studio	audio	tool	ClearerVoice-Studio	Speech enhancement and related audio processing.	https://github.com/modelscope/ClearerVoice-Studio
+demucs	audio	tool	Demucs	Music source separation.	https://github.com/facebookresearch/demucs
+faster-whisper	audio	tool	faster-whisper	Efficient Whisper implementation using CTranslate2; useful for transcription on CPU/GPU.	https://github.com/SYSTRAN/faster-whisper
+fish-speech	audio	tool	Fish Speech	Text-to-speech research and tooling.	https://github.com/fishaudio/fish-speech
+piper	audio	tool	Piper	Local neural text-to-speech.	https://github.com/rhasspy/piper
+whisper	audio	tool	Whisper	Speech recognition and transcription.	https://github.com/openai/whisper
+activepieces	automation	tool	Activepieces	Open-source automation.	https://github.com/activepieces/activepieces
+autogen	automation	tool	AutoGen	Multi-agent framework.	https://github.com/microsoft/autogen
+browser-use	automation	skill	Browser Use	Browser automation for agents.	https://github.com/browser-use/browser-use
+composio	automation	tool	Composio	Integrations and tool connectivity for agents.	https://github.com/ComposioHQ
+kestra	automation	tool	Kestra	Orchestration and workflow automation.	https://github.com/kestra-io/kestra
+model-context-protocol	automation	tool	Model Context Protocol	Protocol and SDK ecosystem for connecting agents to tools and data.	https://github.com/modelcontextprotocol
+n8n	automation	tool	n8n	Workflow automation.	https://github.com/n8n-io/n8n
+pipedream	automation	tool	Pipedream	Integrations and workflow platform.	https://github.com/PipedreamHQ/pipedream
+prefect	automation	tool	Prefect	Workflow orchestration.	https://github.com/PrefectHQ/prefect
+trigger-dev	automation	tool	Trigger.dev	Background jobs and workflows.	https://github.com/triggerdotdev/trigger.dev
+claude-creator-skills	copywriting	skill	Claude Creator Skills	Creator workflows for scripts, audience research, repurposing, and analytics.	https://github.com/AskAboutAI/claude-creator-skills
+corey-haines-marketing-skills	copywriting	skill	Corey Haines Marketing Skills	One of the strongest broad marketing skill collections. Includes copywriting, copy-editing, CRO, email, SEO, social, ads, analytics, and growth workflows.	https://github.com/coreyhaines31/marketingskills
+dub	copywriting	tool	Dub	Link management and analytics.	https://github.com/dubinc/dub
+firecrawl	copywriting	tool	Firecrawl	Web research and extraction for competitive analysis.	https://github.com/firecrawl/firecrawl
+formbricks	copywriting	tool	Formbricks	Surveys and user feedback.	https://github.com/formbricks/formbricks
+llamaindex	copywriting	tool	LlamaIndex	Retrieval and document workflows.	https://github.com/run-llama/llama_index
+marketing-skills-collection	copywriting	skill	Marketing Skills Collection	Agent skills for copywriting, editing, content strategy, repurposing, and growth.	https://github.com/robertbstillwell/marketing-skills
+nimblechapps-marketing-skills	copywriting	skill	Nimblechapps Marketing Skills	Reviewed subset of marketing skills with content, copywriting, video, PR, SEO, and outreach.	https://github.com/nimblechapps/marketing-skills
+plausible	copywriting	tool	Plausible	Privacy-friendly web analytics.	https://github.com/plausible/analytics
+posthog	copywriting	tool	PostHog	Product analytics and experimentation.	https://github.com/PostHog/posthog
+social-media-skills	copywriting	skill	Social Media Skills	Large platform-aware social content collection with hooks, captions, scripts, strategy, and analytics.	https://github.com/social-media-skills/skills
+umami	copywriting	tool	Umami	Web analytics.	https://github.com/umami-software/umami
+llama-cpp	data	tool	llama.cpp	Efficient local LLM inference.	https://github.com/ggml-org/llama.cpp
+ollama	data	tool	Ollama	Run local language models.	https://github.com/ollama/ollama
+open-webui	data	tool	Open WebUI	Interface for local and hosted models.	https://github.com/open-webui/open-webui
+pandas	data	tool	pandas	Data analysis.	https://github.com/pandas-dev/pandas
+polars	data	tool	Polars	Fast DataFrame library.	https://github.com/pola-rs/polars
+pytorch	data	tool	PyTorch	Deep learning framework.	https://github.com/pytorch/pytorch
+scikit-learn	data	tool	scikit-learn	Machine learning.	https://github.com/scikit-learn/scikit-learn
+dembrandt	design	tool	Dembrandt	Extracts design systems from websites, including colours, typography, spacing, borders, and shadows.	https://github.com/dembrandt/dembrandt
+dembrandt-skills	design	skill	Dembrandt Skills	Design-system and senior UX knowledge for agents.	https://github.com/dembrandt/dembrandt-skills
+embla-carousel	design	tool	Embla Carousel	Lightweight carousel library.	https://github.com/davidjerleke/embla-carousel
+emilkowalski-skills	design	skill	Emilkowalski Skills	Interaction, motion, and interface design knowledge.	https://github.com/emilkowalski/skills
+figma-plugin-samples	design	tool	Figma Plugin Samples	Examples for Figma plugin development.	https://github.com/figma/plugin-samples
+google-fonts	design	collection	Google Fonts	Open-source font collection.	https://github.com/google/fonts
+gsap	design	tool	GSAP	Animation platform for web interfaces.	https://github.com/greensock/GSAP
+impeccable	design	skill	Impeccable	Design-quality skills for typography, hierarchy, spacing, layout, colour, and polish.	https://github.com/pbakaus/impeccable
+karpathy-guidelines	design	skill	Karpathy Guidelines	Coding-agent principles and practical engineering discipline.	https://github.com/multica-ai/andrej-karpathy-skills
+lottie-web	design	tool	Lottie Web	Render After Effects animations exported as JSON.	https://github.com/airbnb/lottie-web
+lucide	design	tool	Lucide	Consistent icon library.	https://github.com/lucide-icons/lucide
+magic-ui	design	tool	Magic UI	Animated React components.	https://github.com/magicuidesign/magicui
+motion-primitives	design	tool	Motion Primitives	Reusable motion components.	https://github.com/ibelick/motion-primitives
+react-bits	design	tool	React Bits	Animated UI components and interaction patterns.	https://github.com/DavidHDev/react-bits
+rive-runtime	design	tool	Rive Runtime	Interactive animation runtime.	https://github.com/rive-app/rive-runtime
+shadcn-ui	design	tool	shadcn/ui	Accessible, composable React components.	https://github.com/shadcn-ui/ui
+storybook	design	tool	Storybook	Develop and document UI components in isolation.	https://github.com/storybookjs/storybook
+style-dictionary	design	tool	Style Dictionary	Transform design tokens into platform-specific formats.	https://github.com/amzn/style-dictionary
+taste-skill	design	skill	Taste Skill	Visual taste and design quality guidance.	https://github.com/leonxlnx/taste-skill
+tokens-studio	design	tool	Tokens Studio	Design-token workflows for Figma.	https://github.com/tokens-studio
+ui-ux-pro-max	design	skill	UI UX Pro Max	UI/UX design guidance and design-system patterns.	https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+unslop-writing-skills-collections	design	collection	Unslop Writing Skills / collections	Discover writing workflows that remove formulaic prose while preserving meaning.	https://github.com/qufei1993/awesome-skills
+docusaurus	docs	tool	Docusaurus	Documentation websites.	https://github.com/facebook/docusaurus
+markitdown	docs	tool	MarkItDown	Convert files into Markdown for LLM workflows.	https://github.com/microsoft/markitdown
+mkdocs-material	docs	tool	MkDocs Material	Documentation websites.	https://github.com/squidfunk/mkdocs-material
+openpyxl	docs	tool	openpyxl	Read and write Excel files.	https://github.com/ericgazoni/openpyxl
+python-docx	docs	tool	python-docx	Create and edit Word documents.	https://github.com/python-openxml/python-docx
+python-pptx	docs	tool	python-pptx	Create and edit PowerPoint files.	https://github.com/scanny/python-pptx
+quarto	docs	tool	Quarto	Technical and scientific publishing.	https://github.com/quarto-dev/quarto-cli
+typst	docs	tool	Typst	Modern typesetting system.	https://github.com/typst/typst
+appwrite	engineering	tool	Appwrite	Backend platform.	https://github.com/appwrite/appwrite
+biome	engineering	tool	Biome	JavaScript/TypeScript linting and formatting.	https://github.com/biomejs/biome
+codegraph-rules-for-agents	engineering	tool	CodeGraph Rules for Agents	Agent guidance for using CodeGraph.	https://github.com/codegraph-ai/codegraph-rules-for-agents
+directus	engineering	tool	Directus	Data platform and headless CMS.	https://github.com/directus/directus
+drizzle-orm	engineering	tool	Drizzle ORM	TypeScript ORM.	https://github.com/drizzle-team/drizzle-orm
+fastapi	engineering	tool	FastAPI	Python API framework.	https://github.com/fastapi/fastapi
+github-cli	engineering	tool	GitHub CLI	GitHub from the terminal.	https://github.com/cli/cli
+graphiti	engineering	tool	Graphiti	Temporal knowledge graphs for AI agents.	https://github.com/getzep/graphiti
+hasura	engineering	tool	Hasura	GraphQL over databases.	https://github.com/hasura/graphql-engine
+langgraph	engineering	tool	LangGraph	Stateful agent workflows.	https://github.com/langchain-ai/langgraph
+mermaid	engineering	tool	Mermaid	Diagrams from text.	https://github.com/mermaid-js/mermaid
+microsoft-graphrag	engineering	tool	Microsoft GraphRAG	Graph-based retrieval-augmented generation.	https://github.com/microsoft/graphrag
+nestjs	engineering	tool	NestJS	Node.js server framework.	https://github.com/nestjs/nest
+playwright	engineering	tool	Playwright	Browser automation and end-to-end testing.	https://github.com/microsoft/playwright
+pocketbase	engineering	tool	PocketBase	Lightweight backend in a single executable.	https://github.com/pocketbase/pocketbase
+pre-commit	engineering	tool	pre-commit	Run checks before commits.	https://github.com/pre-commit/pre-commit
+prisma	engineering	tool	Prisma	Database ORM and developer tooling.	https://github.com/prisma/prisma
+pyright	engineering	tool	Pyright	Python static type checking.	https://github.com/microsoft/pyright
+release-please	engineering	tool	release-please	Automated release PRs and changelogs.	https://github.com/googleapis/release-please
+renovate	engineering	tool	Renovate	Dependency update automation.	https://github.com/renovatebot/renovate
+ruff	engineering	tool	Ruff	Python linting and formatting.	https://github.com/astral-sh/ruff
+sonarqube	engineering	tool	SonarQube	Code quality and security analysis.	https://github.com/SonarSource/sonarqube
+structurizr	engineering	tool	Structurizr	Software architecture diagrams using the C4 model.	https://github.com/structurizr
+supabase	engineering	tool	Supabase	Postgres, Auth, Storage, Realtime, and Edge Functions.	https://github.com/supabase/supabase
+anthropic-knowledge-work-plugins	essentials	skill	Anthropic Knowledge Work Plugins	Role-specific workflows for engineering, finance, marketing, sales, HR, legal, operations, and data work.	https://github.com/anthropics/knowledge-work-plugins
+awesome-agent-skills	essentials	collection	Awesome Agent Skills	Curated discovery list of agent skills across coding and non-coding workflows.	https://github.com/jqueryscript/awesome-agent-skills
+caveman	essentials	skill	Caveman	Concise-output / token-conscious interaction approach. Verify current compatibility before adopting.	https://github.com/JuliusBrussee/caveman
+codegraph	essentials	tool	CodeGraph	Codebase relationships, call paths, and semantic navigation.	https://github.com/codegraph-ai/CodeGraph
+composio-awesome-claude-skills	essentials	collection	Composio Awesome Claude Skills	Large discovery catalogue of skills, plugins, and integrations.	https://github.com/ComposioHQ/awesome-claude-skills
+everything-claude-code	essentials	skill	Everything Claude Code	Broad collection of agent instructions, commands, hooks, and workflows. Review and select components rather than installing blindly.	https://github.com/affaan-m/everything-claude-code
+github-spec-kit	essentials	skill	GitHub Spec Kit	Specification-driven development.	https://github.com/github/spec-kit
+graphify	essentials	tool	Graphify	Builds a queryable knowledge graph from code and documents.	https://github.com/graphify-labs/graphify
+humanizer	essentials	skill	Humanizer	Revises formulaic AI-sounding text into more natural prose. Human review remains essential.	https://github.com/blader/humanizer
+llmlingua	essentials	tool	LLMLingua	Prompt/context compression research and tooling.	https://github.com/microsoft/LLMLingua
+matt-pocock-skills	essentials	skill	Matt Pocock Skills	`grill-me`, `grill-with-docs`, `wayfinder`, and other workflows for clarifying requirements and navigating complex work.	https://github.com/mattpocock/skills
+planning-with-files	essentials	skill	Planning with Files	File-based planning and persistent task state for long-running agent work.	https://github.com/OthmanAdi/planning-with-files
+superpowers	essentials	skill	Superpowers	Structured software development workflows: brainstorming, planning, implementation, debugging, testing, and review.	https://github.com/obra/superpowers
+vercel-agent-skills	essentials	skill	Vercel Agent Skills	Frontend, React, web development, and related agent workflows.	https://github.com/vercel-labs/agent-skills
+awesome-novel-skills	fiction	collection	Awesome Novel Skills	Curated discovery list for novel and web-fiction skills.	https://github.com/UnderleveledBuilder/awesome-novel-skills
+long-novel-workflow	fiction	tool	Long Novel Workflow	Long-form serial fiction workflow with file-based state, chapter contracts, foreshadowing ledger, and character knowledge tracking.	https://github.com/zilintea/long-novel-workflow
+story-skills	fiction	skill	Story Skills	End-to-end fiction workflow with 24 skills, a story bible, character/world files, plot, scenes, continuity tracking, revision, and publishing formats.	https://github.com/danjdewhurst/story-skills
+controlnet	image	tool	ControlNet	Spatial and pose guidance for image generation.	https://github.com/lllyasviel/ControlNet
+diffusers	image	tool	Diffusers	Diffusion model pipelines.	https://github.com/huggingface/diffusers
+fooocus	image	tool	Fooocus	Image-generation interface and workflow.	https://github.com/lllyasviel/Fooocus
+hugging-face-transformers	image	tool	Hugging Face Transformers	Model library for machine learning.	https://github.com/huggingface/transformers
+invokeai	image	tool	InvokeAI	Creative AI image generation platform.	https://github.com/invoke-ai/InvokeAI
+opencv	image	tool	OpenCV	Computer vision toolkit.	https://github.com/opencv/opencv
+real-esrgan	image	tool	Real-ESRGAN	Image restoration and upscaling.	https://github.com/xinntao/Real-ESRGAN
+rembg	image	tool	rembg	Background removal.	https://github.com/danielgatis/rembg
+segment-anything	image	tool	Segment Anything	Image segmentation.	https://github.com/facebookresearch/segment-anything
+awesome-agent-motion-skills	motion	collection	Awesome Agent Motion Skills	Curated agent motion skills, including motion design and video-shot workflows.	https://github.com/charetterat/awesome-agent-motion-skills
+babylon-js	motion	tool	Babylon.js	Real-time 3D engine for web.	https://github.com/BabylonJS/Babylon.js
+blender	motion	tool	Blender	3D modelling, rigging, animation, rendering, and compositing.	https://github.com/blender/blender
+comfyui	motion	tool	ComfyUI	Node-based generative image/video workflows.	https://github.com/Comfy-Org/ComfyUI
+drei	motion	tool	Drei	Useful helpers for React Three Fiber.	https://github.com/pmndrs/drei
+gltf	motion	tool	glTF	3D asset delivery format.	https://github.com/KhronosGroup/glTF
+godot	motion	tool	Godot	Open-source game engine.	https://github.com/godotengine/godot
+huashu-art-motion	motion	tool	Huashu Art Motion	Art-driven motion and explainer workflows.	https://github.com/alchaincyf/huashu-art-motion
+manim	motion	tool	Manim	Mathematical and educational animation.	https://github.com/ManimCommunity/manim
+motionmaxxing	motion	skill	Motionmaxxing	Motion-design agent skill focused on stronger composition, typography, timing, and less generic AI motion.	https://github.com/Tejashmakwana/motionmaxxing
+motion-tools-and-skills	motion	skill	Motion Tools and Skills	Collection across Remotion, HyperFrames, Three.js, GSAP, Blender, Unreal, and ComfyUI.	https://github.com/VisualxIntelligence/motion-tools-and-skills
+opengl-registry	motion	tool	OpenGL Registry	OpenGL specifications and reference material.	https://github.com/KhronosGroup/OpenGL-Registry
+react-three-fiber	motion	tool	React Three Fiber	React renderer for Three.js.	https://github.com/pmndrs/react-three-fiber
+theatre-js	motion	tool	Theatre.js	Animation authoring for web projects.	https://github.com/theatre-js/theatre
+three-js	motion	tool	Three.js	3D graphics for the web.	https://github.com/mrdoob/three.js
+builder-io	product	tool	Builder.io	Visual development ecosystem.	https://github.com/BuilderIO
+cal-com	product	tool	Cal.com	Scheduling.	https://github.com/calcom/cal.com
+agent-reach	research	skill	Agent-Reach	CLI/skill for searching and reading platforms such as X, Reddit, YouTube, GitHub, and others.	https://github.com/Panniantong/Agent-Reach
+autoresearch	research	tool	Autoresearch	Autonomous, bounded machine-learning experiment loop.	https://github.com/karpathy/autoresearch
+bbot	research	tool	BBOT	Modular reconnaissance and OSINT automation.	https://github.com/blacklanternsecurity/bbot
+langchain	research	tool	LangChain	LLM application framework.	https://github.com/langchain-ai/langchain
+letta	research	tool	Letta	Stateful agents and memory.	https://github.com/letta-ai/letta
+maigret	research	tool	Maigret	Username footprint discovery.	https://github.com/soxoj/maigret
+mem0	research	tool	Mem0	Memory layer for AI applications.	https://github.com/mem0ai/mem0
+osint-framework	research	tool	OSINT Framework	Directory of OSINT resources.	https://github.com/lockfale/OSINT-Framework
+owasp-amass	research	tool	OWASP Amass	Attack surface mapping and asset discovery.	https://github.com/owasp-amass/amass
+sherlock	research	tool	Sherlock	Username search across social networks.	https://github.com/sherlock-project/sherlock
+spiderfoot	research	tool	SpiderFoot	OSINT automation.	https://github.com/smicallef/spiderfoot
+theharvester	research	tool	theHarvester	Gather publicly available email, domain, and related information.	https://github.com/laramies/theHarvester
+cisco-skill-scanner	security	tool	Cisco Skill Scanner	Cisco AI Defense scanner that flags risky patterns in agent skills (SKILL.md, scripts, MCP configs).	https://github.com/cisco-ai-defense/skill-scanner
+cloudflare-security-audit-skill	security	skill	Cloudflare Security Audit Skill	Structured, evidence-led code and service security review.	https://github.com/cloudflare/security-audit-skill
+ffuf	security	tool	ffuf	Web fuzzing.	https://github.com/ffuf/ffuf
+gitleaks	security	tool	Gitleaks	Detect secrets in repositories.	https://github.com/gitleaks/gitleaks
+hayabusa	security	tool	Hayabusa	Windows event log threat hunting.	https://github.com/Yamato-Security/hayabusa
+httpx	security	tool	httpx	HTTP probing.	https://github.com/projectdiscovery/httpx
+katana	security	tool	Katana	Web crawling.	https://github.com/projectdiscovery/katana
+mitre-att-ck	security	tool	MITRE ATT&CK	Adversary tactics and techniques knowledge base.	https://github.com/mitre-attack/attack-website
+nuclei	security	tool	Nuclei	Template-based vulnerability scanning.	https://github.com/projectdiscovery/nuclei
+owasp-asvs	security	tool	OWASP ASVS	Application security verification standard.	https://github.com/OWASP/ASVS
+owasp-cheat-sheet-series	security	tool	OWASP Cheat Sheet Series	Practical application security guidance.	https://github.com/OWASP/CheatSheetSeries
+owasp-secure-agent-playbook	security	skill	OWASP Secure Agent Playbook	Agent security skills for code review, dependencies, secrets, APIs, web/mobile, infrastructure, prompt injection, MCP, and agent architectures.	https://github.com/OWASP/secure-agent-playbook
+owasp-zap	security	tool	OWASP ZAP	Web application security testing.	https://github.com/zaproxy/zaproxy
+semgrep	security	tool	Semgrep	Static analysis and security rules.	https://github.com/semgrep/semgrep
+sigma	security	tool	Sigma	Generic detection rules.	https://github.com/SigmaHQ/sigma
+skillspector	security	tool	NVIDIA SkillSpector	NVIDIA's scanner that checks an agent skill for malware, prompt injection and data theft before you install it.	https://github.com/NVIDIA/SkillSpector
+snyk-agent-scan	security	tool	Snyk Agent Scan	Snyk scanner for AI agents, MCP servers and agent skills.	https://github.com/snyk/agent-scan
+sqlmap	security	tool	sqlmap	SQL injection testing automation.	https://github.com/sqlmapproject/sqlmap
+subfinder	security	tool	subfinder	Passive subdomain discovery.	https://github.com/projectdiscovery/subfinder
+thehive	security	tool	TheHive	Security incident response platform.	https://github.com/TheHive-Project/TheHive
+trivy	security	tool	Trivy	Scan containers, filesystems, repositories, and configurations.	https://github.com/aquasecurity/trivy
+velociraptor	security	tool	Velociraptor	Endpoint visibility and digital forensics.	https://github.com/Velocidex/velociraptor
+wazuh	security	tool	Wazuh	Security monitoring and SIEM/XDR.	https://github.com/wazuh/wazuh
+awesome-social-media-skills	social	collection	Awesome Social Media Skills	Curated directory covering X, YouTube, TikTok, Instagram, LinkedIn, and other platforms.	https://github.com/UnderleveledBuilder/awesome-social-media-skills
+marketing-skill-by-marcos-modly	social	skill	Marketing Skill by Marcos Modly	14 marketing skills, including social content, video, copy, email, and approval-gated publishing.	https://github.com/marcosmodly/marketing-skill
+marketing-skills-by-scayver	social	skill	Marketing Skills by Scayver	Social, video, copywriting, repurposing, YouTube competitive analysis, and humanizer workflows.	https://github.com/scayver/marketing-skills
+artcraft-skills	youtube	skill	ArtCraft Skills	Skills for ArtCraft tools, including FilmCraft, PhotoCraft, VectorCraft, and LightCraft.	https://github.com/mroxso/artcraft-skills
+concat	youtube	tool	Concat	Local-first open-source video editor with timeline, captions, TTS, effects, and automation interfaces.	https://github.com/jub0t/Concat
+ffmpeg	youtube	tool	FFmpeg	Media processing, conversion, filtering, and encoding.	https://github.com/FFmpeg/FFmpeg
+huashu-motion	youtube	tool	Huashu Motion	Motion design and film workflows using HTML, GSAP, Canvas, and Three.js.	https://github.com/alchaincyf/huashu-motion
+hyperframes	youtube	tool	HyperFrames	Agent-native HTML/CSS/JS/GSAP video compositions.	https://github.com/hyperframes/hyperframes
+motion-canvas	youtube	tool	Motion Canvas	Programmatic motion graphics.	https://github.com/motion-canvas/motion-canvas
+moviepy	youtube	tool	MoviePy	Python video editing.	https://github.com/Zulko/moviepy
+openai-hyperframes-plugin	youtube	skill	OpenAI HyperFrames Plugin	Agent skills for HyperFrames composition and workflows.	https://github.com/openai/plugins/tree/main/plugins/hyperframes
+remotion	youtube	tool	Remotion	Create videos programmatically with React.	https://github.com/remotion-dev/remotion
+remotion-skills	youtube	skill	Remotion Skills	Agent skills for Remotion workflows.	https://github.com/remotion-dev/skills
+take-one	youtube	tool	Take One	Claude Code video-production workflow from idea to script, visuals, voice, music, edit, and review.	https://github.com/talsiach/take-one
