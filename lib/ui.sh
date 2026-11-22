@@ -46,10 +46,17 @@ ar_err()   { printf '%s✖%s %s\n' "$C_RED" "$C_RESET" "$*" >&2; }
 ar_die()   { ar_err "$*"; exit 1; }
 ar_hint()  { printf '%s  %s%s\n' "$C_GREY" "$*" "$C_RESET"; }
 
-# A number badge: coloured pill, or [ 1] without colour.
+# A small circled number: ⓪ ① … ⑳ (plain "21." style beyond 20).
+AR_CIRCLES="⓪ ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳"
 ar_pill() {
-  if [ -n "$C_RESET" ]; then printf '%s %2s %s' "$C_PILL" "$1" "$C_RESET"
-  else printf '[%2s]' "$1"; fi
+  local n="$1" glyph
+  if [ "$n" -le 20 ] 2>/dev/null; then
+    # shellcheck disable=SC2086
+    set -- $AR_CIRCLES; shift "$n"; glyph="$1"
+    printf '%s%s%s' "$C_CYAN$C_BOLD" "$glyph" "$C_RESET"
+  else
+    printf '%s%s%s' "$C_CYAN$C_BOLD" "$n" "$C_RESET"
+  fi
 }
 
 # ar_ask "Question" [default] -> echoes answer
