@@ -6,6 +6,8 @@ AR_DATA="${ARMORY_DATA:-${XDG_DATA_HOME:-$HOME/.local/share}/4rmory}"
 AR_REPOS="$AR_DATA/repos"
 AR_INSTALLED="$AR_DATA/installed.tsv"
 AR_REPORTS="$AR_DATA/reports"
+AR_MY="$AR_DATA/my-catalog.tsv"
+AR_HIDDEN="$AR_DATA/hidden.txt"
 
 # Where each agent looks for skills.
 ar_agent_dir() {

@@ -5,9 +5,10 @@ if [ -t 1 ] && [ -z "${NO_COLOR:-}" ] && [ "${TERM:-}" != "dumb" ]; then
   C_RED=$'\033[38;5;203m'; C_GREEN=$'\033[38;5;114m'; C_YELLOW=$'\033[38;5;221m'
   C_BLUE=$'\033[38;5;111m'; C_CYAN=$'\033[38;5;80m'; C_MAG=$'\033[38;5;176m'
   C_GREY=$'\033[38;5;245m'
+  C_PILL=$'\033[1;38;5;16;48;5;80m'
   AR_GRADIENT="39 45 51 87 123 159"
 else
-  C_RESET=; C_BOLD=; C_DIM=; C_RED=; C_GREEN=; C_YELLOW=; C_BLUE=; C_CYAN=; C_MAG=; C_GREY=
+  C_RESET=; C_BOLD=; C_DIM=; C_RED=; C_GREEN=; C_YELLOW=; C_BLUE=; C_CYAN=; C_MAG=; C_GREY=; C_PILL=
   AR_GRADIENT=""
 fi
 

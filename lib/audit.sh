@@ -11,16 +11,14 @@ ar_audit_status() {
   [ -n "$line" ] || return 0
   v="$(printf '%s' "$line" | cut -f3)"
   case "$v" in
-    clean) printf '%s' "${C_GREEN}clean${C_RESET}" ;;
-    warn) printf '%s' "${C_YELLOW}review${C_RESET}" ;;
-    danger) printf '%s' "${C_RED}high risk${C_RESET}" ;;
+    clean) printf '%s' "${C_GREEN}Clean${C_RESET}" ;;
+    warn) printf '%s' "${C_YELLOW}Needs review${C_RESET}" ;;
+    danger) printf '%s' "${C_RED}High risk${C_RESET}" ;;
     *) printf '%s' "$v" ;;
   esac
   printf ' %s(%s, %s)%s' "$C_GREY" "$(printf '%s' "$line" | cut -f2)" "$(printf '%s' "$line" | cut -f4)" "$C_RESET"
 }
 
-ar_rank() { case "$1" in danger) echo 2 ;; warn) echo 1 ;; *) echo 0 ;; esac; }
-ar_worse() { if [ "$(ar_rank "$2")" -gt "$(ar_rank "$1")" ]; then echo "$2"; else echo "$1"; fi; }
 
 # ar_json_verdict scanner file -> "verdict summary" plus one line per finding.
 ar_json_verdict() {
@@ -34,12 +32,17 @@ if kind == "skillspector":
     items = [(i.get("severity", ""), (i.get("location") or {}).get("file", ""), (i.get("location") or {}).get("start_line", ""),
               i.get("title") or i.get("description") or i.get("category") or "") for i in d.get("issues", [])]
     top = ra.get("max_issue_severity", "INFO")
-    head = f"recommendation={ra.get('recommendation')} score={ra.get('score')}"
+    rec = str(ra.get("recommendation", "")).upper()
+    head = f"recommendation={rec} score={ra.get('score')}"
 else:
     items = [(f.get("severity", ""), f.get("file_path", ""), f.get("line_number", ""), f.get("title", "")) for f in d.get("findings", [])]
     top = d.get("max_severity", "INFO")
     head = f"is_safe={d.get('is_safe')}"
-v = "danger" if rank.get(str(top).upper(), 0) >= 3 else "warn" if rank.get(str(top).upper(), 0) == 2 else "clean"
+r = rank.get(str(top).upper(), 0)
+if kind == "skillspector":
+    v = "danger" if rec == "DO_NOT_INSTALL" else "warn" if rec in ("CAUTION", "REVIEW") or r >= 2 else "clean"
+else:
+    v = "danger" if d.get("is_safe") is False and r >= 3 else "warn" if r >= 2 or d.get("is_safe") is False else "clean"
 print(f"{v} max={top} findings={len(items)} {head}")
 for sev, f, line, t in items[:40]:
     print(f"  {sev}\t{f}:{line}\t{str(t)[:120]}")
@@ -61,7 +64,7 @@ ar_builtin_scan() {
 
 # Run every available scanner on a folder. Sets AR_LAST_VERDICT and AR_LAST_REPORT.
 ar_audit_dir() {
-  local id="$1" dir="$2" report used="builtin" verdict=clean out rc
+  local id="$1" dir="$2" report used="builtin" verdict=clean out ss_v="" cs_v=""
   ar_init_data
   report="$AR_REPORTS/$id.txt"; : > "$report"
   ar_info "Scanning $id for malware and risky behaviour…"
@@ -72,7 +75,7 @@ ar_audit_dir() {
     skillspector scan "$dir" --no-llm --format json --output "$js.skillspector.json" >/dev/null 2>&1
     out="$(ar_json_verdict skillspector "$js.skillspector.json")"
     printf '== NVIDIA SkillSpector: %s\n\n' "$out" >> "$report"
-    verdict="$(ar_worse "$verdict" "${out%% *}")"
+    ss_v="${out%% *}"
   fi
 
   if ar_have skill-scanner; then
@@ -80,13 +83,18 @@ ar_audit_dir() {
     skill-scanner scan "$dir" --format json > "$js.cisco.json" 2>/dev/null
     out="$(ar_json_verdict cisco "$js.cisco.json")"
     printf '== Cisco Skill Scanner: %s\n\n' "$out" >> "$report"
-    verdict="$(ar_worse "$verdict" "${out%% *}")"
+    cs_v="${out%% *}"
+  fi
+  # High risk only when every scanner that ran agrees; one alone means "needs review".
+  if [ -n "$ss_v$cs_v" ]; then
+    if [ "${ss_v:-danger}" = danger ] && [ "${cs_v:-danger}" = danger ]; then verdict=danger
+    elif [ "${ss_v:-clean}" != clean ] || [ "${cs_v:-clean}" != clean ]; then verdict=warn; fi
   fi
 
   out="$(ar_builtin_scan "$dir")"
-  printf '== 4rmory built-in check\n%s\n' "${out:-no findings}" >> "$report"
-  if printf '%s' "$out" | grep -q '^HIGH'; then [ "$verdict" = clean ] && verdict=warn; fi
-  [ "$verdict" = clean ] && [ -n "$out" ] && verdict=warn
+  printf '== 4rmory built-in check (advisory)\n%s\n' "${out:-no findings}" >> "$report"
+  # The built-in grep is advisory: it only decides when no real scanner is installed.
+  [ -z "$ss_v$cs_v" ] && [ -n "$out" ] && verdict=warn
 
   AR_LAST_VERDICT="$verdict"; AR_LAST_REPORT="$report"
   if [ -w "$AR_AUDIT_LOG" ] || [ -w "$(dirname "$AR_AUDIT_LOG")" ]; then
@@ -94,9 +102,9 @@ ar_audit_dir() {
     printf '%s\t%s\t%s\t%s\n' "$id" "$(date +%F)" "$verdict" "$used" >> "$AR_AUDIT_LOG"
   fi
   case "$verdict" in
-    clean) ar_ok "No problems found ($used)." ;;
-    warn) ar_warn "Some things need a human look ($used). Report: $report" ;;
-    danger) ar_err "High-risk findings ($used). Report: $report" ;;
+    clean) ar_ok "Clean. No problems found ($used)." ;;
+    warn) ar_warn "Needs review: a scanner flagged something ($used). Report: $report" ;;
+    danger) ar_err "High risk: the scanners agree this looks dangerous ($used). Report: $report" ;;
   esac
   [ "$used" = builtin ] && ar_hint "Tip: install NVIDIA SkillSpector and Cisco skill-scanner for deeper scans (4rmory doctor)."
   return 0

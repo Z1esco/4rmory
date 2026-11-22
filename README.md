@@ -62,7 +62,7 @@ pipx install cisco-ai-skill-scanner
 | `search <words>` | `setup` | `add` | `audit <id>` |
 | `list [category]` | `install <id>` | `edit <id>` | `audit --installed` |
 | `categories` | `uninstall <id>` | `remove <id>` | `doctor` |
-| `info <id>` | `installed` · `update` | `export` | |
+| `info <id>` | `installed` · `update` | `export` · `unhide` | `maintainer` · `publish` |
 
 </div>
 
@@ -121,6 +121,16 @@ Verdicts: ✅ `clean` · ⚠️ `review` · ⛔ `high risk` (install blocked unl
 Results are logged locally in `catalog/audit.tsv`.
 Scanners find known risk patterns; they don't prove a skill is safe. Read what you install.
 
+## Get new skills
+
+New skills and tools are added to the shared catalog over time. To get them:
+
+```bash
+4rmory update        # pulls the newest catalog and lists what is new
+```
+
+The menu checks GitHub every few hours and shows **★ New skills are available!** next to *Update*.
+
 ## Add your own
 
 ```bash
@@ -132,7 +142,18 @@ Scanners find known risk patterns; they don't prove a skill is safe. Read what y
 4rmory audit my-skill
 ```
 
-The catalog is one tab-separated file, [`catalog/armory.tsv`](catalog/armory.tsv):
+Your additions and edits go to **your personal list** (`~/.local/share/4rmory/my-catalog.tsv`), so they
+survive updates. Removing a shared entry hides it for you (`4rmory unhide <id>` brings it back).
+
+**Maintainers** share additions with everyone:
+
+```bash
+4rmory maintainer on     # add/edit/remove now change the shared catalog
+4rmory add ...           # add as usual
+4rmory publish           # commit + push; everyone gets it on `4rmory update`
+```
+
+The shared catalog is one tab-separated file, [`catalog/armory.tsv`](catalog/armory.tsv):
 `id · category · kind · name · description · url`. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Project layout

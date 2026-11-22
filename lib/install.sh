@@ -62,17 +62,20 @@ ar_install() {
       ar_hint "Read the report first. To install anyway: 4rmory install $id --force"
       return 1
     fi
+    if [ "$AR_LAST_VERDICT" = "warn" ] && [ -z "$force" ]; then
+      ar_confirm "Install anyway?" || { ar_info "Not installed. Read the report above to decide."; return 0; }
+    fi
   fi
 
   local skills; skills="$(ar_find_skills "$src")"
   if [ -z "$skills" ]; then
     ar_ok "Downloaded to $src"
-    ar_hint "This is a $kind, not an agent skill. Follow its README to set it up."
+    ar_hint "This is a $(ar_cap "$kind"), not an agent skill. Follow its README to set it up."
     printf '%s\t-\t%s\t%s\n' "$id" "$src" "$(date +%F)" >> "$AR_INSTALLED"
     return 0
   fi
 
-  [ -n "$agent" ] || agent="$(ar_choose "Install skills for which agent" $AR_AGENTS)" || ar_die "Cancelled."
+  [ -n "$agent" ] || agent="$(ar_pick_agent)" || ar_die "Cancelled."
   local target; target="$(ar_agent_dir "$agent")" || ar_die "Unknown agent '$agent'. Use: $AR_AGENTS"
   mkdir -p "$target"
   local count; count="$(printf '%s\n' "$skills" | wc -l | tr -d ' ')"
@@ -100,7 +103,7 @@ ar_install() {
     n=$((n + 1))
   done <<< "$chosen"
   ar_ok "Linked $n skill(s) into $target"
-  ar_hint "Restart $agent to load them."
+  ar_hint "Restart $(ar_cap "$agent") to load them."
 }
 
 ar_uninstall() {
@@ -118,42 +121,78 @@ ar_uninstall() {
 }
 
 ar_installed() {
-  ar_title "Installed"
+  ar_title "My Installed Skills"
   [ -f "$AR_INSTALLED" ] && [ "$(grep -vc '^#' "$AR_INSTALLED")" -gt 0 ] || { ar_hint "Nothing yet. Try: 4rmory setup"; return 0; }
   grep -v '^#' "$AR_INSTALLED" | awk -F'\t' '{print $1}' | sort -u | while IFS= read -r id; do
     local agents; agents="$(awk -F'\t' -v id="$id" '$1==id && $2!="-" {print $2}' "$AR_INSTALLED" | sort -u | tr '\n' ' ')"
     local n; n="$(awk -F'\t' -v id="$id" '$1==id && $2!="-"' "$AR_INSTALLED" | wc -l | tr -d ' ')"
-    printf '  %s%-28s%s %s\n' "$C_BOLD" "$id" "$C_RESET" "${C_GREY}${n} skill link(s) ${agents:+· $agents}${C_RESET}"
+    local nm; nm="$(ar_field "$id" 4)"; [ -n "$nm" ] || nm="$id"
+    local ag=""; for a in $agents; do ag="$ag$(ar_cap "$a") "; done
+    if [ "$n" -gt 0 ]; then printf '  %s✔%s %s%-30s%s %s%s Skill(s) · %s%s\n' "$C_GREEN" "$C_RESET" "$C_BOLD" "$(ar_cap "$nm")" "$C_RESET" "$C_GREY" "$n" "$ag" "$C_RESET"
+    else printf '  %s✔%s %s%-30s%s %sDownloaded Tool%s\n' "$C_GREEN" "$C_RESET" "$C_BOLD" "$(ar_cap "$nm")" "$C_RESET" "$C_GREY" "$C_RESET"; fi
   done
 }
 
 ar_update() {
-  ar_title "Updating"
+  ar_title "Update"
   if [ -d "$AR_HOME/.git" ]; then
-    git -C "$AR_HOME" pull --ff-only -q && ar_ok "4rmory and catalog are up to date." || ar_warn "Could not update 4rmory itself."
+    local before after new
+    before="$(ar_rows | cut -f1 | sort)"
+    ar_info "Getting the newest catalog…"
+    if git -C "$AR_HOME" pull --rebase --autostash -q 2>/dev/null; then
+      after="$(ar_rows | cut -f1 | sort)"
+      new="$(comm -13 <(printf '%s\n' "$before") <(printf '%s\n' "$after"))"
+      date +%s > "$AR_DATA/last-check" 2>/dev/null
+      if [ -n "$new" ]; then
+        ar_ok "$(printf '%s\n' "$new" | wc -l | tr -d ' ') New skill(s) and tool(s):"
+        printf '%s\n' "$new" | while IFS= read -r id; do printf '    %s+%s %s %s· %s%s\n' "$C_GREEN" "$C_RESET" "$(ar_field "$id" 4)" "$C_GREY" "$(ar_cap "$(ar_field "$id" 2)")" "$C_RESET"; done
+      else
+        ar_ok "Catalog is up to date ($(ar_rows | wc -l | tr -d ' ') entries)."
+      fi
+    else
+      ar_warn "Could not reach GitHub. Check your internet and try again."
+    fi
+  else
+    ar_warn "This copy of 4rmory was not installed with git, so it cannot update itself."
+    ar_hint "Reinstall: git clone https://github.com/Z1esco/4rmory.git && cd 4rmory && ./install.sh"
   fi
   [ -d "$AR_REPOS" ] || return 0
-  local d
+  local d any=""
   for d in "$AR_REPOS"/*/; do
     [ -d "$d/.git" ] || continue
+    [ -z "$any" ] && { ar_info "Updating your installed skills…"; any=1; }
     if git -C "$d" pull --ff-only -q 2>/dev/null; then ar_ok "$(basename "$d")"; else ar_warn "$(basename "$d") could not update"; fi
   done
-  ar_hint "Re-scan after updating: 4rmory audit --installed"
+  [ -n "$any" ] && ar_hint "Re-scan after updating: 4rmory audit --installed"
+  return 0
+}
+
+# Quietly check GitHub (at most every 6 hours) and echo how many catalog updates wait.
+ar_pending_updates() {
+  [ -d "$AR_HOME/.git" ] || return 0
+  local now last=0 stamp="$AR_DATA/last-check"
+  now="$(date +%s)"; [ -f "$stamp" ] && last="$(cat "$stamp" 2>/dev/null || echo 0)"
+  if [ $((now - ${last:-0})) -gt 21600 ]; then
+    mkdir -p "$AR_DATA"; printf '%s' "$now" > "$stamp"
+    if ar_have timeout; then GIT_TERMINAL_PROMPT=0 timeout 6 git -C "$AR_HOME" fetch -q 2>/dev/null
+    else GIT_TERMINAL_PROMPT=0 git -C "$AR_HOME" fetch -q 2>/dev/null; fi
+  fi
+  git -C "$AR_HOME" rev-list --count 'HEAD..@{u}' -- catalog/armory.tsv 2>/dev/null
 }
 
 # Guided first run: pick an agent, pick categories, install the skills in them.
 ar_setup() {
-  ar_banner
-  ar_title "Setup"
+  ar_title "Guided Setup"
   ar_info "Pick your AI agent, then the areas you work in. 4rmory installs the agent skills for you,"
   ar_info "scanning each one for malware first."
   echo
-  local agent; agent="$(ar_choose "Your agent" $AR_AGENTS)" || ar_die "Cancelled."
+  local agent; agent="$(ar_pick_agent)" || { ar_info "Cancelled."; return 0; }
   local cats=() c picked
+  ar_info "Now pick the areas you work in, one at a time. Press Enter when you are done."
   while :; do
-    picked="$(ar_choose "Add an area (blank when done)" $AR_CATEGORIES)" || break
+    picked="$(AR_BACK_LABEL=Done ar_pick_category)" || break
     cats+=("$picked")
-    ar_ok "Added $picked"
+    ar_ok "Added $(ar_cap "$picked")"
   done
   [ ${#cats[@]} -gt 0 ] || { ar_info "Nothing picked."; return 0; }
   local ids=()
@@ -162,9 +201,15 @@ ar_setup() {
       < <(ar_rows | awk -F'\t' -v c="$c" '$2==c && $3=="skill" {print $1}')
   done
   [ ${#ids[@]} -gt 0 ] || { ar_warn "No installable agent skills in those areas. Browse tools with: 4rmory list <category>"; return 0; }
-  ar_info "Skills to install: ${ids[*]}"
-  ar_confirm "Install these ${#ids[@]} skill packs for $agent?" || return 0
+  ar_info "Skills to install:"
+  for id in "${ids[@]}"; do printf '    %s•%s %s\n' "$C_CYAN" "$C_RESET" "$(ar_cap "$(ar_field "$id" 4)")"; done
+  ar_confirm "Install these ${#ids[@]} skill packs for $(ar_cap "$agent")?" || return 0
   local id
   for id in "${ids[@]}"; do AR_YES=1 ar_install "$id" --agent "$agent" --all || true; done
   ar_ok "Setup finished. See what you have: 4rmory installed"
+}
+
+ar_pick_agent() {
+  local sel; sel="$(ar_choose "Your AI agent" "Claude $C_GREY· Claude Code$C_RESET" "Codex $C_GREY· OpenAI Codex CLI$C_RESET" "Opencode $C_GREY· OpenCode$C_RESET" "Agents $C_GREY· Any agent using ~/.agents/skills$C_RESET")" || return 1
+  printf '%s' "${sel%% *}" | tr A-Z a-z
 }
