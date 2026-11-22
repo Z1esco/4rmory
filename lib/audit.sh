@@ -19,6 +19,33 @@ ar_audit_status() {
   printf ' %s(%s, %s)%s' "$C_GREY" "$(printf '%s' "$line" | cut -f2)" "$(printf '%s' "$line" | cut -f4)" "$C_RESET"
 }
 
+ar_rank() { case "$1" in danger) echo 2 ;; warn) echo 1 ;; *) echo 0 ;; esac; }
+ar_worse() { if [ "$(ar_rank "$2")" -gt "$(ar_rank "$1")" ]; then echo "$2"; else echo "$1"; fi; }
+
+# ar_json_verdict scanner file -> "verdict summary" plus one line per finding.
+ar_json_verdict() {
+  python3 -I - "$1" "$2" <<'PY' 2>/dev/null || echo "warn scanner output unreadable"
+import json, sys
+kind, path = sys.argv[1], sys.argv[2]
+d = json.load(open(path))
+rank = {"CRITICAL": 4, "HIGH": 3, "MEDIUM": 2, "LOW": 1, "INFO": 0}
+if kind == "skillspector":
+    ra = d.get("risk_assessment", {})
+    items = [(i.get("severity", ""), (i.get("location") or {}).get("file", ""), (i.get("location") or {}).get("start_line", ""),
+              i.get("title") or i.get("description") or i.get("category") or "") for i in d.get("issues", [])]
+    top = ra.get("max_issue_severity", "INFO")
+    head = f"recommendation={ra.get('recommendation')} score={ra.get('score')}"
+else:
+    items = [(f.get("severity", ""), f.get("file_path", ""), f.get("line_number", ""), f.get("title", "")) for f in d.get("findings", [])]
+    top = d.get("max_severity", "INFO")
+    head = f"is_safe={d.get('is_safe')}"
+v = "danger" if rank.get(str(top).upper(), 0) >= 3 else "warn" if rank.get(str(top).upper(), 0) == 2 else "clean"
+print(f"{v} max={top} findings={len(items)} {head}")
+for sev, f, line, t in items[:40]:
+    print(f"  {sev}\t{f}:{line}\t{str(t)[:120]}")
+PY
+}
+
 # Built-in check: patterns that are rare in honest skills and common in malicious ones.
 # Prints findings as "LEVEL<TAB>file:line<TAB>reason".
 ar_builtin_scan() {
@@ -39,20 +66,21 @@ ar_audit_dir() {
   report="$AR_REPORTS/$id.txt"; : > "$report"
   ar_info "Scanning $id for malware and risky behaviour…"
 
+  local js="$AR_REPORTS/$id"
   if ar_have skillspector; then
     used="$used+skillspector"
-    out="$(skillspector scan "$dir" --no-llm 2>&1)"; rc=$?
-    printf '== NVIDIA SkillSpector (exit %s)\n%s\n\n' "$rc" "$out" >> "$report"
-    if printf '%s' "$out" | grep -qiE '\b(critical|high)\b.*(risk|severity|finding)|verdict[^a-z]*(malicious|unsafe|block)|risk level[^a-z]*(high|critical)'; then verdict=danger
-    elif printf '%s' "$out" | grep -qiE '\bmedium\b'; then verdict=warn; fi
+    skillspector scan "$dir" --no-llm --format json --output "$js.skillspector.json" >/dev/null 2>&1
+    out="$(ar_json_verdict skillspector "$js.skillspector.json")"
+    printf '== NVIDIA SkillSpector: %s\n\n' "$out" >> "$report"
+    verdict="$(ar_worse "$verdict" "${out%% *}")"
   fi
 
   if ar_have skill-scanner; then
     used="$used+cisco"
-    out="$(skill-scanner scan "$dir" 2>&1)"; rc=$?
-    printf '== Cisco Skill Scanner (exit %s)\n%s\n\n' "$rc" "$out" >> "$report"
-    if printf '%s' "$out" | grep -qiE 'severity[^a-z]*(critical|high)|\b(CRITICAL|HIGH)\b|is_safe[^a-z]*false'; then verdict=danger
-    elif [ "$verdict" = clean ] && printf '%s' "$out" | grep -qE '\bMEDIUM\b'; then verdict=warn; fi
+    skill-scanner scan "$dir" --format json > "$js.cisco.json" 2>/dev/null
+    out="$(ar_json_verdict cisco "$js.cisco.json")"
+    printf '== Cisco Skill Scanner: %s\n\n' "$out" >> "$report"
+    verdict="$(ar_worse "$verdict" "${out%% *}")"
   fi
 
   out="$(ar_builtin_scan "$dir")"

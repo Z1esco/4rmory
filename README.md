@@ -118,7 +118,7 @@ Every install is scanned **before** anything is linked into your agent:
 3. **Built-in check** — fast grep for pipe-to-shell, reverse shells, credential paths, webhooks and miners.
 
 Verdicts: ✅ `clean` · ⚠️ `review` · ⛔ `high risk` (install blocked unless you pass `--force` after reading the report).
-Results are logged in [`catalog/audit.tsv`](catalog/audit.tsv) and summarised in [AUDIT.md](AUDIT.md).
+Results are logged locally in `catalog/audit.tsv`.
 Scanners find known risk patterns; they don't prove a skill is safe. Read what you install.
 
 ## Add your own
