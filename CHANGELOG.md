@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Added** [Terminal CLI Craft](skills/terminal-cli-craft) to Engineering: a general guide for building simple, polished and safe CLIs.
 - **Added** [AI MemoryCore](https://github.com/Kiyoraka/Project-AI-MemoryCore) to Essentials (scan: needs review).
 - **Fixed** Cisco scans of repos that hold many skills (uses `scan-all --recursive`; before, they returned nothing).
 
