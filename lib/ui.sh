@@ -69,12 +69,32 @@ ar_pill() {
   fi
 }
 
-# ar_ask "Question" [default] -> echoes answer
+ar_is_exit() { case "$1" in [Ee][Xx][Ii][Tt]|[Qq][Uu][Ii][Tt]) return 0 ;; esac; return 1; }
+
+# Leave 4rmory from any depth: stop every helper process under the main
+# shell (prompts run inside $(...) and ( ) subshells), then tell it to exit.
+ar_exit_now() {
+  local self="${BASHPID:-$$}"
+  ar_kill_tree() {
+    local p
+    for p in $(pgrep -P "$1" 2>/dev/null); do
+      ar_kill_tree "$p"
+      [ "$p" = "$self" ] || kill -PIPE "$p" 2>/dev/null  # PIPE: no "Terminated" noise
+    done
+  }
+  [ -n "${AR_PID:-}" ] && [ "$AR_PID" != "$self" ] || { printf '\n'; ar_ok "See you next time."; exit 0; }
+  ar_kill_tree "$AR_PID"
+  kill -USR1 "$AR_PID" 2>/dev/null
+  exit 0
+}
+
+# ar_ask "Question" [default] -> echoes answer. Typing Exit leaves 4rmory.
 ar_ask() {
   local q="$1" def="${2:-}" ans
   if [ -n "$def" ]; then printf '\n%s❯%s %s %s[%s]%s ' "$C_CYAN" "$C_RESET" "$q" "$C_GREY" "$def" "$C_RESET" >&2
   else printf '\n%s❯%s %s ' "$C_CYAN" "$C_RESET" "$q" >&2; fi
-  IFS= read -r ans || { AR_EOF=1; ans=""; }
+  IFS= read -r ans || ans=""
+  ar_is_exit "$ans" && ar_exit_now
   printf '%s' "${ans:-$def}"
 }
 

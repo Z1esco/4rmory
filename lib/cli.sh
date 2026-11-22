@@ -130,7 +130,8 @@ ar_menu_draw() {
   ar_menu_item 8 "Scan For Malware" "Check a skill or a folder"
   ar_menu_item 9 "Doctor" "Check your setup"
   ar_menu_item 10 "Help" "All commands"
-  printf '\n  %s  %s\n' "$(ar_pill 0)" "Quit"
+  printf '\n  %s  %s\n' "$(ar_pill 0)" "Exit"
+  printf '\n  %sType a number and press Enter · Type Exit anytime to leave%s\n' "$C_GREY" "$C_RESET"
 }
 
 ar_menu() {
@@ -156,8 +157,9 @@ ar_menu() {
       8) q="$(ar_ask "Id or folder to scan")"; [ -n "$q" ] && (ar_audit "$q") ;;
       9) ar_doctor ;;
       10) ar_help ;;
-      0|q|Q|quit|exit) echo; ar_ok "See you next time."; return 0 ;;
-      *) ar_warn "Type a number from the menu (0 quits)."; draw=""; continue ;;
+      0|q|Q) echo; ar_ok "See you next time."; return 0 ;;
+      *) if ar_is_exit "$choice"; then echo; ar_ok "See you next time."; return 0; fi
+         ar_warn "Type a number from the menu (0 or Exit to leave)."; draw=""; continue ;;
     esac
     printf '\n'; ar_rule
   done
@@ -165,6 +167,8 @@ ar_menu() {
 
 ar_main() {
   AR_BADGE_STYLE="$(ar_badge_style)"
+  AR_PID=$$
+  trap 'printf "\n"; ar_ok "See you next time."; exit 0' USR1
   local args=() a
   for a in "$@"; do
     case "$a" in -y|--yes) AR_YES=1 ;; -q|--quiet) AR_QUIET=1 ;; *) args+=("$a") ;; esac
