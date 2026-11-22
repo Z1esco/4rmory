@@ -9,7 +9,8 @@
 **Search, install and safety-scan the best skills and tools for Claude Code, Codex, OpenCode and other agents — from one small Bash command.**
 
 [![Bash](https://img.shields.io/badge/bash-3.2%2B-4EAA25?logo=gnubash&logoColor=white)](#requirements)
-[![Catalog](https://img.shields.io/badge/catalog-180%2B%20entries-2aa7ff)](catalog/armory.tsv)
+[![Version](https://img.shields.io/badge/version-1.1.0-2aa7ff)](CHANGELOG.md)
+[![Catalog](https://img.shields.io/badge/catalog-183%20entries-2aa7ff)](CATALOG.md)
 [![Scanned](https://img.shields.io/badge/scanned%20with-SkillSpector%20%2B%20Cisco-76B900)](#safety-first)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
@@ -28,6 +29,7 @@ There are thousands of agent skills on GitHub. Some are great, many are noise, a
 - 📦 **installs** it into your agent's skills folder with one command
 - 🛡️ **scans it first** with NVIDIA SkillSpector, Cisco Skill Scanner and a built-in check — high-risk installs are blocked
 - ✏️ **lets you curate** your own list: add, edit and remove entries
+- 🔄 **keeps you current**: `4rmory update` pulls newly added skills and tells you what's new
 
 ## Quick start
 
@@ -38,18 +40,44 @@ cd 4rmory && ./install.sh
 ```
 
 `setup` asks which agent you use and which areas you work in, then scans and installs the matching skills.
-Run `4rmory` with no arguments any time for a simple menu.
+Run `4rmory` with no arguments any time for a simple menu:
+
+```text
+  FIND
+  ①  Search                     Find skills and tools by keyword
+  ②  Browse Categories          Look through one area at a time
+  INSTALL
+  ③  Guided Setup               Pick your agent and areas, install all
+  ④  My Installed Skills        See what you have
+  ⑤  Update                     ★ New skills are available!
+  YOUR LIST
+  ⑥  Add A Skill Or Tool        Save a new one to the list
+  ⑦  Edit Or Remove             Change an entry
+  SAFETY & HELP
+  ⑧  Scan For Malware           Check a skill or a folder
+  ⑨  Doctor                     Check your setup
+  ⑩  Help                       All commands
+
+  ⓪  Exit
+
+  Type a number and press Enter · Type Exit anytime to leave
+```
+
+Type a number and press Enter. Empty Enter never kicks you out; `0` or `Exit` (at any prompt) leaves.
 
 ### Requirements
 
 | Needed | Optional (better experience) |
 |---|---|
-| `bash` 3.2+, `git`, `awk` | `fzf` (arrow-key menus), `figlet` (live banner) |
+| `bash` 3.2+, `git`, `awk` | `python3` (scanner reports), `fzf` (arrow-key menus), `figlet` (live banner) |
+| Linux or macOS | A [Nerd Font](https://www.nerdfonts.com) (round number badges) |
 | | [`skillspector`](https://github.com/NVIDIA/SkillSpector) and [`skill-scanner`](https://github.com/cisco-ai-defense/skill-scanner) (deep security scans) |
 
+Install the scanners with [`uv`](https://docs.astral.sh/uv/) (fast; `pipx install` also works but can be slow):
+
 ```bash
-pipx install git+https://github.com/NVIDIA/skillspector.git
-pipx install cisco-ai-skill-scanner
+uv tool install git+https://github.com/NVIDIA/skillspector.git
+uv tool install cisco-ai-skill-scanner
 4rmory doctor
 ```
 
@@ -117,7 +145,13 @@ Every install is scanned **before** anything is linked into your agent:
 2. **[Cisco Skill Scanner](https://github.com/cisco-ai-defense/skill-scanner)** — static, behavioural and YARA analysis.
 3. **Built-in check** — fast grep for pipe-to-shell, reverse shells, credential paths, webhooks and miners.
 
-Verdicts: ✅ `clean` · ⚠️ `review` · ⛔ `high risk` (install blocked unless you pass `--force` after reading the report).
+| Verdict | Meaning | What happens |
+|---|---|---|
+| ✅ **Clean** | No scanner found a problem | Installs |
+| ⚠️ **Needs review** | One scanner flagged something | Asks *"Install anyway?"* |
+| ⛔ **High risk** | Both scanners agree it looks dangerous | Blocked (only `--force` after reading the report) |
+
+The built-in check is advisory and only decides on its own when no scanner is installed.
 Results are logged in `~/.local/share/4rmory/audit.tsv`, with full reports in `reports/`.
 Scanners find known risk patterns; they don't prove a skill is safe. Read what you install.
 
@@ -203,8 +237,8 @@ skills you installed. When the menu shows **★ New skills are available!**, the
 
 - Add: `4rmory add` (it asks for name, link, category, kind and a one-line description).
 - Edit: `4rmory edit <id>` · Remove: `4rmory remove <id>` · Undo a remove: `4rmory unhide <id>`.
-- Your changes stay on your machine. To share with everyone, open a pull request
-  (see [CONTRIBUTING.md](CONTRIBUTING.md)).
+- Your changes stay on your machine and survive updates. To share with everyone, open a pull request
+  (see [CONTRIBUTING.md](CONTRIBUTING.md)), or as a maintainer run `4rmory publish`.
 </details>
 
 <details>
@@ -227,6 +261,7 @@ skills you installed. When the menu shows **★ New skills are available!**, the
 <summary><b>⌨️ Menu tips</b></summary>
 
 Type a number and press Enter. An empty Enter does nothing, so you never get kicked out.
+With `fzf` installed, use the arrow keys and press Esc to go back.
 `0` or typing `Exit` at any prompt leaves 4rmory. Install `fzf` for arrow-key menus. `NO_COLOR=1 4rmory` turns colours off.
 Numbers show as round badges when a [Nerd Font](https://www.nerdfonts.com) is installed; force a style with `ARMORY_BADGES=round` or `ARMORY_BADGES=plain`.
 Still stuck? Run `4rmory help`, or open an [issue](https://github.com/Z1esco/4rmory/issues).
@@ -236,6 +271,7 @@ Still stuck? Run `4rmory help`, or open an [issue](https://github.com/Z1esco/4rm
 
 ```
 4rmory            entry point (loads lib/*)
+install.sh        links the 4rmory command into ~/.local/bin
 lib/core.sh       paths, agents, validation
 lib/theme.sh      colours (respects NO_COLOR)
 lib/ui.sh         banner, prompts, menus
@@ -243,13 +279,18 @@ lib/catalog.sh    search, list, add, edit, remove, export
 lib/install.sh    clone, link, uninstall, update, setup
 lib/audit.sh      SkillSpector + Cisco + built-in scans
 catalog/          armory.tsv (the shared list)
+assets/           logo, banner (SVG) and the fallback text banner
+skills/           a few bundled example skills
 tools/            import_md.py: rebuild the catalog from a Markdown directory
+
+Your data (never in the repo): ~/.local/share/4rmory/
+  repos/  installed.tsv  my-catalog.tsv  hidden.txt  audit.tsv  reports/
 ```
 
 <div align="center">
 
 ---
 
-Made for people who'd rather build than browse. · [MIT License](LICENSE)
+Made for people who'd rather build than browse. · [Changelog](CHANGELOG.md) · [Security](SECURITY.md) · [MIT License](LICENSE)
 
 </div>

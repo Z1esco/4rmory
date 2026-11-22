@@ -1,6 +1,6 @@
 # core.sh - paths, settings and small helpers.
 
-AR_VERSION="1.0.0"
+AR_VERSION="1.1.0"
 AR_CATALOG="${ARMORY_CATALOG:-$AR_HOME/catalog/armory.tsv}"
 AR_DATA="${ARMORY_DATA:-${XDG_DATA_HOME:-$HOME/.local/share}/4rmory}"
 AR_REPOS="$AR_DATA/repos"
