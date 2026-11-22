@@ -1,26 +1,46 @@
-# OS and editors
+# ── OS and editors ───────────────────────────
 .DS_Store
 Thumbs.db
+__MACOSX/
 *.swp
+*.swo
 *~
 .idea/
 .vscode/
 
-# Python
+# ── Secrets: never commit ────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+id_rsa*
+credentials*.json
+secrets.*
+
+# ── 4rmory local data (lives in ~/.local/share/4rmory) ──
+catalog/audit.tsv
+my-catalog.tsv
+hidden.txt
+installed.tsv
+reports/
+repos/
+
+# ── Temp and build files ─────────────────────
+*.log
+*.tmp
+*.tmp.*
+*.bak
+*.orig
+*.rej
+node_modules/
+
+# ── Python ───────────────────────────────────
 __pycache__/
 *.pyc
 .venv/
 venv/
 
-# Local data, never commit
-.env
-.env.*
-*.log
-reports/
-repos/
-*.tmp.*
-node_modules/
-
-# Agent scratch
+# ── Agent scratch ────────────────────────────
 .claude/settings.local.json
-catalog/audit.tsv

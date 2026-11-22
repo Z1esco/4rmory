@@ -6,34 +6,37 @@
 
 </div>
 
-## What 4rmory does to keep you safe
+## How 4rmory keeps you safe
 
-- **Scan before install.** `4rmory install` downloads a repository, scans it with NVIDIA SkillSpector,
-  Cisco Skill Scanner (when installed) and a built-in pattern check, and stops on high-risk findings.
-- **No pipe-to-shell.** 4rmory never runs code from a downloaded repository. It only clones with
-  `git clone --depth 1` and links folders that contain a `SKILL.md`.
-- **Never overwrites your files.** Links are only created where nothing exists, or where 4rmory made the link.
-- **Strict input checks.** Ids are `a-z 0-9 -`; URLs must be `https://` GitHub, GitLab or Codeberg
-  repositories with no shell characters; catalog fields are stripped of tabs and newlines.
-- **No secrets, no telemetry.** 4rmory sends nothing anywhere except `git` to the repository you install.
-  Scanners run with `--no-llm` by default, so your code is not sent to an AI provider.
+| Protection | What it means |
+|---|---|
+| **Scan before install** | Every install is scanned with NVIDIA SkillSpector, Cisco Skill Scanner (when installed) and a built-in pattern check before anything is linked into your agent. |
+| **Two-scanner rule** | *High risk* (install blocked) only when both scanners agree. One scanner alone gives *Needs review* and you decide. `--force` is the only way past a block. |
+| **Never runs downloaded code** | 4rmory only runs `git clone --depth 1` and links folders that contain a `SKILL.md`. No install scripts, no pipe-to-shell. |
+| **Never overwrites your files** | Links are only created where nothing exists, or where 4rmory made the link itself. Uninstall removes only what 4rmory created. |
+| **Strict input checks** | Ids are `a-z 0-9 -`. URLs must be `https://` GitHub, GitLab or Codeberg repositories with no shell characters. Catalog fields are stripped of tabs and newlines. |
+| **No telemetry, no AI upload** | Nothing is sent anywhere except `git` to the repository you install or update from. Scanners run with `--no-llm`, so code is never sent to an AI provider. |
+| **Your data stays local** | Installs, your personal list, scan logs and reports live in `~/.local/share/4rmory/`, never in the repository. |
+| **No secrets in the repo** | The repository and its full git history were reviewed for keys, tokens, emails and personal paths (2026-11-23): none found. |
 
 ## Limits
 
-Scanners find known risk patterns. A clean scan does not prove a skill is safe. Read a skill's
-`SKILL.md` and scripts before you trust it with your files, shell or accounts.
+Scanners find **known** risk patterns. A clean scan does not prove a skill is safe. Before you trust a
+skill with your files, shell or accounts, read its `SKILL.md` and any scripts. Reports are saved at
+`~/.local/share/4rmory/reports/<id>.txt`.
 
 ## Supported versions
 
 | Version | Supported |
 |---|---|
-| 1.x | ✅ |
+| 1.1.x | ✅ |
+| 1.0.x | ⚠️ Update with `4rmory update` |
 
 ## Reporting a vulnerability
 
 - **In 4rmory itself:** open a [private security advisory](https://github.com/Z1esco/4rmory/security/advisories/new).
   Please don't file public issues for vulnerabilities.
-- **A malicious or unsafe catalog entry:** open an issue titled `unsafe: <id>` with the scan report
-  (`~/.local/share/4rmory/reports/<id>.txt`). We remove confirmed entries quickly.
+- **A malicious or unsafe catalog entry:** open an issue titled `unsafe: <id>` and attach the scan
+  report. Confirmed entries are removed and the fix reaches everyone on `4rmory update`.
 
 We aim to reply within 7 days.
