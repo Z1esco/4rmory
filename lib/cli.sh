@@ -26,14 +26,14 @@ ${b}Install${r}
   ${c}update${r}                  Get newly added skills and update installed ones
 
 ${b}Your List${r}
-  ${c}add${r}                     Add a skill or tool      ${g}--name --url -c -k -d${r}
-  ${c}edit${r} <id>               Change an entry
+  ${c}add${r}                     Add a skill or tool      ${g}--name --url -c -k -d  (scanned first)${r}
+  ${c}edit${r} <id>               Change an entry          ${g}a new link is scanned first${r}
   ${c}remove${r} <id>             Remove (or hide) an entry
   ${c}unhide${r} <id>             Bring back a hidden entry
   ${c}export${r}                  Print the catalog as Markdown
 
 ${b}Safety${r}
-  ${c}audit${r} <id>              Scan for malware         ${g}--installed  --all-skills  <folder>${r}
+  ${c}audit${r} <id>              Scan for malware         ${g}--installed  --all-skills  --changed  <folder>${r}
   ${c}doctor${r}                  Check this machine
 
 ${b}Maintainers${r}
@@ -200,22 +200,26 @@ ar_main() {
     update|up) ar_update ;;
     setup) ar_banner; ar_setup ;;
     add)
-      local n="" u="" c="" k="" d="" id=""
+      local n="" u="" c="" k="" d="" id="" f=""
       while [ $# -gt 0 ]; do
         case "$1" in
           --name) n="$2"; shift ;; --url) u="$2"; shift ;; -c|--category) c="$2"; shift ;;
           -k|--kind) k="$2"; shift ;; -d|--desc|--description) d="$2"; shift ;; --id) id="$2"; shift ;;
+          --force) f=1 ;;
           *) ar_die "Unknown option $1" ;;
         esac; shift
       done
-      ar_add "$n" "$u" "$c" "$k" "$d" "$id" ;;
-    edit|modify) ar_edit "${1:-}" "${2:-}" "${3:-}" ;;
+      ar_add "$n" "$u" "$c" "$k" "$d" "$id" "$f" ;;
+    edit|modify)
+      local ea=() f=""
+      for a in "$@"; do case "$a" in --force) f=1 ;; *) ea+=("$a") ;; esac; done
+      ar_edit "${ea[0]:-}" "${ea[1]:-}" "${ea[2]:-}" "$f" ;;
     remove|delete) ar_remove "${1:-}" ;;
     unhide) [ -n "${1:-}" ] || ar_die "Usage: 4rmory unhide <id>"; ar_unhide "$1" ;;
     export) ar_export_md ;;
     publish) ar_publish ;;
     maintainer) ar_maintainer "${1:-}" ;;
-    audit|scan) ar_audit "${1:-}" ;;
+    audit|scan) ar_audit "${1:-}" "${2:-}" ;;
     doctor) ar_doctor ;;
     help|-h|--help) ar_help ;;
     version|-v|--version) echo "4rmory $AR_VERSION" ;;

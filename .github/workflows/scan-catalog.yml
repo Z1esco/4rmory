@@ -1,0 +1,55 @@
+# Scan every catalog entry a pull request adds or changes, before it can be merged.
+# Fails on a malformed row or a High-risk verdict (both scanners agree). Reports are uploaded.
+name: Scan new catalog entries
+
+on:
+  pull_request:
+    paths:
+      - catalog/armory.tsv
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scan-catalog-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out the pull request
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Use the scanner code from the base branch
+        # A pull request must not be able to weaken its own scan by editing lib/ or 4rmory.
+        env:
+          BASE: ${{ github.base_ref }}
+        run: git checkout "origin/$BASE" -- 4rmory lib
+
+      - name: Install NVIDIA SkillSpector and Cisco Skill Scanner
+        run: |
+          python3 -m pip install --user uv
+          uv tool install git+https://github.com/NVIDIA/skillspector.git
+          uv tool install cisco-ai-skill-scanner
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Scan new and changed entries
+        env:
+          BASE: ${{ github.base_ref }}
+          ARMORY_DATA: ${{ runner.temp }}/4rmory
+          ARMORY_SCAN_TIMEOUT: "900"
+          NO_COLOR: "1"
+        run: ./4rmory -q audit --changed "origin/$BASE"
+
+      - name: Upload scan reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scan-reports
+          path: ${{ runner.temp }}/4rmory/reports/
+          if-no-files-found: ignore

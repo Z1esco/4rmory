@@ -67,6 +67,14 @@ ar_builtin_scan() {
     | head -40 | sed "s#^$dir/##" | awk -F: '{f=$1":"$2; $1="";$2=""; sub(/^  /,""); printf "MEDIUM\t%s\t%s\n", f, substr($0,1,140)}'
 }
 
+# Run a scanner with a time limit: ARMORY_SCAN_TIMEOUT seconds (default 900), when `timeout` exists.
+ar_timed() {
+  local t="${ARMORY_SCAN_TIMEOUT:-900}"
+  if ar_have timeout; then timeout -k 10 "$t" "$@"
+  elif ar_have gtimeout; then gtimeout -k 10 "$t" "$@"
+  else "$@"; fi
+}
+
 # Run every available scanner on a folder. Sets AR_LAST_VERDICT and AR_LAST_REPORT.
 ar_audit_dir() {
   local id="$1" dir="$2" report used="builtin" verdict=clean out ss_v="" cs_v=""
@@ -75,9 +83,10 @@ ar_audit_dir() {
   ar_info "Scanning $id for malware and risky behaviour…"
 
   local js="$AR_REPORTS/$id"
+  rm -f "$js.skillspector.json" "$js.cisco.json"  # never read a stale report after a timeout
   if ar_have skillspector; then
     used="$used+skillspector"
-    skillspector scan "$dir" --no-llm --format json --output "$js.skillspector.json" >/dev/null 2>&1
+    ar_timed skillspector scan "$dir" --no-llm --format json --output "$js.skillspector.json" >/dev/null 2>&1
     out="$(ar_json_verdict skillspector "$js.skillspector.json")"
     printf '== NVIDIA SkillSpector: %s\n\n' "$out" >> "$report"
     ss_v="${out%% *}"
@@ -87,9 +96,9 @@ ar_audit_dir() {
     used="$used+cisco"
     # A repo of many skills has no SKILL.md at its root: use Cisco's multi-skill mode.
     if [ -f "$dir/SKILL.md" ]; then
-      skill-scanner scan "$dir" --format json > "$js.cisco.json" 2>/dev/null
+      ar_timed skill-scanner scan "$dir" --format json > "$js.cisco.json" 2>/dev/null
     else
-      skill-scanner scan-all "$dir" --recursive --format json > "$js.cisco.json" 2>/dev/null
+      ar_timed skill-scanner scan-all "$dir" --recursive --format json > "$js.cisco.json" 2>/dev/null
     fi
     out="$(ar_json_verdict cisco "$js.cisco.json")"
     printf '== Cisco Skill Scanner: %s\n\n' "$out" >> "$report"
@@ -118,10 +127,91 @@ ar_audit_dir() {
   return 0
 }
 
+# Download a repository link and scan it. Used before an entry is saved, so it works for ids
+# that are not in any catalog yet. A stale copy from a different link is replaced.
+ar_scan_url() {
+  local id="$1" url="$2" split clone_url sub dest dir
+  ar_init_data
+  split="$(ar_split_url "$url")"; clone_url="${split%%$'\t'*}"; sub="${split#*$'\t'}"
+  dest="$AR_REPOS/$id"
+  if [ -d "$dest/.git" ] && [ "$(git -C "$dest" remote get-url origin 2>/dev/null)" != "$clone_url" ]; then
+    rm -rf "$dest"
+  fi
+  ar_clone "$id" "$clone_url"
+  dir="$dest"; [ -n "$sub" ] && dir="$dir/$sub"
+  [ -d "$dir" ] || ar_die "Folder '$sub' not found inside $clone_url."
+  ar_audit_dir "$id" "$dir"
+}
+
+# Scan before a new or changed link is saved. Returns 0 to go ahead, 1 to stop.
+# High risk stops unless forced; Needs review asks (-y answers yes).
+ar_scan_gate() {
+  local id="$1" url="$2" force="$3" retry="$4"
+  ar_scan_url "$id" "$url"
+  case "$AR_LAST_VERDICT" in
+    danger)
+      if [ -n "$force" ]; then ar_warn "Saved despite high risk (--force). Report: $AR_LAST_REPORT"; return 0; fi
+      ar_err "Not saved: the scan found high-risk findings. Report: $AR_LAST_REPORT"
+      ar_hint "Read the report first. If you have checked it and trust it, run $retry again with --force."
+      return 1 ;;
+    warn)
+      [ -n "$force" ] && return 0
+      ar_confirm "A scanner flagged something (report above). Save it anyway?" && return 0
+      ar_info "Not saved. Read the report to decide: $AR_LAST_REPORT"
+      return 1 ;;
+  esac
+  return 0
+}
+
+# Latest logged verdict for an id from today, if any.
+ar_today_verdict() {
+  [ -f "$AR_AUDIT_LOG" ] || return 0
+  awk -F'\t' -v id="$1" -v d="$(date +%F)" '$1==id && $2==d {v=$3} END {print v}' "$AR_AUDIT_LOG"
+}
+
+# Check and scan every shared-catalog row added or changed since a git ref (default HEAD).
+# Fails (returns 1) on a malformed row or a High-risk verdict. Used by publish and by CI.
+# With reuse=1, a verdict already logged today for that id is reused instead of re-scanning.
+ar_audit_changed() {
+  local base="${1:-HEAD}" reuse="${2:-}" rows id cat kind name desc url v bad=0 n=0 table=""
+  [ -d "$AR_HOME/.git" ] || ar_die "Needs a git clone of 4rmory."
+  git -C "$AR_HOME" rev-parse -q --verify "$base^{commit}" >/dev/null || ar_die "Unknown git ref '$base'."
+  rows="$(git -C "$AR_HOME" diff -U0 "$base" -- catalog/armory.tsv | grep '^+[^+#]' | cut -c2-)"
+  if [ -z "$rows" ]; then ar_info "No new or changed catalog entries."; return 0; fi
+  ar_title "Scanning New And Changed Entries"
+  while IFS= read -r row <&3; do  # fd 3: scanners and git must not eat the rows from stdin
+    [ -n "$row" ] || continue
+    n=$((n + 1))
+    IFS=$'\t' read -r id cat kind name desc url <<< "$row"
+    if [ "$(printf '%s' "$row" | awk -F'\t' '{print NF}')" != 6 ] || ! ar_valid_id "$id" || ! ar_valid_category "$cat" \
+       || ! ar_valid_kind "$kind" || ! ar_valid_url "$url" || [ -z "$name" ] || [ -z "$desc" ]; then
+      ar_err "Malformed row for '${id:-?}': need 6 tab-separated fields, a valid id, category, kind and https repo link."
+      v=invalid; bad=1
+    elif [ "$(grep -v '^#' "$AR_CATALOG" | awk -F'\t' -v id="$id" '$1==id' | wc -l | tr -d ' ')" -gt 1 ]; then
+      ar_err "Duplicate id '$id' in the catalog."; v=duplicate; bad=1
+    else
+      v=""; [ -n "$reuse" ] && v="$(ar_today_verdict "$id")"
+      if [ -n "$v" ]; then ar_info "$id: already scanned today ($v)."
+      else ar_scan_url "$id" "$url"; v="$AR_LAST_VERDICT"; fi
+      [ "$v" = danger ] && bad=1
+    fi
+    table="$table| \`$id\` | $(printf '%s' "$name" | tr '|`' '/ ') | $v |"$'\n'
+  done 3<<< "$rows"
+  printf '\n'
+  ar_info "$n entr$( [ "$n" = 1 ] && echo y || echo ies) checked."
+  if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then
+    { printf '## 4rmory catalog scan\n\n| Id | Name | Verdict |\n|---|---|---|\n%s\n' "$table"
+      printf 'Verdicts: clean · warn = needs review (one scanner flagged it) · danger = high risk (all scanners agree).\n'; } >> "$GITHUB_STEP_SUMMARY"
+  fi
+  if [ "$bad" = 1 ]; then ar_err "Some entries are malformed or high risk. See the reports above."; return 1; fi
+  ar_ok "No high-risk entries."
+}
+
 ar_audit() {
   local target="$1" id dir url split
   case "$target" in
-    "") ar_die "Usage: 4rmory audit <id> | --installed | --all-skills | <folder>" ;;
+    "") ar_die "Usage: 4rmory audit <id> | --installed | --all-skills | --changed [git-ref] | <folder>" ;;
+    --changed) ar_audit_changed "${2:-HEAD}" ;;
     --installed)
       [ -d "$AR_REPOS" ] || ar_die "Nothing installed."
       for dir in "$AR_REPOS"/*/; do [ -d "$dir" ] && ar_audit_dir "$(basename "$dir")" "$dir"; done ;;

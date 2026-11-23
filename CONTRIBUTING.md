@@ -3,11 +3,15 @@
 ## Add a skill or tool
 
 1. Add it: `4rmory add` (or edit `catalog/armory.tsv`, tab-separated:
-   `id · category · kind · name · description · url`).
+   `id · category · kind · name · description · url`). `add` scans the repository before saving it.
 2. Describe it in **one plain sentence** about what it helps with. Start with a capital letter. No hype.
-3. Scan it: `4rmory audit <id>`. Entries rated **High risk** are not accepted.
+3. Check your rows before pushing: `./4rmory audit --changed origin/main`.
 4. Regenerate the readable list: `./4rmory export > CATALOG.md`.
-5. Open a pull request.
+5. Open a pull request. The **Scan new catalog entries** check scans every row you added or changed with
+   NVIDIA SkillSpector and Cisco Skill Scanner. It fails on a malformed row or a **High risk** verdict;
+   the reports are attached to the run. *Needs review* passes but a maintainer reads the report.
+
+Maintainers: make this check required in branch protection so nothing unscanned can be merged.
 
 Only list repositories that are public, maintained and clearly licensed.
 

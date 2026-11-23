@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **Scan on add:** `4rmory add` downloads and scans a repository before saving it; `edit … url` scans the
+  new link; `publish` re-checks every new or changed row. *High risk* is not saved without `--force`;
+  *Needs review* asks first.
+- **Pull request check:** a GitHub Actions workflow scans every catalog row a pull request adds or
+  changes (`4rmory audit --changed <ref>`), fails on malformed rows or *High risk*, and uploads reports.
+- **Scanner time limit:** `ARMORY_SCAN_TIMEOUT` (default 900 s); stale reports are no longer reused
+  after a timeout.
 - **Security sweep:** every bundled skill and every catalog skill/collection was scanned with NVIDIA
   SkillSpector and Cisco Skill Scanner, and each High-risk or flagged result was reviewed by hand.
   - **Removed** bundled `x-twitter` (installs an unverified npm package and asks for Twitter credentials

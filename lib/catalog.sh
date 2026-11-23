@@ -126,7 +126,7 @@ ar_write_file() {
 ar_file_rows() { [ -f "$1" ] && grep -v '^#' "$1" | grep -v '^[[:space:]]*$'; return 0; }
 
 ar_add() {
-  local name="$1" url="$2" cat="$3" kind="$4" desc="$5" id="$6"
+  local name="$1" url="$2" cat="$3" kind="$4" desc="$5" id="$6" force="$7"
   [ -n "$name" ] || name="$(ar_ask "Name")"
   [ -n "$name" ] || { ar_info "Cancelled."; return 1; }
   [ -n "$url" ] || url="$(ar_ask "Repository URL (https://github.com/owner/repo)")"
@@ -144,12 +144,14 @@ ar_add() {
   [ -n "$desc" ] || ar_die "A description is required."
   [ -z "$(ar_get "$id")" ] || ar_die "'$id' already exists. Use: 4rmory edit $id"
   if ar_rows | cut -f6 | grep -qixF "$url"; then ar_die "That URL is already in the catalog."; fi
+  # Every new entry is downloaded and scanned before it is saved.
+  ar_scan_gate "$id" "$url" "$force" "4rmory add" || return 1
   local target; target="$(ar_target_file)"; ar_init_data
   [ -f "$target" ] || printf '# id\tcategory\tkind\tname\tdescription\turl\n' > "$target"
   printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$id" "$cat" "$kind" "$name" "$desc" "$url" >> "$target"
   ar_ok "Added $name to $(ar_cap "$cat")."
   if ar_is_maintainer; then ar_hint "Share it with everyone: 4rmory publish"
-  else ar_hint "Saved to your personal list. Scan it: 4rmory audit $id"; fi
+  else ar_hint "Saved to your personal list. Install it: 4rmory install $id"; fi
 }
 
 ar_remove() {
@@ -180,7 +182,7 @@ ar_unhide() {
 
 # ar_edit id field value  (field: name|url|category|kind|description)
 ar_edit() {
-  local id="$1" field="$2" value="$3" col row
+  local id="$1" field="$2" value="$3" force="$4" col row
   [ -n "$id" ] || ar_die "Usage: 4rmory edit <id> [field] [value]"
   row="$(ar_get "$id")"; [ -n "$row" ] || ar_die "No entry called '$id'."
   [ -n "$field" ] || field="$(ar_choose "Field to change" Name Description Category Kind Url)" || ar_die "Cancelled."
@@ -203,9 +205,13 @@ ar_edit() {
   case "$field" in
     category) ar_valid_category "$value" || ar_die "Unknown category '$value'." ;;
     kind) ar_valid_kind "$value" || ar_die "Kind must be one of: $AR_KINDS" ;;
-    url) value="${value%/}"; ar_valid_url "$value" || ar_die "Invalid URL." ;;
+    url) value="${value%/}"; value="${value%.git}"; ar_valid_url "$value" || ar_die "Invalid URL." ;;
     *) [ -n "$value" ] || ar_die "Value cannot be empty." ;;
   esac
+  # A new link is new code: scan it before saving.
+  if [ "$field" = url ] && [ "$value" != "$(printf '%s' "$row" | cut -f6)" ]; then
+    ar_scan_gate "$id" "$value" "$force" "4rmory edit $id url $value" || return 1
+  fi
   local tmp target; tmp="$(mktemp)"; ar_init_data
   if ar_in_file "$id" "$AR_MY" || ! ar_is_maintainer; then target="$AR_MY"; else target="$AR_CATALOG"; fi
   { ar_file_rows "$target" | awk -F'\t' -v id="$id" '$1!=id'
@@ -247,6 +253,10 @@ ar_publish() {
   ar_title "Publish"
   git -C "$AR_HOME" --no-pager diff --stat -- catalog/armory.tsv CATALOG.md
   local added; added="$(git -C "$AR_HOME" diff -U0 -- catalog/armory.tsv | grep '^+[^+]' | cut -f4 | paste -sd, - | cut -c1-60)"
+  # Re-check every new or changed row (reusing today's scans) before it reaches everyone.
+  if ! ar_audit_changed HEAD 1; then
+    ar_confirm "Some entries above are malformed or high risk. Publish anyway?" || { ar_info "Not published."; return 1; }
+  fi
   ar_confirm "Commit and push these catalog changes to GitHub?" || { ar_info "Not published."; return 0; }
   git -C "$AR_HOME" add catalog/armory.tsv CATALOG.md
   git -C "$AR_HOME" commit -q -m "catalog: update${added:+ ($added)}" || ar_die "Commit failed."

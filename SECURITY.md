@@ -11,6 +11,7 @@
 | Protection | What it means |
 |---|---|
 | **Scan before install** | Every install is scanned with NVIDIA SkillSpector, Cisco Skill Scanner (when installed) and a built-in pattern check before anything is linked into your agent. |
+| **Scan before listing** | `add`, a link change with `edit`, and `publish` scan the repository before it is saved. Pull requests that touch the catalog are scanned by GitHub Actions using the scanner code from the base branch, so a pull request cannot switch off its own scan. |
 | **Two-scanner rule** | *High risk* (install blocked) only when both scanners agree. One scanner alone gives *Needs review* and you decide. `--force` is the only way past a block. |
 | **Never runs downloaded code** | 4rmory only runs `git clone --depth 1` and links folders that contain a `SKILL.md`. No install scripts, no pipe-to-shell. |
 | **Never overwrites your files** | Links are only created where nothing exists, or where 4rmory made the link itself. Uninstall removes only what 4rmory created. |

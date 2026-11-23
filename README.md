@@ -149,7 +149,17 @@ For AI video editing, start with [HyperFrames](https://github.com/heygen-com/hyp
 
 ## Safety first
 
-Every install is scanned **before** anything is linked into your agent:
+Every skill is scanned **before** it joins a list and again **before** it is linked into your agent:
+
+| When | What is scanned |
+|---|---|
+| `4rmory add` | The new repository, before the entry is saved |
+| `4rmory edit <id> url …` | The new link, before it replaces the old one |
+| `4rmory publish` | Every new or changed shared-catalog row |
+| Pull request to this repo | Every added or changed row, by GitHub Actions ([scan-catalog.yml](.github/workflows/scan-catalog.yml)) |
+| `4rmory install` | The skill, before it is linked into your agent |
+
+The scanners:
 
 1. **[NVIDIA SkillSpector](https://github.com/NVIDIA/SkillSpector)** — malicious patterns, prompt injection, data exfiltration, supply-chain risk.
 2. **[Cisco Skill Scanner](https://github.com/cisco-ai-defense/skill-scanner)** — static, behavioural and YARA analysis.
@@ -157,11 +167,12 @@ Every install is scanned **before** anything is linked into your agent:
 
 | Verdict | Meaning | What happens |
 |---|---|---|
-| ✅ **Clean** | No scanner found a problem | Installs |
-| ⚠️ **Needs review** | One scanner flagged something | Asks *"Install anyway?"* |
-| ⛔ **High risk** | Both scanners agree it looks dangerous | Blocked (only `--force` after reading the report) |
+| ✅ **Clean** | No scanner found a problem | Added / installed |
+| ⚠️ **Needs review** | One scanner flagged something | Asks *"Save anyway?"* / *"Install anyway?"* (`-y` answers yes) |
+| ⛔ **High risk** | Both scanners agree it looks dangerous | Blocked (only `--force` after reading the report); a pull request check fails |
 
 The built-in check is advisory and only decides on its own when no scanner is installed.
+Each scanner gets `ARMORY_SCAN_TIMEOUT` seconds (default 900); a scanner that times out counts as *Needs review*.
 Results are logged in `~/.local/share/4rmory/audit.tsv`, with full reports in `reports/`.
 Scanners find known risk patterns; they don't prove a skill is safe. Read what you install.
 
@@ -178,13 +189,17 @@ The menu checks GitHub every few hours and shows **★ New skills are available!
 ## Add your own
 
 ```bash
-4rmory add                                    # guided
+4rmory add                                    # guided; the repo is scanned before it is saved
 4rmory add --name "My Skill" --url https://github.com/me/my-skill \
            -c engineering -k skill -d "Plain sentence: what it helps with."
 4rmory edit my-skill description "Better wording"
+4rmory edit my-skill url https://github.com/me/new-home   # the new link is scanned first
 4rmory remove my-skill
-4rmory audit my-skill
+4rmory audit my-skill                         # scan again any time
 ```
+
+If a scan says **High risk**, the entry is not saved. Read the report it prints; only if you trust
+the code, run the same command again with `--force`.
 
 Your additions and edits go to **your personal list** (`~/.local/share/4rmory/my-catalog.tsv`), so they
 survive updates. Removing a shared entry hides it for you (`4rmory unhide <id>` brings it back).
