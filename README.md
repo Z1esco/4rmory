@@ -137,6 +137,16 @@ Downloads live in `~/.local/share/4rmory` and skills are linked, never copied ov
 
 The full, readable list is in [CATALOG.md](CATALOG.md) (generated with `4rmory export`).
 
+### Tutorials
+
+Guides that aren't git repositories, so they can't be installed or scanned. External and unreviewed: read before you follow them.
+
+| Tutorial | What it covers |
+|---|---|
+| [Claude educational animation from zero](https://app.notion.com/p/CLAUDE-TUTORIAL-SKILL-41b220b82d6980d2b579c24d8458d17c?source=copy_link) (Notion, Indonesian) | Video tutorial and skill links for making educational animations with Claude. |
+
+For AI video editing, start with [HyperFrames](https://github.com/heygen-com/hyperframes), [OneTake](https://github.com/feitangyuan/onetake) and [Collage B-Roll](https://github.com/pyang5166/gbro-collage-broll) (`4rmory info hyperframes`).
+
 ## Safety first
 
 Every install is scanned **before** anything is linked into your agent:
