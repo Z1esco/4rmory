@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- **Security sweep:** every bundled skill and every catalog skill/collection was scanned with NVIDIA
+  SkillSpector and Cisco Skill Scanner, and each High-risk or flagged result was reviewed by hand.
+  - **Removed** bundled `x-twitter` (installs an unverified npm package and asks for Twitter credentials
+    while the bundled code is a mock), `glitchward-shield` (sends every prompt and external content to a
+    third-party API) and `minimax-usage` (says it checks quota but makes a billable API call).
+  - **Fixed** HyperFrames: the link pointed to an unofficial README-only repo; it now points to
+    [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) and is listed as a skill.
+  - All other catalog entries were kept: their flags were false alarms (security guides quoting attack
+    text, local FFmpeg/Node child processes, API keys sent only to the vendor's own API).
+- **Added 23 entries.** Video and motion: yt-dlp, FFmpeg Skill, FFmpeg Usage Skill, Ghost Editor,
+  Claude Shorts, REA Video, Awesome Claude Video Skills, Three.js Skills, iArt Motion Skills, Motion
+  Graphics (Barty-Bart), OneTake, Collage B-Roll, Pulupulu Motion, MotionClone. Security: Kuron Security,
+  ARTEX, Claude-BugHunter, REA. Other: Paperclip, Dokploy, Meetily, rust-anything, Kiri.
+  Scan notes are in each description where a scanner flagged something.
+- **Added** a Tutorials section to the README.
 - **Added** [Terminal CLI Craft](skills/terminal-cli-craft) to Engineering: a general guide for building simple, polished and safe CLIs.
 - **Added** [AI MemoryCore](https://github.com/Kiyoraka/Project-AI-MemoryCore) to Essentials (scan: needs review).
 - **Fixed** Cisco scans of repos that hold many skills (uses `scan-all --recursive`; before, they returned nothing).

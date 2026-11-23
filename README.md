@@ -10,7 +10,7 @@
 
 [![Bash](https://img.shields.io/badge/bash-3.2%2B-4EAA25?logo=gnubash&logoColor=white)](#requirements)
 [![Version](https://img.shields.io/badge/version-1.1.0-2aa7ff)](CHANGELOG.md)
-[![Catalog](https://img.shields.io/badge/catalog-185%20entries-2aa7ff)](CATALOG.md)
+[![Catalog](https://img.shields.io/badge/catalog-208%20entries-2aa7ff)](CATALOG.md)
 [![Scanned](https://img.shields.io/badge/scanned%20with-SkillSpector%20%2B%20Cisco-76B900)](#safety-first)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
