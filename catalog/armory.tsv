@@ -175,7 +175,7 @@ artcraft-skills	youtube	skill	ArtCraft Skills	Skills for ArtCraft tools, includi
 concat	youtube	tool	Concat	Local-first open-source video editor with timeline, captions, TTS, effects, and automation interfaces.	https://github.com/jub0t/Concat
 ffmpeg	youtube	tool	FFmpeg	Media processing, conversion, filtering, and encoding.	https://github.com/FFmpeg/FFmpeg
 huashu-motion	youtube	tool	Huashu Motion	Motion design and film workflows using HTML, GSAP, Canvas, and Three.js.	https://github.com/alchaincyf/huashu-motion
-hyperframes	youtube	tool	HyperFrames	Agent-native HTML/CSS/JS/GSAP video compositions.	https://github.com/hyperframes/hyperframes
+hyperframes	youtube	tool	HyperFrames	Agent-native HTML/CSS/JS/GSAP video compositions.	https://github.com/heygen-com/hyperframes
 motion-canvas	youtube	tool	Motion Canvas	Programmatic motion graphics.	https://github.com/motion-canvas/motion-canvas
 moviepy	youtube	tool	MoviePy	Python video editing.	https://github.com/Zulko/moviepy
 openai-hyperframes-plugin	youtube	skill	OpenAI HyperFrames Plugin	Agent skills for HyperFrames composition and workflows.	https://github.com/openai/plugins/tree/main/plugins/hyperframes
