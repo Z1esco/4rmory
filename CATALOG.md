@@ -6,295 +6,295 @@
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Anthropic Knowledge Work Plugins](https://github.com/anthropics/knowledge-work-plugins) | skill | Role-specific workflows for engineering, finance, marketing, sales, HR, legal, operations, and data work. |
-| [Awesome Agent Skills](https://github.com/jqueryscript/awesome-agent-skills) | collection | Curated discovery list of agent skills across coding and non-coding workflows. |
-| [Caveman](https://github.com/JuliusBrussee/caveman) | skill | Concise-output / token-conscious interaction approach. Verify current compatibility before adopting. |
-| [CodeGraph](https://github.com/codegraph-ai/CodeGraph) | tool | Codebase relationships, call paths, and semantic navigation. |
-| [Composio Awesome Claude Skills](https://github.com/ComposioHQ/awesome-claude-skills) | collection | Large discovery catalogue of skills, plugins, and integrations. |
-| [Everything Claude Code](https://github.com/affaan-m/everything-claude-code) | skill | Broad collection of agent instructions, commands, hooks, and workflows. Review and select components rather than installing blindly. |
-| [GitHub Spec Kit](https://github.com/github/spec-kit) | skill | Specification-driven development. |
-| [Graphify](https://github.com/graphify-labs/graphify) | tool | Builds a queryable knowledge graph from code and documents. |
-| [Humanizer](https://github.com/blader/humanizer) | skill | Revises formulaic AI-sounding text into more natural prose. Human review remains essential. |
-| [LLMLingua](https://github.com/microsoft/LLMLingua) | tool | Prompt/context compression research and tooling. |
-| [Matt Pocock Skills](https://github.com/mattpocock/skills) | skill | `grill-me`, `grill-with-docs`, `wayfinder`, and other workflows for clarifying requirements and navigating complex work. |
-| [Planning with Files](https://github.com/OthmanAdi/planning-with-files) | skill | File-based planning and persistent task state for long-running agent work. |
-| [Superpowers](https://github.com/obra/superpowers) | skill | Structured software development workflows: brainstorming, planning, implementation, debugging, testing, and review. |
-| [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills) | skill | Frontend, React, web development, and related agent workflows. |
-| [AI MemoryCore](https://github.com/Kiyoraka/Project-AI-MemoryCore) | skill | Gives your AI a lasting memory and personality using plain Markdown files, plus 20+ add-ons like diary, reminders, decision log and project tracking. Scan: needs review (hooks run on every prompt; auto-commit pushes to git). |
+| [Anthropic Knowledge Work Plugins](https://github.com/anthropics/knowledge-work-plugins) | skill | Anthropic's ready-made plugins for everyday office work: finance, marketing, sales, HR, legal, operations and data. |
+| [Awesome Agent Skills](https://github.com/jqueryscript/awesome-agent-skills) | collection | A curated list of popular, well-starred AI skills for coding and other work. A good place to discover more. |
+| [Caveman](https://github.com/JuliusBrussee/caveman) | skill | Makes your AI answer in fewer words, which saves time and usage, while keeping the full details available if you need them. |
+| [CodeGraph](https://github.com/codegraph-ai/CodeGraph) | tool | Maps how a codebase fits together (what calls what) so your AI can find its way around large projects. |
+| [Composio Awesome Claude Skills](https://github.com/ComposioHQ/awesome-claude-skills) | collection | A big directory of Claude skills, plugins and resources to discover. |
+| [Everything Claude Code](https://github.com/affaan-m/everything-claude-code) | skill | A huge collection of instructions, commands and workflows for Claude Code. Pick the parts you need rather than installing it all. |
+| [GitHub Spec Kit](https://github.com/github/spec-kit) | skill | GitHub's kit for planning software properly: write down what you want first, then let the AI build it step by step. |
+| [Graphify](https://github.com/graphify-labs/graphify) | tool | Turns a codebase and its documents into a searchable map your AI can use to answer questions about the project. |
+| [Humanizer](https://github.com/blader/humanizer) | skill | Rewrites text so it sounds less like AI and more like a real person. Always read the result yourself. |
+| [LLMLingua](https://github.com/microsoft/LLMLingua) | tool | Microsoft's tool for shrinking long prompts so AI responds faster and costs less, without losing the key information. For developers. |
+| [Matt Pocock Skills](https://github.com/mattpocock/skills) | skill | Practical skills from a well-known developer, including ones that question your plan until it is clear before any work starts. |
+| [Planning with Files](https://github.com/OthmanAdi/planning-with-files) | skill | Keeps your AI's plan and progress in files, so long tasks survive restarts and the AI does not lose track. |
+| [Superpowers](https://github.com/obra/superpowers) | skill | A complete way of working for AI coding assistants: brainstorm, plan, build, test and review, step by step. Very popular. |
+| [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills) | skill | Vercel's official skills for building websites and web apps with React and Next.js. |
+| [AI MemoryCore](https://github.com/Kiyoraka/Project-AI-MemoryCore) | skill | Gives your AI a lasting memory and personality using simple text files, plus add-ons like a diary, reminders and project tracking. Safety check: flagged for review, because it runs on every prompt and saves changes to git automatically. |
 
 ## UI/UX, web design and anti-slop
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Dembrandt](https://github.com/dembrandt/dembrandt) | tool | Extracts design systems from websites, including colours, typography, spacing, borders, and shadows. |
-| [Dembrandt Skills](https://github.com/dembrandt/dembrandt-skills) | skill | Design-system and senior UX knowledge for agents. |
-| [Embla Carousel](https://github.com/davidjerleke/embla-carousel) | tool | Lightweight carousel library. |
-| [Emilkowalski Skills](https://github.com/emilkowalski/skills) | skill | Interaction, motion, and interface design knowledge. |
-| [Figma Plugin Samples](https://github.com/figma/plugin-samples) | tool | Examples for Figma plugin development. |
-| [Google Fonts](https://github.com/google/fonts) | collection | Open-source font collection. |
-| [GSAP](https://github.com/greensock/GSAP) | tool | Animation platform for web interfaces. |
-| [Impeccable](https://github.com/pbakaus/impeccable) | skill | Design-quality skills for typography, hierarchy, spacing, layout, colour, and polish. |
-| [Karpathy Guidelines](https://github.com/multica-ai/andrej-karpathy-skills) | skill | Coding-agent principles and practical engineering discipline. |
-| [Lottie Web](https://github.com/airbnb/lottie-web) | tool | Render After Effects animations exported as JSON. |
-| [Lucide](https://github.com/lucide-icons/lucide) | tool | Consistent icon library. |
-| [Magic UI](https://github.com/magicuidesign/magicui) | tool | Animated React components. |
-| [Motion Primitives](https://github.com/ibelick/motion-primitives) | tool | Reusable motion components. |
-| [React Bits](https://github.com/DavidHDev/react-bits) | tool | Animated UI components and interaction patterns. |
-| [Rive Runtime](https://github.com/rive-app/rive-runtime) | tool | Interactive animation runtime. |
-| [shadcn/ui](https://github.com/shadcn-ui/ui) | tool | Accessible, composable React components. |
-| [Storybook](https://github.com/storybookjs/storybook) | tool | Develop and document UI components in isolation. |
-| [Style Dictionary](https://github.com/amzn/style-dictionary) | tool | Transform design tokens into platform-specific formats. |
-| [Taste Skill](https://github.com/leonxlnx/taste-skill) | skill | Visual taste and design quality guidance. |
-| [Tokens Studio](https://github.com/tokens-studio) | tool | Design-token workflows for Figma. |
-| [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | skill | UI/UX design guidance and design-system patterns. |
-| [Unslop Writing Skills / collections](https://github.com/qufei1993/awesome-skills) | collection | Discover writing workflows that remove formulaic prose while preserving meaning. |
+| [Dembrandt](https://github.com/dembrandt/dembrandt) | tool | Pulls the look of any website into a reusable design kit: logo, colours, fonts, spacing and borders, in one command. |
+| [Dembrandt Skills](https://github.com/dembrandt/dembrandt-skills) | skill | Senior-level design and user-experience know-how for your AI, so the screens it builds look and work better. |
+| [Embla Carousel](https://github.com/davidjerleke/embla-carousel) | tool | A smooth, lightweight image and content slider for websites. For developers. |
+| [Emilkowalski Skills](https://github.com/emilkowalski/skills) | skill | Design skills from a well-known interface designer: animation, interaction and polish for apps and websites. |
+| [Figma Plugin Samples](https://github.com/figma/plugin-samples) | tool | Example Figma plugins that show how to build your own add-ons for Figma. For developers. |
+| [Google Fonts](https://github.com/google/fonts) | collection | Every free font on Google Fonts, ready to download and use in your designs. |
+| [GSAP](https://github.com/greensock/GSAP) | tool | A popular tool for smooth website animations: moving text, scroll effects and transitions. For developers. |
+| [Impeccable](https://github.com/pbakaus/impeccable) | skill | Gives your AI a designer's eye: it reviews and polishes typography, spacing, layout and colour, and catches generic AI-looking designs. |
+| [Karpathy Guidelines](https://github.com/multica-ai/andrej-karpathy-skills) | skill | A short instruction file that makes AI coding assistants more careful, based on Andrej Karpathy's advice on common AI coding mistakes. |
+| [Lottie Web](https://github.com/airbnb/lottie-web) | tool | Plays animations made in After Effects on websites and apps, smoothly and at small file sizes. |
+| [Lucide](https://github.com/lucide-icons/lucide) | tool | Over 2,000 clean, matching icons, free to use in your apps, sites and designs. |
+| [Magic UI](https://github.com/magicuidesign/magicui) | tool | Ready-made animated buttons, backgrounds and effects you can copy into a website. For developers. |
+| [Motion Primitives](https://github.com/ibelick/motion-primitives) | tool | Building blocks for adding smooth, polished animations to websites quickly. For developers. |
+| [React Bits](https://github.com/DavidHDev/react-bits) | tool | A big library of eye-catching animated website parts you can copy and customise. For developers. |
+| [Rive Runtime](https://github.com/rive-app/rive-runtime) | tool | Plays interactive animations made with Rive inside apps, games and websites. For developers. |
+| [shadcn/ui](https://github.com/shadcn-ui/ui) | tool | Good-looking, accessible website parts (buttons, forms, menus) that developers copy in and adapt. |
+| [Storybook](https://github.com/storybookjs/storybook) | tool | A workshop for building, viewing and testing each piece of a website's interface on its own. For developers. |
+| [Style Dictionary](https://github.com/amzn/style-dictionary) | tool | Keeps a brand's colours, fonts and sizes in one place and outputs them for websites and apps. For developers. |
+| [Taste Skill](https://github.com/leonxlnx/taste-skill) | skill | Gives your AI better visual taste: art direction, reference images and a browser check, instead of generic AI-looking pages. |
+| [Tokens Studio](https://github.com/tokens-studio) | tool | Manage a design system's colours, fonts and spacing in Figma and keep them in sync with the code. |
+| [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | skill | Design expertise for your AI so the apps and websites it builds look professional and are easy to use. |
+| [Unslop Writing Skills / collections](https://github.com/qufei1993/awesome-skills) | collection | A list of writing skills that remove the stiff, formulaic feel from AI text while keeping the meaning. |
 
 ## Code understanding and software engineering
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Appwrite](https://github.com/appwrite/appwrite) | tool | Backend platform. |
-| [Biome](https://github.com/biomejs/biome) | tool | JavaScript/TypeScript linting and formatting. |
-| [CodeGraph Rules for Agents](https://github.com/codegraph-ai/codegraph-rules-for-agents) | tool | Agent guidance for using CodeGraph. |
-| [Directus](https://github.com/directus/directus) | tool | Data platform and headless CMS. |
-| [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm) | tool | TypeScript ORM. |
-| [FastAPI](https://github.com/fastapi/fastapi) | tool | Python API framework. |
-| [GitHub CLI](https://github.com/cli/cli) | tool | GitHub from the terminal. |
-| [Graphiti](https://github.com/getzep/graphiti) | tool | Temporal knowledge graphs for AI agents. |
-| [Hasura](https://github.com/hasura/graphql-engine) | tool | GraphQL over databases. |
-| [LangGraph](https://github.com/langchain-ai/langgraph) | tool | Stateful agent workflows. |
-| [Mermaid](https://github.com/mermaid-js/mermaid) | tool | Diagrams from text. |
-| [Microsoft GraphRAG](https://github.com/microsoft/graphrag) | tool | Graph-based retrieval-augmented generation. |
-| [NestJS](https://github.com/nestjs/nest) | tool | Node.js server framework. |
-| [Playwright](https://github.com/microsoft/playwright) | tool | Browser automation and end-to-end testing. |
-| [PocketBase](https://github.com/pocketbase/pocketbase) | tool | Lightweight backend in a single executable. |
-| [pre-commit](https://github.com/pre-commit/pre-commit) | tool | Run checks before commits. |
-| [Prisma](https://github.com/prisma/prisma) | tool | Database ORM and developer tooling. |
-| [Pyright](https://github.com/microsoft/pyright) | tool | Python static type checking. |
-| [release-please](https://github.com/googleapis/release-please) | tool | Automated release PRs and changelogs. |
-| [Renovate](https://github.com/renovatebot/renovate) | tool | Dependency update automation. |
-| [Ruff](https://github.com/astral-sh/ruff) | tool | Python linting and formatting. |
-| [SonarQube](https://github.com/SonarSource/sonarqube) | tool | Code quality and security analysis. |
-| [Structurizr](https://github.com/structurizr) | tool | Software architecture diagrams using the C4 model. |
-| [Supabase](https://github.com/supabase/supabase) | tool | Postgres, Auth, Storage, Realtime, and Edge Functions. |
-| [Terminal CLI Craft](https://github.com/Z1esco/4rmory/tree/main/skills/terminal-cli-craft) | skill | Step-by-step guide for building or upgrading a simple, good-looking and safe command-line tool in any language: menus, banner, exit handling, self-update, scanning and docs. |
-| [Dokploy](https://github.com/Dokploy/dokploy) | tool | Self-hosted alternative to Vercel, Netlify and Heroku for deploying apps and databases on your own server. Apache-2.0 except a proprietary folder. |
-| [rust-anything](https://github.com/erkamyaman/rust-anything) | skill | Rewrites an app in Rust one piece at a time, checking each piece against the original's recorded behaviour. |
-| [Kiri](https://github.com/libracoder/kiri) | tool | Small, fast Docker Desktop replacement written in Rust for macOS, Windows and Linux; works with the docker CLI and Compose. |
+| [Appwrite](https://github.com/appwrite/appwrite) | tool | A ready-made back end for apps: user logins, databases, file storage and more, so you don't build them yourself. For developers. |
+| [Biome](https://github.com/biomejs/biome) | tool | Automatically checks and tidies JavaScript and TypeScript code so it stays clean and consistent. For developers. |
+| [CodeGraph Rules for Agents](https://github.com/codegraph-ai/codegraph-rules-for-agents) | tool | Instruction files that teach AI coding assistants how to use CodeGraph to understand a codebase. |
+| [Directus](https://github.com/directus/directus) | tool | Turns any database into an easy admin panel and content manager with ready-made APIs. For developers. |
+| [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm) | tool | Lets TypeScript apps talk to databases safely and simply. For developers. |
+| [FastAPI](https://github.com/fastapi/fastapi) | tool | A popular, easy way to build fast web APIs in Python. For developers. |
+| [GitHub CLI](https://github.com/cli/cli) | tool | GitHub's official tool for working with repositories, issues and pull requests from the terminal. |
+| [Graphiti](https://github.com/getzep/graphiti) | tool | Gives AI agents a memory that understands how facts connect and change over time. For developers. |
+| [Hasura](https://github.com/hasura/graphql-engine) | tool | Instantly creates a ready-to-use API from your database, with access controls. For developers. |
+| [LangGraph](https://github.com/langchain-ai/langgraph) | tool | A toolkit for building reliable AI agents that work through tasks step by step. For developers. |
+| [Mermaid](https://github.com/mermaid-js/mermaid) | tool | Draw flowcharts, timelines and other diagrams by typing simple text instead of drawing them. |
+| [Microsoft GraphRAG](https://github.com/microsoft/graphrag) | tool | Microsoft's method for helping AI answer questions about large document collections by mapping how ideas connect. For developers. |
+| [NestJS](https://github.com/nestjs/nest) | tool | A structured framework for building server back ends with TypeScript. For developers. |
+| [Playwright](https://github.com/microsoft/playwright) | tool | Automates web browsers to test websites or carry out tasks on them. For developers. |
+| [PocketBase](https://github.com/pocketbase/pocketbase) | tool | A complete app back end (database, logins, file storage) in one small file. For developers. |
+| [pre-commit](https://github.com/pre-commit/pre-commit) | tool | Runs automatic checks on code before it is saved to git, catching mistakes early. For developers. |
+| [Prisma](https://github.com/prisma/prisma) | tool | Makes it easier and safer for apps to work with databases. For developers. |
+| [Pyright](https://github.com/microsoft/pyright) | tool | Finds mistakes in Python code before you run it. For developers. |
+| [release-please](https://github.com/googleapis/release-please) | tool | Automatically prepares new software releases and their change notes on GitHub. For developers. |
+| [Renovate](https://github.com/renovatebot/renovate) | tool | Keeps a project's software libraries up to date by opening update requests automatically. For developers. |
+| [Ruff](https://github.com/astral-sh/ruff) | tool | A very fast tool that checks and tidies Python code. For developers. |
+| [SonarQube](https://github.com/SonarSource/sonarqube) | tool | Scans code for bugs, security holes and messy patterns, and tracks code quality over time. |
+| [Structurizr](https://github.com/structurizr) | tool | Draws software architecture diagrams from a simple text description. For developers. |
+| [Supabase](https://github.com/supabase/supabase) | tool | A ready-made app back end built on Postgres: database, logins, file storage and real-time updates. For developers. |
+| [Terminal CLI Craft](https://github.com/Z1esco/4rmory/tree/main/skills/terminal-cli-craft) | skill | A step-by-step guide for your AI to build or improve a simple, good-looking and safe command-line tool in any language. |
+| [Dokploy](https://github.com/Dokploy/dokploy) | tool | Put your own websites, apps and databases online on your own server, like a self-hosted Vercel or Heroku. Licence: free and open (Apache-2.0), except one paid-features folder. |
+| [rust-anything](https://github.com/erkamyaman/rust-anything) | skill | Rewrites an existing app in the Rust language one piece at a time, checking each piece still behaves exactly like the original. |
+| [Kiri](https://github.com/libracoder/kiri) | tool | A small, fast replacement for Docker Desktop on Mac, Windows and Linux, for running software in containers. |
 
 ## Copywriting, marketing and brand voice
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Claude Creator Skills](https://github.com/AskAboutAI/claude-creator-skills) | skill | Creator workflows for scripts, audience research, repurposing, and analytics. |
-| [Corey Haines Marketing Skills](https://github.com/coreyhaines31/marketingskills) | skill | One of the strongest broad marketing skill collections. Includes copywriting, copy-editing, CRO, email, SEO, social, ads, analytics, and growth workflows. |
-| [Dub](https://github.com/dubinc/dub) | tool | Link management and analytics. |
-| [Firecrawl](https://github.com/firecrawl/firecrawl) | tool | Web research and extraction for competitive analysis. |
-| [Formbricks](https://github.com/formbricks/formbricks) | tool | Surveys and user feedback. |
-| [LlamaIndex](https://github.com/run-llama/llama_index) | tool | Retrieval and document workflows. |
-| [Marketing Skills Collection](https://github.com/robertbstillwell/marketing-skills) | skill | Agent skills for copywriting, editing, content strategy, repurposing, and growth. |
-| [Nimblechapps Marketing Skills](https://github.com/nimblechapps/marketing-skills) | skill | Reviewed subset of marketing skills with content, copywriting, video, PR, SEO, and outreach. |
-| [Plausible](https://github.com/plausible/analytics) | tool | Privacy-friendly web analytics. |
-| [PostHog](https://github.com/PostHog/posthog) | tool | Product analytics and experimentation. |
-| [Social Media Skills](https://github.com/social-media-skills/skills) | skill | Large platform-aware social content collection with hooks, captions, scripts, strategy, and analytics. |
-| [Umami](https://github.com/umami-software/umami) | tool | Web analytics. |
+| [Claude Creator Skills](https://github.com/AskAboutAI/claude-creator-skills) | skill | 8 skills for content creators: write scripts, research your audience, repurpose content and read your analytics. |
+| [Corey Haines Marketing Skills](https://github.com/coreyhaines31/marketingskills) | skill | A large set of marketing skills for your AI: copywriting, editing, landing-page improvement, email, SEO, ads and growth. |
+| [Dub](https://github.com/dubinc/dub) | tool | Create short branded links and see how many people click them, and from where. |
+| [Firecrawl](https://github.com/firecrawl/firecrawl) | tool | Turns websites into clean text your AI can read, for research and competitor checks. |
+| [Formbricks](https://github.com/formbricks/formbricks) | tool | Make surveys and collect feedback from your customers. A free, open alternative to Qualtrics. |
+| [LlamaIndex](https://github.com/run-llama/llama_index) | tool | A developer toolkit that lets AI read, search and answer questions about your documents. |
+| [Marketing Skills Collection](https://github.com/robertbstillwell/marketing-skills) | skill | Marketing and growth skills for your AI: copywriting, editing, content plans and repurposing. |
+| [Nimblechapps Marketing Skills](https://github.com/nimblechapps/marketing-skills) | skill | 15 checked marketing skills: social posts, content, copywriting, video, PR, SEO and cold outreach. |
+| [Plausible](https://github.com/plausible/analytics) | tool | Simple, privacy-friendly website visitor stats without cookies. An alternative to Google Analytics. |
+| [PostHog](https://github.com/PostHog/posthog) | tool | See how people use your app or website: analytics, session recordings, feature switches and experiments. |
+| [Social Media Skills](https://github.com/social-media-skills/skills) | skill | 106 social media skills for your AI: strategy, writing posts, video, design, growing an account and reading your stats. |
+| [Umami](https://github.com/umami-software/umami) | tool | Simple, privacy-friendly website and product analytics with no cookies. Run it yourself or in the cloud. |
 
 ## Captions and social media
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Awesome Social Media Skills](https://github.com/UnderleveledBuilder/awesome-social-media-skills) | collection | Curated directory covering X, YouTube, TikTok, Instagram, LinkedIn, and other platforms. |
-| [Marketing Skill by Marcos Modly](https://github.com/marcosmodly/marketing-skill) | skill | 14 marketing skills, including social content, video, copy, email, and approval-gated publishing. |
-| [Marketing Skills by Scayver](https://github.com/scayver/marketing-skills) | skill | Social, video, copywriting, repurposing, YouTube competitive analysis, and humanizer workflows. |
+| [Awesome Social Media Skills](https://github.com/UnderleveledBuilder/awesome-social-media-skills) | collection | A curated list of social media skills for your AI: Xiaohongshu, Douyin, X, YouTube, TikTok and LinkedIn topics, writing, images and posting. |
+| [Marketing Skill by Marcos Modly](https://github.com/marcosmodly/marketing-skill) | skill | 14 marketing skills: competitor research, content calendars, SEO briefs, ad copy, cold outreach, short videos and posting that waits for your approval. |
+| [Marketing Skills by Scayver](https://github.com/scayver/marketing-skills) | skill | Skills that help your AI market software: social posts, video, copy, repurposing, YouTube competitor research and more natural writing. |
 
 ## YouTube and creator workflows
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [ArtCraft Skills](https://github.com/mroxso/artcraft-skills) | skill | Skills for ArtCraft tools, including FilmCraft, PhotoCraft, VectorCraft, and LightCraft. |
-| [Concat](https://github.com/jub0t/Concat) | tool | Local-first open-source video editor with timeline, captions, TTS, effects, and automation interfaces. |
-| [FFmpeg](https://github.com/FFmpeg/FFmpeg) | tool | Media processing, conversion, filtering, and encoding. |
-| [Huashu Motion](https://github.com/alchaincyf/huashu-motion) | tool | Motion design and film workflows using HTML, GSAP, Canvas, and Three.js. |
-| [HyperFrames](https://github.com/heygen-com/hyperframes) | skill | Write HTML, render video: HeyGen's agent-native framework with 29 agent skills for compositions, captions, media and motion. |
-| [Motion Canvas](https://github.com/motion-canvas/motion-canvas) | tool | Programmatic motion graphics. |
-| [MoviePy](https://github.com/Zulko/moviepy) | tool | Python video editing. |
-| [OpenAI HyperFrames Plugin](https://github.com/openai/plugins/tree/main/plugins/hyperframes) | skill | Agent skills for HyperFrames composition and workflows. |
-| [Remotion](https://github.com/remotion-dev/remotion) | tool | Create videos programmatically with React. |
-| [Remotion Skills](https://github.com/remotion-dev/skills) | skill | Agent skills for Remotion workflows. |
-| [Take One](https://github.com/talsiach/take-one) | tool | Claude Code video-production workflow from idea to script, visuals, voice, music, edit, and review. |
-| [yt-dlp](https://github.com/yt-dlp/yt-dlp) | tool | Downloads video and audio from YouTube and many other sites, ready for editing or transcription. |
-| [FFmpeg Usage Skill](https://github.com/ychoi-kr/claude-ffmpeg-skill) | skill | Ready-made FFmpeg recipes for converting, cutting, merging, compressing, GIFs, subtitles and social-media formats. Scan: needs review (README offers a curl-to-bash installer; install via 4rmory instead). |
-| [Ghost Editor](https://github.com/kurbaitaev/ghost-editor) | skill | Turns a raw talking-head phone recording into a finished vertical reel with best takes, trimmed pauses and word-timed captions. Needs an Apple silicon Mac. Scan: needs review (runs local FFmpeg/Python scripts; optional ElevenLabs and Gemini APIs). |
-| [Claude Shorts](https://github.com/agricidaniel/claude-shorts) | skill | Finds the best moments in a long video and cuts them into vertical shorts with animated captions (faster-whisper + Remotion). Scan: needs review (runs local FFmpeg/Python scripts; a GPU helps). |
-| [Awesome Claude Video Skills](https://github.com/zhuyansen/awesome-claude-video-skills) | collection | Large list of video skills for coding agents (HyperFrames, Remotion, motion graphics, editing, avatars) with security grades. |
-| [REA Video](https://github.com/JuneYaooo/rea-video) | skill | Breaks any video down shot by shot (filmed, AI-generated or coded) and explains how to remake it. |
-| [FFmpeg Skill](https://github.com/kajisho5/ffmpeg-skill) | skill | Lets your agent edit footage with local FFmpeg and check its own output; no cloud, no API keys. Also works as an MCP server. |
-| [Cut Video](https://github.com/louisedesadeleer/cut-video) | skill | Removes ums, filler words and dead air from a recording locally with Whisper and FFmpeg. Built for macOS. Scan: needs review. |
-| [Video Editor Skills (DaVinci Resolve)](https://github.com/appariciojunior/video-editor-skills) | skill | Claude does the first cut of vlogs and classes inside DaVinci Resolve Studio. Needs Resolve Studio and a speech-to-text API. CC BY-NC 4.0 (noncommercial). |
-| [Video Use](https://github.com/browser-use/video-use) | skill | Turns raw takes into a finished edited video, from the Browser Use team. Needs an ElevenLabs API key. Scan: needs review. |
-| [Claude Code Video Toolkit](https://github.com/digitalsamba/claude-code-video-toolkit) | skill | Give it a brief and get a video: templates plus voice, music and clips generated on your own cloud GPU account. Scan: needs review (Cisco clean; SkillSpector flags its many scripts, no real issues found). |
-| [OpenFilm](https://github.com/openfilm/openfilm) | skill | AI video editor desktop app for macOS and Windows: describe the video, then fix anything on a real timeline; exports to Final Cut Pro, Premiere Pro and DaVinci Resolve. Sends anonymous install counts to openfilm.dev (turn off with OPENFILM_NO_STATS). Scan: needs review (Cisco clean; SkillSpector timed out). |
-| [Video Edit Skill](https://github.com/tenfoldmarc/video-edit-skill) | skill | Turns phone clips into a finished vertical reel with captions, built on HyperFrames and faster-whisper. No licence file: personal use only. Scan: high risk by both scanners; manual review found false alarms (FFmpeg calls with fixed arguments), so install needs --force. |
-| [MakeMyClip Editor](https://github.com/MakeMyClip/editor) | skill | Agent-driven video editor (skill + MCP): cut silence, edit by transcript, add captions and export to Final Cut Pro, DaVinci Resolve or Premiere. Scan: high risk by both scanners; manual review found false alarms (FFmpeg and child processes, mostly in tests), so install needs --force. |
+| [ArtCraft Skills](https://github.com/mroxso/artcraft-skills) | skill | Skills that let your AI drive the ArtCraft creative apps for films, photos, vector art and lighting. |
+| [Concat](https://github.com/jub0t/Concat) | tool | A free, open video editor with a timeline, captions, voiceover and effects. An open alternative to CapCut. |
+| [FFmpeg](https://github.com/FFmpeg/FFmpeg) | tool | The engine behind most video tools: convert, cut, compress and process any video or audio file. |
+| [Huashu Motion](https://github.com/alchaincyf/huashu-motion) | tool | Your AI makes professional-looking product launch videos, composes the music, and lets you point at the frame to change it (Chinese-language docs). |
+| [HyperFrames](https://github.com/heygen-com/hyperframes) | skill | HeyGen's free AI video editor: edit your own footage, or describe a video and get one you can change down to the frame. Works with Claude Code and a free Studio app. |
+| [Motion Canvas](https://github.com/motion-canvas/motion-canvas) | tool | Make animated explainer videos by writing code, with a live preview. |
+| [MoviePy](https://github.com/Zulko/moviepy) | tool | Edit videos with simple Python code: cut, join, add titles and effects. For developers. |
+| [OpenAI HyperFrames Plugin](https://github.com/openai/plugins/tree/main/plugins/hyperframes) | skill | OpenAI's plugin with skills for making videos with HyperFrames. |
+| [Remotion](https://github.com/remotion-dev/remotion) | tool | Make videos with code using React, so you can generate many personalised videos automatically. For developers. |
+| [Remotion Skills](https://github.com/remotion-dev/skills) | skill | Official skills that teach your AI to make videos with Remotion. |
+| [Take One](https://github.com/talsiach/take-one) | tool | Your AI makes launch videos, ads and music videos from a single line: idea, script, visuals, voice, music, edit and review. |
+| [yt-dlp](https://github.com/yt-dlp/yt-dlp) | tool | Downloads videos and audio from YouTube and thousands of other sites, ready to edit or transcribe. |
+| [FFmpeg Usage Skill](https://github.com/ychoi-kr/claude-ffmpeg-skill) | skill | Ready-made FFmpeg recipes for your AI: convert, cut, join, compress, make GIFs, add subtitles and resize for social media. Safety check: flagged for review; its own install guide uses a risky one-line installer, so install it through 4rmory instead. |
+| [Ghost Editor](https://github.com/kurbaitaev/ghost-editor) | skill | Turns a raw talking-head phone recording into a finished vertical reel: picks the best takes, trims pauses and adds captions. Needs an Apple silicon Mac. Safety check: flagged for review. |
+| [Claude Shorts](https://github.com/agricidaniel/claude-shorts) | skill | Finds the best moments in a long video and cuts them into vertical shorts with animated captions. A graphics card helps. Safety check: flagged for review. |
+| [Awesome Claude Video Skills](https://github.com/zhuyansen/awesome-claude-video-skills) | collection | A large list of video skills and tools for AI assistants, each with a security grade. |
+| [REA Video](https://github.com/JuneYaooo/rea-video) | skill | Breaks any video down shot by shot, works out whether it was filmed, AI-generated or made with code, and explains how to remake it. |
+| [FFmpeg Skill](https://github.com/kajisho5/ffmpeg-skill) | skill | A video editor your AI runs on your own computer: cut, add captions, reframe for Reels, fix loudness and export for each platform. No cloud and no API keys. |
+| [Cut Video](https://github.com/louisedesadeleer/cut-video) | skill | Removes silences, ums and dead air from long recordings, but keeps laughs and comedic pauses. Built for Mac. Safety check: flagged for review. |
+| [Video Editor Skills (DaVinci Resolve)](https://github.com/appariciojunior/video-editor-skills) | skill | Turns your AI into a first-pass editor inside DaVinci Resolve: cuts by transcript, pacing, B-roll, music, captions and YouTube export. Needs DaVinci Resolve Studio. Licence: noncommercial use only. |
+| [Video Use](https://github.com/browser-use/video-use) | skill | Turns your raw video takes into a finished, edited video, from the team behind Browser Use. Needs an ElevenLabs account. Safety check: flagged for review. |
+| [Claude Code Video Toolkit](https://github.com/digitalsamba/claude-code-video-toolkit) | skill | Give your AI a short brief and get a video: script, AI voiceover, music, clips and final render, using open-source models that cost cents. Safety check: flagged for review. |
+| [OpenFilm](https://github.com/openfilm/openfilm) | skill | An AI video app for Mac and Windows: describe the video you want, then fix anything on a real timeline and export to Final Cut Pro, Premiere Pro or DaVinci Resolve. Sends anonymous install counts to openfilm.dev (turn off with OPENFILM_NO_STATS). Safety check: flagged for review. |
+| [Video Edit Skill](https://github.com/tenfoldmarc/video-edit-skill) | skill | Turns raw talking-head phone clips into a finished, premium-looking Instagram reel with captions. Licence: none given, so personal use only. Safety check: rated high risk, but our review found the alarms were false, so installing needs --force. |
+| [MakeMyClip Editor](https://github.com/MakeMyClip/editor) | skill | A free AI video editor: removes silences and repeated takes, edits by transcript, adds captions and exports to Final Cut Pro, DaVinci Resolve or Premiere. Safety check: rated high risk, but our review found the alarms were false, so installing needs --force. |
 
 ## Motion design, animation and game visuals
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Awesome Agent Motion Skills](https://github.com/charetterat/awesome-agent-motion-skills) | collection | Curated agent motion skills, including motion design and video-shot workflows. |
-| [Babylon.js](https://github.com/BabylonJS/Babylon.js) | tool | Real-time 3D engine for web. |
-| [Blender](https://github.com/blender/blender) | tool | 3D modelling, rigging, animation, rendering, and compositing. |
-| [ComfyUI](https://github.com/Comfy-Org/ComfyUI) | tool | Node-based generative image/video workflows. |
-| [Drei](https://github.com/pmndrs/drei) | tool | Useful helpers for React Three Fiber. |
-| [glTF](https://github.com/KhronosGroup/glTF) | tool | 3D asset delivery format. |
-| [Godot](https://github.com/godotengine/godot) | tool | Open-source game engine. |
-| [Huashu Art Motion](https://github.com/alchaincyf/huashu-art-motion) | tool | Art-driven motion and explainer workflows. |
-| [Manim](https://github.com/ManimCommunity/manim) | tool | Mathematical and educational animation. |
-| [Motionmaxxing](https://github.com/Tejashmakwana/motionmaxxing) | skill | Motion-design agent skill focused on stronger composition, typography, timing, and less generic AI motion. |
-| [Motion Tools and Skills](https://github.com/VisualxIntelligence/motion-tools-and-skills) | skill | Collection across Remotion, HyperFrames, Three.js, GSAP, Blender, Unreal, and ComfyUI. |
-| [OpenGL Registry](https://github.com/KhronosGroup/OpenGL-Registry) | tool | OpenGL specifications and reference material. |
-| [React Three Fiber](https://github.com/pmndrs/react-three-fiber) | tool | React renderer for Three.js. |
-| [Theatre.js](https://github.com/theatre-js/theatre) | tool | Animation authoring for web projects. |
-| [Three.js](https://github.com/mrdoob/three.js) | tool | 3D graphics for the web. |
-| [Three.js Skills](https://github.com/cloudai-x/threejs-skills) | skill | Up-to-date three.js, React Three Fiber and drei knowledge so the 3D code your agent writes runs on current releases. |
-| [iArt Motion Skills](https://github.com/iart-ai/motion-skills) | collection | Index of 19 motion-graphics skill packs: TikTok, explainers, kinetic type, data and map animation, WebGL and Manim. |
-| [Motion Graphics (Barty-Bart)](https://github.com/Barty-Bart/motion-graphics) | skill | Video-editing skills that add word-timed motion B-roll, cut out people or products, add sound effects and build product explainers. Scan: needs review (runs local Node/Python/FFmpeg scripts). |
-| [OneTake](https://github.com/feitangyuan/onetake) | skill | Makes product launch films and feature demos as one continuous animated take instead of a stack of slides. Noncommercial licence (PolyForm Noncommercial). Scan: needs review (runs local scripts). |
-| [Collage B-Roll](https://github.com/pyang5166/gbro-collage-broll) | skill | Turns a short script line into a halftone paper-collage animated B-roll clip. Built for Codex; needs a Gemini API key and FFmpeg. Scan: needs review (sends prompts to Google Gemini). |
-| [Pulupulu Motion](https://github.com/Alucard0x1/pulupulu-motion) | skill | Makes motion-graphics films as HTML + GSAP pages rendered to MP4 in local Chrome, with music, sound effects and narration. Scan: high risk by both scanners; manual review found false alarms (FFmpeg calls with fixed arguments; DeepSeek key sent only to DeepSeek TTS), so install needs --force. |
-| [MotionClone](https://github.com/LPengYang/MotionClone) | tool | Research code that copies the motion of a reference video into newly generated video, without training. No licence file and not updated since mid-2025: personal or research use only. |
-| [Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) | skill | 99 film styles for coding agents: pick a style, bring a story, and the agent makes the film in code. Code is MIT; the skill and style guides are CC BY-NC 4.0 (noncommercial without a commercial licence); films you make are yours. |
-| [Manim Skill](https://github.com/Yusuke710/manim-skill) | skill | Makes smooth Manim math-explainer animations with local Kokoro voiceover (no API key needed). Scan: high risk by both scanners; manual review found false alarms (its subtitle linter runs your own Manim script against a stub), so install needs --force. |
+| [Awesome Agent Motion Skills](https://github.com/charetterat/awesome-agent-motion-skills) | collection | A curated list of tested AI skills for motion design, video and transitions. |
+| [Babylon.js](https://github.com/BabylonJS/Babylon.js) | tool | A free engine for making 3D games and interactive 3D scenes that run in a web browser. For developers. |
+| [Blender](https://github.com/blender/blender) | tool | The free, professional 3D app: model, animate, render and edit video. |
+| [ComfyUI](https://github.com/Comfy-Org/ComfyUI) | tool | A powerful visual app for making AI images and videos by connecting building blocks. |
+| [Drei](https://github.com/pmndrs/drei) | tool | Handy ready-made pieces for building 3D web scenes with React Three Fiber. For developers. |
+| [glTF](https://github.com/KhronosGroup/glTF) | tool | The standard file format for sharing 3D models on the web and in apps, with its official specification. |
+| [Godot](https://github.com/godotengine/godot) | tool | A free, open-source engine for making 2D and 3D games. |
+| [Huashu Art Motion](https://github.com/alchaincyf/huashu-art-motion) | tool | An AI skill with 35 art styles and 9 explainer formats that brings drawings to life with code (Chinese-language docs). |
+| [Manim](https://github.com/ManimCommunity/manim) | tool | Makes smooth maths and science explainer animations from code, in the style of 3Blue1Brown videos. |
+| [Motionmaxxing](https://github.com/Tejashmakwana/motionmaxxing) | skill | Makes your AI's motion graphics look professionally designed instead of generic: better layout, fonts and timing. |
+| [Motion Tools and Skills](https://github.com/VisualxIntelligence/motion-tools-and-skills) | skill | Skills, tools and guides for AI-made launch films, news explainers and music videos, using several animation tools, with quality checks. |
+| [OpenGL Registry](https://github.com/KhronosGroup/OpenGL-Registry) | tool | The official reference documents for OpenGL graphics programming. For developers. |
+| [React Three Fiber](https://github.com/pmndrs/react-three-fiber) | tool | Build 3D web scenes with React and Three.js. For developers. |
+| [Theatre.js](https://github.com/theatre-js/theatre) | tool | A visual editor for designing animations on websites, with a timeline. |
+| [Three.js](https://github.com/mrdoob/three.js) | tool | The most popular way to show 3D graphics in a web browser. For developers. |
+| [Three.js Skills](https://github.com/cloudai-x/threejs-skills) | skill | Up-to-date Three.js knowledge for your AI, so the 3D web code it writes works with current versions. |
+| [iArt Motion Skills](https://github.com/iart-ai/motion-skills) | collection | An index of 19 motion-graphics skill packs: TikTok videos, explainers, animated text, charts, maps, 3D and maths animations. |
+| [Motion Graphics (Barty-Bart)](https://github.com/Barty-Bart/motion-graphics) | skill | Video-editing skills that add animated graphics timed to your words, cut out people or products, add sound effects and build product explainers. Safety check: flagged for review, but the flags were its normal video tools. |
+| [OneTake](https://github.com/feitangyuan/onetake) | skill | Makes product launch films and feature demos that flow as one continuous animated shot instead of a slideshow. Licence: free for noncommercial use only. Safety check: flagged for review. |
+| [Collage B-Roll](https://github.com/pyang5166/gbro-collage-broll) | skill | Turns a short line from your script into a stylish paper-collage animated clip to use as B-roll. Needs Codex, a Google Gemini key and FFmpeg. Safety check: flagged for review, because it sends prompts to Google Gemini. |
+| [Pulupulu Motion](https://github.com/Alucard0x1/pulupulu-motion) | skill | Your AI designs a motion-graphics film as a web page and turns it into an MP4 with music, sound effects and narration, all on your computer. Safety check: rated high risk, but our review found the alarms were false, so installing needs --force. |
+| [MotionClone](https://github.com/LPengYang/MotionClone) | tool | Research code that copies the movement from one video into a newly generated one. Licence: none given, so personal or research use only; not updated since mid-2025. |
+| [Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) | skill | 99 film styles for your AI: pick a style, give it your story, and it makes the film in code. Licence: the guides are for noncommercial use unless you buy a licence; films you make are yours. Safety check: flagged for review. |
+| [Manim Skill](https://github.com/Yusuke710/manim-skill) | skill | Helps your AI make smooth maths explainer animations with Manim, with a free voiceover that runs on your computer. Safety check: rated high risk, but our review found the alarms were false, so installing needs --force. |
 
 ## Image generation and visual AI
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [ControlNet](https://github.com/lllyasviel/ControlNet) | tool | Spatial and pose guidance for image generation. |
-| [Diffusers](https://github.com/huggingface/diffusers) | tool | Diffusion model pipelines. |
-| [Fooocus](https://github.com/lllyasviel/Fooocus) | tool | Image-generation interface and workflow. |
-| [Hugging Face Transformers](https://github.com/huggingface/transformers) | tool | Model library for machine learning. |
-| [InvokeAI](https://github.com/invoke-ai/InvokeAI) | tool | Creative AI image generation platform. |
-| [OpenCV](https://github.com/opencv/opencv) | tool | Computer vision toolkit. |
-| [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) | tool | Image restoration and upscaling. |
-| [rembg](https://github.com/danielgatis/rembg) | tool | Background removal. |
-| [Segment Anything](https://github.com/facebookresearch/segment-anything) | tool | Image segmentation. |
+| [ControlNet](https://github.com/lllyasviel/ControlNet) | tool | Lets you guide AI image generation with a sketch, pose or outline, so the picture follows the shape you want. |
+| [Diffusers](https://github.com/huggingface/diffusers) | tool | Hugging Face's toolkit for running image, video and audio generation models. For developers. |
+| [Fooocus](https://github.com/lllyasviel/Fooocus) | tool | A simple app for making AI images: just type what you want and it handles the settings. |
+| [Hugging Face Transformers](https://github.com/huggingface/transformers) | tool | The most widely used library for running and training AI models for text, images and audio. For developers. |
+| [InvokeAI](https://github.com/invoke-ai/InvokeAI) | tool | A creative studio app for making and editing AI images, aimed at artists and professionals. |
+| [OpenCV](https://github.com/opencv/opencv) | tool | The classic toolkit for computer vision: detect faces, track objects and process images and video. For developers. |
+| [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN) | tool | Makes blurry or small images and videos sharper and larger. |
+| [rembg](https://github.com/danielgatis/rembg) | tool | Removes the background from photos automatically. |
+| [Segment Anything](https://github.com/facebookresearch/segment-anything) | tool | Meta's AI that outlines any object in a picture with a click, to cut it out or edit it. |
 
 ## Audio, voice and speech-to-text
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Audacity](https://github.com/audacity/audacity) | tool | Audio recording and editing. |
-| [AudioCraft](https://github.com/facebookresearch/audiocraft) | tool | Audio generation research and tooling. |
-| [ClearerVoice-Studio](https://github.com/modelscope/ClearerVoice-Studio) | tool | Speech enhancement and related audio processing. |
-| [Demucs](https://github.com/facebookresearch/demucs) | tool | Music source separation. |
-| [faster-whisper](https://github.com/SYSTRAN/faster-whisper) | tool | Efficient Whisper implementation using CTranslate2; useful for transcription on CPU/GPU. |
-| [Fish Speech](https://github.com/fishaudio/fish-speech) | tool | Text-to-speech research and tooling. |
-| [Piper](https://github.com/rhasspy/piper) | tool | Local neural text-to-speech. |
-| [Whisper](https://github.com/openai/whisper) | tool | Speech recognition and transcription. |
-| [Meetily](https://github.com/Zackriya-Solutions/meetily) | tool | Private AI meeting note-taker for Windows, macOS and Linux that transcribes and summarises meetings locally. |
+| [Audacity](https://github.com/audacity/audacity) | tool | A free app for recording and editing sound: cut, clean up and mix voice or music. |
+| [AudioCraft](https://github.com/facebookresearch/audiocraft) | tool | Meta's AI that makes music and sound effects from a short text description. |
+| [ClearerVoice-Studio](https://github.com/modelscope/ClearerVoice-Studio) | tool | AI that cleans up recorded speech: removes background noise and separates people talking over each other. |
+| [Demucs](https://github.com/facebookresearch/demucs) | tool | Splits a song into separate parts, such as vocals, drums and bass, so you can remix or remove them. |
+| [faster-whisper](https://github.com/SYSTRAN/faster-whisper) | tool | A faster version of Whisper that turns speech in audio or video into written text, even on an ordinary computer. |
+| [Fish Speech](https://github.com/fishaudio/fish-speech) | tool | Turns written text into natural-sounding speech, and can copy a voice from a short sample. |
+| [Piper](https://github.com/rhasspy/piper) | tool | Reads text out loud with a natural voice, entirely on your own computer, with no internet needed. |
+| [Whisper](https://github.com/openai/whisper) | tool | OpenAI's speech-to-text: turns recordings in many languages into accurate written transcripts. |
+| [Meetily](https://github.com/Zackriya-Solutions/meetily) | tool | A private meeting note-taker for Windows, Mac and Linux: records your meetings and writes transcripts and summaries on your own computer, with no bot joining the call. |
 
 ## Novels, fiction and screenwriting
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Awesome Novel Skills](https://github.com/UnderleveledBuilder/awesome-novel-skills) | collection | Curated discovery list for novel and web-fiction skills. |
-| [Long Novel Workflow](https://github.com/zilintea/long-novel-workflow) | tool | Long-form serial fiction workflow with file-based state, chapter contracts, foreshadowing ledger, and character knowledge tracking. |
-| [Story Skills](https://github.com/danjdewhurst/story-skills) | skill | End-to-end fiction workflow with 24 skills, a story bible, character/world files, plot, scenes, continuity tracking, revision, and publishing formats. |
+| [Awesome Novel Skills](https://github.com/UnderleveledBuilder/awesome-novel-skills) | collection | A curated list of AI skills for writing novels and web fiction (mostly Chinese-language projects). |
+| [Long Novel Workflow](https://github.com/zilintea/long-novel-workflow) | tool | Helps your AI write long serial novels chapter by chapter without forgetting characters, plot threads or earlier hints. |
+| [Story Skills](https://github.com/danjdewhurst/story-skills) | skill | 24 skills for writing a whole story with your AI: story bible, characters, world, plot, scenes, continuity checks, revision and publishing. |
 
 ## Research, OSINT and knowledge work
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Agent-Reach](https://github.com/Panniantong/Agent-Reach) | skill | CLI/skill for searching and reading platforms such as X, Reddit, YouTube, GitHub, and others. |
-| [Autoresearch](https://github.com/karpathy/autoresearch) | tool | Autonomous, bounded machine-learning experiment loop. |
-| [BBOT](https://github.com/blacklanternsecurity/bbot) | tool | Modular reconnaissance and OSINT automation. |
-| [LangChain](https://github.com/langchain-ai/langchain) | tool | LLM application framework. |
-| [Letta](https://github.com/letta-ai/letta) | tool | Stateful agents and memory. |
-| [Maigret](https://github.com/soxoj/maigret) | tool | Username footprint discovery. |
-| [Mem0](https://github.com/mem0ai/mem0) | tool | Memory layer for AI applications. |
-| [OSINT Framework](https://github.com/lockfale/OSINT-Framework) | tool | Directory of OSINT resources. |
-| [OWASP Amass](https://github.com/owasp-amass/amass) | tool | Attack surface mapping and asset discovery. |
-| [Sherlock](https://github.com/sherlock-project/sherlock) | tool | Username search across social networks. |
-| [SpiderFoot](https://github.com/smicallef/spiderfoot) | tool | OSINT automation. |
-| [theHarvester](https://github.com/laramies/theHarvester) | tool | Gather publicly available email, domain, and related information. |
+| [Agent-Reach](https://github.com/Panniantong/Agent-Reach) | skill | Lets your AI read and search X, Reddit, YouTube, GitHub and more, without paying for each site's API. |
+| [Autoresearch](https://github.com/karpathy/autoresearch) | tool | Lets an AI run small machine-learning experiments by itself on one graphics card. For researchers. |
+| [BBOT](https://github.com/blacklanternsecurity/bbot) | tool | A security tool that automatically maps everything about a domain that is visible from the internet. Only use it on targets you are allowed to test. |
+| [LangChain](https://github.com/langchain-ai/langchain) | tool | A popular developer toolkit for building apps and agents on top of AI models. |
+| [Letta](https://github.com/letta-ai/letta) | tool | Builds AI agents with long-term memory that remember and learn across conversations. For developers. |
+| [Maigret](https://github.com/soxoj/maigret) | tool | Finds which websites a username is registered on, to build a profile of a person. Use responsibly and lawfully. |
+| [Mem0](https://github.com/mem0ai/mem0) | tool | Adds long-term memory to AI apps so they remember users and past conversations. For developers. |
+| [OSINT Framework](https://github.com/lockfale/OSINT-Framework) | tool | A clickable directory of free tools for open-source investigations (finding public information). |
+| [OWASP Amass](https://github.com/owasp-amass/amass) | tool | A security tool that discovers a company's websites, servers and other internet-facing assets. Only use it on targets you are allowed to test. |
+| [Sherlock](https://github.com/sherlock-project/sherlock) | tool | Searches hundreds of social networks for accounts using a given username. Use responsibly and lawfully. |
+| [SpiderFoot](https://github.com/smicallef/spiderfoot) | tool | Automatically gathers public information about a person, company or domain for security research. Only use it lawfully. |
+| [theHarvester](https://github.com/laramies/theHarvester) | tool | Collects public email addresses, subdomains and names for a domain, for security checks. Only use it on targets you are allowed to test. |
 
 ## Cybersecurity and secure AI agents
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Cisco Skill Scanner](https://github.com/cisco-ai-defense/skill-scanner) | tool | Cisco AI Defense scanner that flags risky patterns in agent skills (SKILL.md, scripts, MCP configs). |
-| [Cloudflare Security Audit Skill](https://github.com/cloudflare/security-audit-skill) | skill | Structured, evidence-led code and service security review. |
-| [ffuf](https://github.com/ffuf/ffuf) | tool | Web fuzzing. |
-| [Gitleaks](https://github.com/gitleaks/gitleaks) | tool | Detect secrets in repositories. |
-| [Hayabusa](https://github.com/Yamato-Security/hayabusa) | tool | Windows event log threat hunting. |
-| [httpx](https://github.com/projectdiscovery/httpx) | tool | HTTP probing. |
-| [Katana](https://github.com/projectdiscovery/katana) | tool | Web crawling. |
-| [MITRE ATT&CK](https://github.com/mitre-attack/attack-website) | tool | Adversary tactics and techniques knowledge base. |
-| [Nuclei](https://github.com/projectdiscovery/nuclei) | tool | Template-based vulnerability scanning. |
-| [OWASP ASVS](https://github.com/OWASP/ASVS) | tool | Application security verification standard. |
-| [OWASP Cheat Sheet Series](https://github.com/OWASP/CheatSheetSeries) | tool | Practical application security guidance. |
-| [OWASP Secure Agent Playbook](https://github.com/OWASP/secure-agent-playbook) | skill | Agent security skills for code review, dependencies, secrets, APIs, web/mobile, infrastructure, prompt injection, MCP, and agent architectures. |
-| [OWASP ZAP](https://github.com/zaproxy/zaproxy) | tool | Web application security testing. |
-| [Semgrep](https://github.com/semgrep/semgrep) | tool | Static analysis and security rules. |
-| [Sigma](https://github.com/SigmaHQ/sigma) | tool | Generic detection rules. |
-| [NVIDIA SkillSpector](https://github.com/NVIDIA/SkillSpector) | tool | NVIDIA's scanner that checks an agent skill for malware, prompt injection and data theft before you install it. |
-| [Snyk Agent Scan](https://github.com/snyk/agent-scan) | tool | Snyk scanner for AI agents, MCP servers and agent skills. |
-| [sqlmap](https://github.com/sqlmapproject/sqlmap) | tool | SQL injection testing automation. |
-| [subfinder](https://github.com/projectdiscovery/subfinder) | tool | Passive subdomain discovery. |
-| [TheHive](https://github.com/TheHive-Project/TheHive) | tool | Security incident response platform. |
-| [Trivy](https://github.com/aquasecurity/trivy) | tool | Scan containers, filesystems, repositories, and configurations. |
-| [Velociraptor](https://github.com/Velocidex/velociraptor) | tool | Endpoint visibility and digital forensics. |
-| [Wazuh](https://github.com/wazuh/wazuh) | tool | Security monitoring and SIEM/XDR. |
-| [Kuron Security](https://github.com/shirokun20/kuron-security) | skill | Evidence-first security audit of a codebase or recent changes, with suggested patches and SARIF reports. Scan: high risk by both scanners; manual review found false alarms (read-only command allowlist, no network code), but the repo is brand new, so install needs --force. |
-| [ARTEX](https://github.com/BaaRai/ARTEX) | tool | Self-hosted multi-agent penetration testing with scope rules, approval gates and evidence tied to every finding (v0.7.0). Only use on systems you are authorised to test. AGPL-3.0. Scan: needs review (SkillSpector timed out; Cisco flagged 2 of 11 skills, manual review found false alarms). |
-| [Claude-BugHunter](https://github.com/elementalsouls/Claude-BugHunter) | skill | Bug-bounty and external red-team skill bundle (83 skills, 15 commands, cited report patterns). Only use on targets you are authorised to test. Scan: needs review (Cisco flags 27 of 83 skills for recon and exploit commands aimed at your chosen target, which is expected for a red-team kit; no hidden data collection found). |
-| [REA](https://github.com/morluto/rea) | skill | Reverse engineers apps, websites and native binaries with agents. |
+| [Cisco Skill Scanner](https://github.com/cisco-ai-defense/skill-scanner) | tool | Cisco's scanner that checks an AI skill for risky or malicious behaviour before you install it. 4rmory uses it. |
+| [Cloudflare Security Audit Skill](https://github.com/cloudflare/security-audit-skill) | skill | Cloudflare's skill that makes your AI do a careful, step-by-step security review of your code, with each finding double-checked. |
+| [ffuf](https://github.com/ffuf/ffuf) | tool | A fast tool for finding hidden pages and files on a website during security testing. Only use it on sites you are allowed to test. |
+| [Gitleaks](https://github.com/gitleaks/gitleaks) | tool | Scans your code and its history for passwords and keys that were saved by mistake. |
+| [Hayabusa](https://github.com/Yamato-Security/hayabusa) | tool | Quickly searches Windows event logs for signs of an attack and builds a timeline. For security investigators. |
+| [httpx](https://github.com/projectdiscovery/httpx) | tool | Quickly checks large lists of websites to see which are online and what they run. For security testing. |
+| [Katana](https://github.com/projectdiscovery/katana) | tool | Crawls a website to list all its pages and links, for security testing. |
+| [MITRE ATT&CK](https://github.com/mitre-attack/attack-website) | tool | The standard encyclopedia of how attackers operate, used by security teams to plan defences. |
+| [Nuclei](https://github.com/projectdiscovery/nuclei) | tool | Scans websites and servers for thousands of known security weaknesses using community-written checks. Only use it on systems you are allowed to test. |
+| [OWASP ASVS](https://github.com/OWASP/ASVS) | tool | A checklist of security requirements for building and testing web applications. |
+| [OWASP Cheat Sheet Series](https://github.com/OWASP/CheatSheetSeries) | tool | Short, practical guides on how to build software securely, one topic at a time. |
+| [OWASP Secure Agent Playbook](https://github.com/OWASP/secure-agent-playbook) | skill | Security skills for your AI covering code review, dependencies, secrets, APIs, prompt injection and safe agent design. |
+| [OWASP ZAP](https://github.com/zaproxy/zaproxy) | tool | A free tool for testing websites for security holes. Only use it on sites you are allowed to test. |
+| [Semgrep](https://github.com/semgrep/semgrep) | tool | Scans code for bugs and security problems using easy-to-read rules. |
+| [Sigma](https://github.com/SigmaHQ/sigma) | tool | A shared library of rules for spotting attacks in system logs. |
+| [NVIDIA SkillSpector](https://github.com/NVIDIA/SkillSpector) | tool | NVIDIA's scanner that checks an AI skill for malware, hidden instructions and data theft before you install it. 4rmory uses it. |
+| [Snyk Agent Scan](https://github.com/snyk/agent-scan) | tool | Snyk's scanner for AI agents, MCP servers and skills, to catch security problems before you use them. |
+| [sqlmap](https://github.com/sqlmapproject/sqlmap) | tool | Automatically tests websites for database security holes (SQL injection). Only use it on sites you are allowed to test. |
+| [subfinder](https://github.com/projectdiscovery/subfinder) | tool | Finds a domain's subdomains using public sources. For security testing. |
+| [TheHive](https://github.com/TheHive-Project/TheHive) | tool | A platform where security teams track and handle incidents together. Now a commercial product. |
+| [Trivy](https://github.com/aquasecurity/trivy) | tool | Scans software, containers and cloud settings for known security problems and leaked secrets. |
+| [Velociraptor](https://github.com/Velocidex/velociraptor) | tool | Lets security teams look into many computers at once during an investigation. |
+| [Wazuh](https://github.com/wazuh/wazuh) | tool | A free security monitoring system that watches your computers and servers for threats. |
+| [Kuron Security](https://github.com/shirokun20/kuron-security) | skill | Makes your AI do an evidence-based security review of your code or recent changes, and suggest fixes. Safety check: rated high risk, but our review found the alarms were false; it is very new, so installing needs --force. |
+| [ARTEX](https://github.com/BaaRai/ARTEX) | tool | A self-hosted AI system that runs penetration tests with approval steps and evidence for every finding. Only use it on systems you are allowed to test. Licence: AGPL-3.0. Safety check: flagged for review. |
+| [Claude-BugHunter](https://github.com/elementalsouls/Claude-BugHunter) | skill | A large bug-bounty and security-testing toolkit for your AI (84 skills). Only use it on targets you are allowed to test. Safety check: flagged for review, which is expected for a hacking kit. |
+| [REA](https://github.com/morluto/rea) | skill | Lets your AI take apart apps, websites and programs to work out how they work (reverse engineering). |
 
 ## Automation, agents and MCP
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Activepieces](https://github.com/activepieces/activepieces) | tool | Open-source automation. |
-| [AutoGen](https://github.com/microsoft/autogen) | tool | Multi-agent framework. |
-| [Browser Use](https://github.com/browser-use/browser-use) | skill | Browser automation for agents. |
-| [Composio](https://github.com/ComposioHQ) | tool | Integrations and tool connectivity for agents. |
-| [Kestra](https://github.com/kestra-io/kestra) | tool | Orchestration and workflow automation. |
-| [Model Context Protocol](https://github.com/modelcontextprotocol) | tool | Protocol and SDK ecosystem for connecting agents to tools and data. |
-| [n8n](https://github.com/n8n-io/n8n) | tool | Workflow automation. |
-| [Pipedream](https://github.com/PipedreamHQ/pipedream) | tool | Integrations and workflow platform. |
-| [Prefect](https://github.com/PrefectHQ/prefect) | tool | Workflow orchestration. |
-| [Trigger.dev](https://github.com/triggerdotdev/trigger.dev) | tool | Background jobs and workflows. |
-| [Paperclip](https://github.com/paperclipai/paperclip) | tool | Self-hosted app (Node.js server + React UI) for running a team of AI agents: assign goals, track work and watch costs. Scan: needs review (SkillSpector timed out; Cisco flagged 8 of 83 bundled skills, manual review found false alarms: its own local API calls and child processes). |
+| [Activepieces](https://github.com/activepieces/activepieces) | tool | Connect your apps and automate repetitive tasks with drag-and-drop steps, including AI steps, without writing code. |
+| [AutoGen](https://github.com/microsoft/autogen) | tool | Microsoft's toolkit for building teams of AI helpers that talk to each other to finish a task. For developers. |
+| [Browser Use](https://github.com/browser-use/browser-use) | skill | Lets an AI use a web browser for you: open sites, click, fill in forms and collect information. |
+| [Composio](https://github.com/ComposioHQ) | tool | Connects AI assistants to hundreds of apps, such as Gmail, Slack and GitHub, so they can take actions there for you. |
+| [Kestra](https://github.com/kestra-io/kestra) | tool | Schedules and runs chains of automated jobs across your systems, with a visual view of what ran and when. For technical teams. |
+| [Model Context Protocol](https://github.com/modelcontextprotocol) | tool | The standard way to plug AI assistants into other tools and data (MCP), with official building kits and examples. |
+| [n8n](https://github.com/n8n-io/n8n) | tool | A popular workflow automation app: link your apps and AI together with visual building blocks. Run it yourself or in the cloud. |
+| [Pipedream](https://github.com/PipedreamHQ/pipedream) | tool | Connect apps and services quickly with ready-made building blocks, and run automations in the cloud. |
+| [Prefect](https://github.com/PrefectHQ/prefect) | tool | Runs and monitors automated data jobs written in Python, and retries them when something fails. For developers. |
+| [Trigger.dev](https://github.com/triggerdotdev/trigger.dev) | tool | Runs long or scheduled background jobs and AI agents reliably for your app. For developers. |
+| [Paperclip](https://github.com/paperclipai/paperclip) | tool | A self-hosted app for running a team of AI agents at work: give them goals, track their tasks and watch what they cost. Safety check: flagged for review, but the flags were its normal behaviour. |
 
 ## Documents, reports and knowledge bases
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Docusaurus](https://github.com/facebook/docusaurus) | tool | Documentation websites. |
-| [MarkItDown](https://github.com/microsoft/markitdown) | tool | Convert files into Markdown for LLM workflows. |
-| [MkDocs Material](https://github.com/squidfunk/mkdocs-material) | tool | Documentation websites. |
-| [openpyxl](https://github.com/ericgazoni/openpyxl) | tool | Read and write Excel files. |
-| [python-docx](https://github.com/python-openxml/python-docx) | tool | Create and edit Word documents. |
-| [python-pptx](https://github.com/scanny/python-pptx) | tool | Create and edit PowerPoint files. |
-| [Quarto](https://github.com/quarto-dev/quarto-cli) | tool | Technical and scientific publishing. |
-| [Typst](https://github.com/typst/typst) | tool | Modern typesetting system. |
+| [Docusaurus](https://github.com/facebook/docusaurus) | tool | Build a clean documentation or help website from simple text files. Made by Meta. |
+| [MarkItDown](https://github.com/microsoft/markitdown) | tool | Microsoft's tool that converts PDFs, Word, Excel, PowerPoint and more into plain text your AI can read. |
+| [MkDocs Material](https://github.com/squidfunk/mkdocs-material) | tool | Turns simple text files into a good-looking, searchable documentation website. |
+| [openpyxl](https://github.com/ericgazoni/openpyxl) | tool | Lets programs read and create Excel spreadsheets automatically. For developers. |
+| [python-docx](https://github.com/python-openxml/python-docx) | tool | Lets programs create and edit Word documents automatically. For developers. |
+| [python-pptx](https://github.com/scanny/python-pptx) | tool | Lets programs create and edit PowerPoint slides automatically. For developers. |
+| [Quarto](https://github.com/quarto-dev/quarto-cli) | tool | Write reports, articles, slides and websites from one document, with charts and code results built in. |
+| [Typst](https://github.com/typst/typst) | tool | A modern, easier alternative to LaTeX for writing beautifully typeset documents, papers and reports. |
 
 ## Data, analytics and machine learning
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [llama.cpp](https://github.com/ggml-org/llama.cpp) | tool | Efficient local LLM inference. |
-| [Ollama](https://github.com/ollama/ollama) | tool | Run local language models. |
-| [Open WebUI](https://github.com/open-webui/open-webui) | tool | Interface for local and hosted models. |
-| [pandas](https://github.com/pandas-dev/pandas) | tool | Data analysis. |
-| [Polars](https://github.com/pola-rs/polars) | tool | Fast DataFrame library. |
-| [PyTorch](https://github.com/pytorch/pytorch) | tool | Deep learning framework. |
-| [scikit-learn](https://github.com/scikit-learn/scikit-learn) | tool | Machine learning. |
+| [llama.cpp](https://github.com/ggml-org/llama.cpp) | tool | Runs AI language models on your own computer, even without a powerful graphics card. For technical users. |
+| [Ollama](https://github.com/ollama/ollama) | tool | The easiest way to download and chat with AI models on your own computer, privately and for free. |
+| [Open WebUI](https://github.com/open-webui/open-webui) | tool | A friendly ChatGPT-style chat window for AI models running on your computer or online. |
+| [pandas](https://github.com/pandas-dev/pandas) | tool | The standard Python tool for working with tables of data, like a programmable spreadsheet. For developers. |
+| [Polars](https://github.com/pola-rs/polars) | tool | A very fast tool for working with large tables of data in Python. For developers. |
+| [PyTorch](https://github.com/pytorch/pytorch) | tool | The main toolkit researchers and developers use to build and train AI models. |
+| [scikit-learn](https://github.com/scikit-learn/scikit-learn) | tool | Ready-made machine-learning methods in Python for predictions, grouping and classification. For developers. |
 
 ## Product, SaaS and growth
 
 | Name | Kind | What it helps with |
 |---|---|---|
-| [Builder.io](https://github.com/BuilderIO) | tool | Visual development ecosystem. |
-| [Cal.com](https://github.com/calcom/cal.com) | tool | Scheduling. |
+| [Builder.io](https://github.com/BuilderIO) | tool | A visual editor for building and editing website pages by dragging and dropping, which developers connect to their site. |
+| [Cal.com](https://github.com/calcom/cal.com) | tool | Let people book meetings with you through a shareable link. A free, open alternative to Calendly. |

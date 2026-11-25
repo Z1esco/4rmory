@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **Plain-language descriptions:** all 217 entries now say what they do for you in everyday words,
+  written from each project's own page; safety and licence notes are in plain words too.
 - **Every page centred:** all screens share one centred column, like the main menu.
 - **Lists in columns of five:** numbered lists fill a column of five, then continue in the next column
   beside it; columns that do not fit wrap into another block below.
