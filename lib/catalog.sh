@@ -57,21 +57,32 @@ ar_get() { ar_rows | awk -F'\t' -v id="$1" '$1==id {print; exit}'; }
 ar_field() { ar_get "$1" | cut -f"$2"; }
 
 # Print rows as a neat list. AR_NUMBERED=1 adds number badges.
+# Rows as a readable list (used by `4rmory search` and `4rmory list`): name, kind, category,
+# then the description wrapped to the page.
 ar_print_rows() {
-  local id cat kind name desc url width n=0 kc lead
-  width=$(( $(ar_cols) - 8 )); [ "$width" -gt 92 ] && width=92; [ "$width" -lt 30 ] && width=30
+  local id cat kind name desc url n=0 kc
   while IFS=$'\t' read -r id cat kind name desc url; do
     n=$((n + 1))
     kc="$(ar_kind_color "$kind")"
-    [ ${#desc} -gt "$width" ] && desc="${desc:0:$((width - 1))}…"
-    if [ -n "${AR_NUMBERED:-}" ]; then lead="  $(ar_pill "$n")  "; else lead="  "; fi
-    printf '%s%s%s%s  %s%s%s · %s%s%s\n' "$lead" "$C_BOLD" "$(ar_cap "$name")" "$C_RESET" "$kc" "$(ar_cap "$kind")" "$C_RESET" "$C_GREY" "$(ar_cap "$cat")" "$C_RESET"
-    printf '        %s%s%s\n' "$C_DIM" "$desc" "$C_RESET"
-    [ -z "${AR_NUMBERED:-}" ] && printf '      %sId: %s%s\n' "$C_GREY" "$id" "$C_RESET"
+    printf '\n%s%s%s%s  %s%s%s · %s%s%s\n' "$AR_M" "$C_BOLD" "$(ar_cap "$name")" "$C_RESET" "$kc" "$(ar_cap "$kind")" "$C_RESET" "$C_GREY" "$(ar_cap "$cat")" "$C_RESET"
+    printf '%s' "$C_DIM"; ar_wrap "$desc" "  "; printf '%s' "$C_RESET"
+    printf '%s  %sId: %s%s\n' "$AR_M" "$C_GREY" "$id" "$C_RESET"
   done
   if [ "$n" -eq 0 ]; then ar_warn "Nothing found. Try fewer or different words."
-  elif [ -z "${AR_NUMBERED:-}" ]; then printf '\n%s  %d Result(s) · Details: 4rmory info <id>%s\n' "$C_GREY" "$n" "$C_RESET"; fi
+  else printf '\n%s%s%d Result(s) · Details: 4rmory details <id>%s\n' "$AR_M" "$C_GREY" "$n" "$C_RESET"; fi
   return 0
+}
+
+# Rows as a numbered grid of names, 5 per column; a coloured dot shows the kind.
+ar_grid_rows() {
+  local id cat kind name desc url items=()
+  while IFS=$'\t' read -r id cat kind name desc url; do
+    name="$(ar_cap "$name")"; [ ${#name} -gt 26 ] && name="${name:0:25}…"
+    items+=("$(ar_kind_color "$kind")●$C_RESET $name")
+  done
+  [ ${#items[@]} -gt 0 ] && ar_grid "${items[@]}"
+  printf '\n'
+  ar_center "$C_GREEN●$C_RESET Skill   $C_BLUE●$C_RESET Tool   $C_YELLOW●$C_RESET Collection   $C_MAG●$C_RESET MCP"
 }
 
 # ar_filter query category kind -> matching rows (case-insensitive, all words must match)
@@ -94,7 +105,7 @@ ar_categories() {
   local c count
   for c in $AR_CATEGORIES; do
     count="$(ar_cat_count "$c")"; [ "$count" -eq 0 ] && continue
-    printf '  %s%-13s%s %s%3s%s  %s\n' "$C_CYAN$C_BOLD" "$(ar_cap "$c")" "$C_RESET" "$C_YELLOW" "$count" "$C_RESET" "$(ar_cat_label "$c")"
+    printf '%s%s%-13s%s %s%3s%s  %s\n' "$AR_M" "$C_CYAN$C_BOLD" "$(ar_cap "$c")" "$C_RESET" "$C_YELLOW" "$count" "$C_RESET" "$(ar_cat_label "$c")"
   done
   ar_hint ""
   ar_hint "Browse One: 4rmory list <category>"
@@ -105,16 +116,17 @@ ar_info_card() {
   row="$(ar_get "$1")"; [ -n "$row" ] || ar_die "No entry called '$1'. Try: 4rmory search $1"
   IFS=$'\t' read -r id cat kind name desc url <<< "$row"
   ar_title "$(ar_cap "$name")"
-  printf '  %s%-10s%s %s\n' "$C_GREY" "Id" "$C_RESET" "$C_BOLD$id$C_RESET"
-  printf '  %s%-10s%s %s\n' "$C_GREY" "Kind" "$C_RESET" "$(ar_kind_color "$kind")$(ar_cap "$kind")$C_RESET"
-  printf '  %s%-10s%s %s · %s\n' "$C_GREY" "Category" "$C_RESET" "$(ar_cap "$cat")" "$(ar_cat_label "$cat")"
-  printf '  %s%-10s%s %s\n' "$C_GREY" "Link" "$C_RESET" "$C_BLUE$url$C_RESET"
-  printf '  %s%-10s%s %s\n' "$C_GREY" "About" "$C_RESET" "$desc"
-  if ar_is_installed "$id"; then printf '  %s%-10s%s %s\n' "$C_GREY" "Status" "$C_RESET" "${C_GREEN}Installed${C_RESET}"
-  else printf '  %s%-10s%s %s\n' "$C_GREY" "Status" "$C_RESET" "Not installed"; fi
-  ar_in_file "$id" "$AR_MY" && printf '  %s%-10s%s %s\n' "$C_GREY" "Source" "$C_RESET" "Your personal list"
+  local L="$AR_M$C_GREY" W="$C_RESET"
+  printf '%s\n' "$C_BOLD" | tr -d '\n'; ar_wrap "$desc"; printf '%s\n' "$C_RESET"
+  printf '%s%-10s%s %s\n' "$L" "Kind" "$W" "$(ar_kind_color "$kind")$(ar_cap "$kind")$C_RESET"
+  printf '%s%-10s%s %s · %s\n' "$L" "Category" "$W" "$(ar_cap "$cat")" "$(ar_cat_label "$cat")"
+  if ar_is_installed "$id"; then printf '%s%-10s%s %s\n' "$L" "Status" "$W" "${C_GREEN}Installed${C_RESET}"
+  else printf '%s%-10s%s %s\n' "$L" "Status" "$W" "Not installed"; fi
   local audit; audit="$(ar_audit_status "$id")"
-  [ -n "$audit" ] && printf '  %s%-10s%s %s\n' "$C_GREY" "Scan" "$C_RESET" "$audit"
+  [ -n "$audit" ] && printf '%s%-10s%s %s\n' "$L" "Scan" "$W" "$audit"
+  ar_in_file "$id" "$AR_MY" && printf '%s%-10s%s %s\n' "$L" "Source" "$W" "Your personal list"
+  printf '%s%-10s%s %s\n' "$L" "Id" "$W" "$id"
+  printf '%s%-10s%s %s\n' "$L" "Link" "$W" "$C_BLUE$url$C_RESET"
   return 0
 }
 
@@ -235,7 +247,7 @@ ar_export_md() {
 # Pickers that show capitalised labels but return the lowercase key.
 ar_pick_category() {
   local items=() c sel
-  for c in $AR_CATEGORIES; do items+=("$(ar_cap "$c") $C_GREY· $(ar_cat_label "$c")$C_RESET"); done
+  for c in $AR_CATEGORIES; do items+=("$(ar_cap "$c") $C_GREY$(ar_cat_count "$c")$C_RESET"); done
   sel="$(ar_choose "Category" "${items[@]}")" || return 1
   printf '%s' "${sel%% *}" | tr A-Z a-z
 }

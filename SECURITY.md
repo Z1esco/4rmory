@@ -16,7 +16,8 @@
 | **Never runs downloaded code** | 4rmory only runs `git clone --depth 1` and links folders that contain a `SKILL.md`. No install scripts, no pipe-to-shell. |
 | **Never overwrites your files** | Links are only created where nothing exists, or where 4rmory made the link itself. Uninstall removes only what 4rmory created. |
 | **Strict input checks** | Ids are `a-z 0-9 -`. URLs must be `https://` GitHub, GitLab or Codeberg repositories with no shell characters. Catalog fields are stripped of tabs and newlines. |
-| **No telemetry, no AI upload** | Nothing is sent anywhere except `git` to the repository you install or update from. Scanners run with `--no-llm`, so code is never sent to an AI provider. |
+| **No telemetry, no AI upload** | Nothing is sent anywhere except `git` to the repository you install or update from, and (only when you open **Show Details**) a download of that repository's README and pictures from its host. Scanners run with `--no-llm`, so code is never sent to an AI provider. |
+| **Safe details view** | README text is stripped of terminal control characters before it is shown; pictures are size-capped and only drawn if they really are PNG, JPEG, GIF or WebP. |
 | **Your data stays local** | Installs, your personal list, scan logs and reports live in `~/.local/share/4rmory/`, never in the repository. |
 | **No secrets in the repo** | The repository and its full git history were reviewed for keys, tokens, emails and personal paths (2026-11-23): none found. |
 

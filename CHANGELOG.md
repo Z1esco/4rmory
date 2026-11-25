@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **Every page centred:** all screens share one centred column, like the main menu.
+- **Lists in columns of five:** numbered lists fill a column of five, then continue in the next column
+  beside it; columns that do not fit wrap into another block below.
+- **Show Details / Open On GitHub:** a skill's project summary, sections, pictures (drawn in the
+  terminal with chafa or viu) and video links; `4rmory details <id>`, `4rmory open <id>`.
+- **Install all or a range:** in any list type `A` for every skill or `1-3,5` for a range; agent and
+  the *Needs review* choice are asked once. `4rmory install -c <category>` does the same. Guided Setup
+  now asks what to do with *Needs review* instead of installing them silently.
 - **Centred menu:** the main menu is drawn as one block centred under the banner, and every numbered
   row (menu and pick lists) has a blank line between it and the next, so the round badges never touch.
 - **Scan on add:** `4rmory add` downloads and scans a repository before saving it; `edit … url` scans the

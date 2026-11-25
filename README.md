@@ -65,11 +65,22 @@ Run `4rmory` with no arguments any time for a simple menu:
 
 Type a number and press Enter. Empty Enter never kicks you out; `0` or `Exit` (at any prompt) leaves.
 
+In any list (a category or search results), items are numbered in columns of five:
+
+- type a **number** to see that skill: its card, then **Show Details** (summary, sections, pictures and
+  video links from its project page) or **Open On GitHub**;
+- type **A** to install every skill in the list at once;
+- type a **range** like `1-3,5` to install just those.
+
+You pick your agent once, and choose what happens when a scan says *Needs review* (ask each time, skip,
+or install anyway). *High risk* is always blocked. Pictures show inside the terminal when
+[`chafa`](https://hpjansson.org/chafa/) or `viu` is installed; otherwise you get the links.
+
 ### Requirements
 
 | Needed | Optional (better experience) |
 |---|---|
-| `bash` 3.2+, `git`, `awk` | `python3` (scanner reports), `fzf` (arrow-key menus), `figlet` (live banner) |
+| `bash` 3.2+, `git`, `awk` | `python3` (scanner reports, project details), `curl` (details of skills you have not installed), `chafa` or `viu` (pictures in the terminal), `fzf` (arrow-key menus), `figlet` (live banner) |
 | Linux or macOS | A [Nerd Font](https://www.nerdfonts.com) (round number badges) |
 | | [`skillspector`](https://github.com/NVIDIA/SkillSpector) and [`skill-scanner`](https://github.com/cisco-ai-defense/skill-scanner) (deep security scans) |
 
@@ -96,6 +107,9 @@ uv tool install cisco-ai-skill-scanner
 
 ```bash
 4rmory search humanizer                 # search everything
+4rmory details onetake                  # its project page: summary, sections, pictures, videos
+4rmory open onetake                     # open its GitHub page in your browser
+4rmory install -c essentials            # scan and install every skill in a category
 4rmory search marketing -k skill        # only installable skills
 4rmory list design                      # one category
 4rmory info superpowers                 # details, install and audit status

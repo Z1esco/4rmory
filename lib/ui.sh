@@ -36,15 +36,63 @@ ar_banner() {
   printf '\n%*s%s%s%s\n\n' "$pad" '' "$C_GREY" "$tag" "$C_RESET"
 }
 
-ar_rule() { local c i line=""; c="$(ar_cols)"; [ "$c" -gt 100 ] && c=100; for ((i = 0; i < c; i++)); do line="$line─"; done; printf '%s%s%s\n' "$C_GREY" "$line" "$C_RESET"; }
-ar_title() { printf '\n%s%s▌ %s%s\n\n' "$C_BOLD" "$C_CYAN" "$1" "$C_RESET"; }
-ar_section() { printf '\n  %s%s%s\n' "$C_GREY$C_BOLD" "$(printf '%s' "$1" | tr 'a-z' 'A-Z')" "$C_RESET"; }
-ar_info()  { printf '%s›%s %s\n' "$C_BLUE" "$C_RESET" "$*"; }
-ar_ok()    { printf '%s✔%s %s\n' "$C_GREEN" "$C_RESET" "$*"; }
-ar_warn()  { printf '%s!%s %s\n' "$C_YELLOW" "$C_RESET" "$*" >&2; }
-ar_err()   { printf '%s✖%s %s\n' "$C_RED" "$C_RESET" "$*" >&2; }
+# Every page is a centred column AR_PAGE_W wide. AR_M is its left margin (spaces); ar_layout sets it.
+AR_PAGE_W=76
+AR_M="  "
+ar_layout() {
+  local p=$(( ($(ar_cols) - AR_PAGE_W) / 2 )); [ "$p" -lt 2 ] && p=2
+  AR_M="$(printf '%*s' "$p" '')"
+}
+# Text width inside the page, for wrapping long lines.
+ar_textw() { printf '%s' $((AR_PAGE_W - 4)); }
+# Wrap text to the page and indent it: ar_wrap "text" [extra-indent]
+ar_wrap() { printf '%s\n' "$1" | fold -s -w "$(( $(ar_textw) - ${#2} ))" | sed "s/^/$AR_M$2/"; }
+# Visible width of a string (colour codes do not count).
+# Counts characters, not bytes, whatever the locale: UTF-8 continuation bytes (0x80-0xBF) are dropped.
+ar_vlen() { printf '%s' "$1" | sed $'s/\033\\[[0-9;]*m//g' | LC_ALL=C tr -d '\200-\277' | wc -c | tr -d ' '; }
+
+ar_rule() { local i line=""; for ((i = 0; i < AR_PAGE_W; i++)); do line="$line─"; done; printf '%s%s%s%s\n' "$AR_M" "$C_GREY" "$line" "$C_RESET"; }
+ar_title() { printf '\n%s%s%s▌ %s%s\n\n' "$AR_M" "$C_BOLD" "$C_CYAN" "$1" "$C_RESET"; }
+ar_section() { printf '\n%s%s%s%s\n' "$AR_M" "$C_GREY$C_BOLD" "$(printf '%s' "$1" | tr 'a-z' 'A-Z')" "$C_RESET"; }
+ar_info()  { printf '%s%s›%s %s\n' "$AR_M" "$C_BLUE" "$C_RESET" "$*"; }
+ar_ok()    { printf '%s%s✔%s %s\n' "$AR_M" "$C_GREEN" "$C_RESET" "$*"; }
+ar_warn()  { printf '%s%s!%s %s\n' "$AR_M" "$C_YELLOW" "$C_RESET" "$*" >&2; }
+ar_err()   { printf '%s%s✖%s %s\n' "$AR_M" "$C_RED" "$C_RESET" "$*" >&2; }
 ar_die()   { ar_err "$*"; exit 1; }
-ar_hint()  { printf '%s  %s%s\n' "$C_GREY" "$*" "$C_RESET"; }
+ar_hint()  { printf '%s%s  %s%s\n' "$AR_M" "$C_GREY" "$*" "$C_RESET"; }
+# A centred one-line note.
+ar_center() { local w p; w="$(ar_vlen "$1")"; p=$(( ($(ar_cols) - w) / 2 )); [ "$p" -lt 2 ] && p=2; printf '%*s%s\n' "$p" '' "$1"; }
+
+# ar_grid item... : numbered items in columns of 5. Items fill down a column, then the next column
+# starts beside it. Columns that do not fit the window continue in another centred block below.
+# A blank line between rows keeps the round badges apart. Prints to stderr when AR_GRID_FD=2.
+ar_grid() {
+  local n=$# rows=5 max=0 w item cw ncols per b bc bw pad r c idx num pw line out=""
+  local items=("$@") vl=()
+  for item in "${items[@]}"; do w="$(ar_vlen "$item")"; vl+=("$w"); [ "$w" -gt "$max" ] && max=$w; done
+  pw=4; [ "$n" -ge 100 ] && pw=5
+  cw=$((pw + 2 + max + 4))
+  ncols=$(( (n + rows - 1) / rows ))
+  per=$(( ($(ar_cols) - 4 + 4) / cw )); [ "$per" -lt 1 ] && per=1; [ "$per" -gt "$ncols" ] && per=$ncols
+  for ((b = 0; b < ncols; b += per)); do
+    bc=$(( ncols - b < per ? ncols - b : per ))
+    # Every block starts where the first (widest) one does, so the columns line up.
+    if [ "$b" -eq 0 ]; then bw=$(( bc * cw - 4 )); pad=$(( ($(ar_cols) - bw) / 2 )); [ "$pad" -lt 2 ] && pad=2; fi
+    [ "$b" -gt 0 ] && out="$out"$'\n'
+    for ((r = 0; r < rows; r++)); do
+      line=""
+      for ((c = b; c < b + bc; c++)); do
+        idx=$(( c * rows + r )); [ "$idx" -lt "$n" ] || continue
+        num=$((idx + 1))
+        # ar_pill is 4 wide for 1-2 digits, 5 for 3 digits; pad to the widest badge, then a 2-space gap.
+        line="$line$(ar_pill "$num")$(printf '%*s' $(( pw - (${#num} == 3 ? 5 : 4) + 2 )) '')${items[$idx]}"
+        [ "$c" -lt $((b + bc - 1)) ] && line="$line$(printf '%*s' $(( max - vl[idx] + 4 )) '')"
+      done
+      [ -n "$line" ] && out="$out"$'\n'"$(printf '%*s' "$pad" '')$line"$'\n'
+    done
+  done
+  if [ "${AR_GRID_FD:-1}" = 2 ]; then printf '%s' "$out" >&2; else printf '%s' "$out"; fi
+}
 
 # Number badges. "round" draws a full-height circle with Nerd Font caps ( 1 );
 # "plain" is a bold cyan number for fonts without them. Override: ARMORY_BADGES=round|plain
@@ -91,8 +139,8 @@ ar_exit_now() {
 # ar_ask "Question" [default] -> echoes answer. Typing Exit leaves 4rmory.
 ar_ask() {
   local q="$1" def="${2:-}" ans
-  if [ -n "$def" ]; then printf '\n%s❯%s %s %s[%s]%s ' "$C_CYAN" "$C_RESET" "$q" "$C_GREY" "$def" "$C_RESET" >&2
-  else printf '\n%s❯%s %s ' "$C_CYAN" "$C_RESET" "$q" >&2; fi
+  if [ -n "$def" ]; then printf '\n%s%s❯%s %s %s[%s]%s ' "$AR_M" "$C_CYAN" "$C_RESET" "$q" "$C_GREY" "$def" "$C_RESET" >&2
+  else printf '\n%s%s❯%s %s ' "$AR_M" "$C_CYAN" "$C_RESET" "$q" >&2; fi
   IFS= read -r ans || ans=""
   ar_is_exit "$ans" && ar_exit_now
   printf '%s' "${ans:-$def}"
@@ -113,10 +161,8 @@ ar_choose() {
     printf '%s\n' "$@" | fzf --height=60% --reverse --border=rounded --prompt="$prompt › " --ansi || return 1
     return 0
   fi
-  local i=1 item n
-  echo >&2
-  # A blank line between rows keeps the round number badges from touching.
-  for item in "$@"; do printf '\n  %s  %s\n' "$(ar_pill "$i")" "$item" >&2; i=$((i + 1)); done
+  local n
+  AR_GRID_FD=2 ar_grid "$@"
   while :; do
     n="$(ar_ask "$prompt ${C_GREY}(1-$#, Enter = ${AR_BACK_LABEL:-Back})${C_RESET}")"
     [ -z "$n" ] && return 1

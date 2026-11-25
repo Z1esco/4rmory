@@ -20,7 +20,7 @@ ar_resolve_self() {
 
 AR_HOME="$(ar_resolve_self)"
 
-for ar_mod in core theme ui catalog install audit cli; do
+for ar_mod in core theme ui catalog install audit details cli; do
   if [ ! -r "$AR_HOME/lib/$ar_mod.sh" ]; then
     echo "4rmory: missing $AR_HOME/lib/$ar_mod.sh - the install is incomplete." >&2
     exit 1

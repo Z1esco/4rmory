@@ -3,6 +3,10 @@
 ar_help() {
   ar_banner
   local c="$C_CYAN" r="$C_RESET" b="$C_BOLD" g="$C_GREY"
+  ar_help_text | sed "s/^/$AR_M/"
+}
+ar_help_text() {
+  local c="$C_CYAN" r="$C_RESET" b="$C_BOLD" g="$C_GREY"
   cat <<HELP
 ${b}Usage${r}   4rmory ${c}<command>${r}      ${g}Just type 4rmory for the easy menu.${r}
 
@@ -16,11 +20,14 @@ ${b}Find${r}
   ${c}search${r} <words>          Search everything        ${g}-c <category>  -k <kind>${r}
   ${c}list${r} [category]         Show all, or one category
   ${c}categories${r}              Show the categories
-  ${c}info${r} <id>               Details about one skill or tool
+  ${c}info${r} <id>               Short card about one skill or tool
+  ${c}details${r} <id>            Its project page: summary, sections, pictures, videos
+  ${c}open${r} <id>               Open its GitHub page in your browser
 
 ${b}Install${r}
   ${c}setup${r}                   Guided install for your agent
   ${c}install${r} <id>            Scan, then install       ${g}--agent claude|codex|opencode|agents${r}
+  ${c}install -c${r} <category>   Scan and install every skill in a category
   ${c}uninstall${r} <id>          Remove it again
   ${c}installed${r}               What you have installed
   ${c}update${r}                  Get newly added skills and update installed ones
@@ -47,11 +54,13 @@ HELP
 ar_doctor() {
   ar_title "Doctor"
   local t
-  for t in git awk python3 fzf figlet skillspector skill-scanner; do
+  for t in git awk python3 curl fzf figlet chafa skillspector skill-scanner; do
     if ar_have "$t"; then ar_ok "$(ar_cap "$t")"; else
       case "$t" in
         git|awk) ar_err "$(ar_cap "$t") is required" ;;
-        python3) ar_warn "Python3 (needed for scanner reports)" ;;
+        python3) ar_warn "Python3 (needed for scanner reports and project details)" ;;
+        curl) ar_warn "Curl (optional: project details for skills you have not installed)" ;;
+        chafa) ar_warn "Chafa (optional: see project pictures in the terminal; viu also works)" ;;
         fzf) ar_warn "Fzf (optional: arrow-key menus) → install with your package manager" ;;
         figlet) ar_warn "Figlet (optional: live banner) → install with your package manager" ;;
         skillspector) ar_warn "SkillSpector (recommended) → uv tool install git+https://github.com/NVIDIA/skillspector.git" ;;
@@ -75,15 +84,31 @@ ar_maintainer() {
 }
 
 # Show rows with numbers, let the user open one, then offer actions.
+# A numbered list of entries. Type a number to open one, A to install every skill in the list,
+# or a range like 1-3,5 to install several at once.
 ar_pick_and_open() {
-  local rows="$1" n sel id
+  local rows="$1" n sel id picks skills
   [ -n "$rows" ] || { ar_warn "Nothing found. Try fewer or different words."; return 0; }
-  printf '%s\n' "$rows" | AR_NUMBERED=1 ar_print_rows
+  printf '%s\n' "$rows" | ar_grid_rows
   n="$(printf '%s\n' "$rows" | wc -l | tr -d ' ')"
+  skills="$(printf '%s\n' "$rows" | awk -F'\t' '$3=="skill"' | wc -l | tr -d ' ')"
+  ar_center "${C_GREY}Number = see one · ${C_RESET}${C_BOLD}A${C_RESET}${C_GREY} = install all $skills skills · ${C_RESET}${C_BOLD}1-3,5${C_RESET}${C_GREY} = install a range${C_RESET}"
   while :; do
-    sel="$(ar_ask "Open which one? ${C_GREY}(1-$n, Enter = Back)${C_RESET}")"
+    sel="$(ar_ask "Your choice ${C_GREY}(1-$n, A, range, Enter = Back)${C_RESET}")"
+    sel="${sel// /}"
     [ -z "$sel" ] && return 0
-    case "$sel" in *[!0-9]*) ar_warn "Type a number from 1 to $n."; continue ;; esac
+    case "$sel" in
+      [Aa]|[Aa][Ll][Ll])
+        [ "$skills" -gt 0 ] || { ar_warn "No agent skills in this list (only tools or collections). Open one to see it."; continue; }
+        # shellcheck disable=SC2046
+        ar_install_many $(printf '%s\n' "$rows" | awk -F'\t' '$3=="skill" {print $1}')
+        return 0 ;;
+      *[!0-9]*)
+        picks="$(ar_parse_picks "$sel" "$n")" || { ar_warn "Type a number, A, or a range like 1-3,5 (from 1 to $n)."; continue; }
+        # shellcheck disable=SC2046
+        ar_install_many $(printf '%s\n' "$picks" | while IFS= read -r i; do printf '%s\n' "$rows" | sed -n "${i}p" | cut -f1; done)
+        return 0 ;;
+    esac
     [ "$sel" -ge 1 ] && [ "$sel" -le "$n" ] || { ar_warn "Type a number from 1 to $n."; continue; }
     id="$(printf '%s\n' "$rows" | sed -n "${sel}p" | cut -f1)"
     ar_open_entry "$id"
@@ -94,11 +119,18 @@ ar_pick_and_open() {
 ar_open_entry() {
   local id="$1" act
   ar_info_card "$id"
-  if ar_is_installed "$id"; then
-    act="$(ar_choose "What next" "Scan it again" "Uninstall" "Edit" )" || return 0
-  else
-    act="$(ar_choose "What next" "Install" "Scan it first" "Edit" "Remove")" || return 0
-  fi
+  while :; do
+    if ar_is_installed "$id"; then
+      act="$(ar_choose "What next" "Show Details" "Open On GitHub" "Scan it again" "Uninstall" "Edit")" || return 0
+    else
+      act="$(ar_choose "What next" "Show Details" "Open On GitHub" "Install" "Scan it first" "Edit" "Remove")" || return 0
+    fi
+    case "$act" in
+      "Show Details") ar_details "$id"; continue ;;
+      "Open On GitHub") ar_open_url "$(ar_field "$id" 6)"; continue ;;
+    esac
+    break
+  done
   case "$act" in
     Install) (ar_install "$id") ;;
     "Scan it first"|"Scan it again") (ar_audit "$id") ;;
@@ -122,6 +154,7 @@ ar_menu_section() { printf '\n%*s%s%s%s' "$AR_MPAD" '' "$C_GREY$C_BOLD" "$(print
 
 ar_menu_draw() {
   local pending="$1" hint="Type a number and press Enter · Type Exit anytime to leave" hp
+  ar_layout
   AR_MPAD="$(ar_menu_pad)"
   ar_menu_section "Find"
   ar_menu_item 1 "Search" "Find skills and tools by keyword"
@@ -181,6 +214,7 @@ ar_menu() {
 ar_main() {
   AR_BADGE_STYLE="$(ar_badge_style)"
   AR_PID=$$
+  ar_layout
   trap 'printf "\n"; ar_ok "See you next time."; exit 0' USR1
   local args=() a
   for a in "$@"; do
@@ -207,7 +241,17 @@ ar_main() {
       else ar_title "Everything"; ar_rows | sort -t$'\t' -k2,2 -k1,1 | ar_print_rows; fi ;;
     categories|cats) ar_categories ;;
     info|show|i) [ -n "${1:-}" ] || ar_die "Usage: 4rmory info <id>"; ar_info_card "$1" ;;
-    install|in) ar_install "$@" ;;
+    install|in)
+      if [ "${1:-}" = "-c" ] || [ "${1:-}" = "--category" ]; then
+        local ic; ic="$(printf '%s' "${2:-}" | tr A-Z a-z)"
+        ar_valid_category "$ic" || ar_die "Usage: 4rmory install -c <category>. See: 4rmory categories"
+        shift 2
+        local ia=""; while [ $# -gt 0 ]; do case "$1" in --agent|-a) ia="$2"; shift ;; esac; shift; done
+        # shellcheck disable=SC2046
+        AR_AGENT="$ia" ar_install_many $(ar_rows | awk -F'\t' -v c="$ic" '$2==c && $3=="skill" {print $1}')
+      else ar_install "$@"; fi ;;
+    details|about) [ -n "${1:-}" ] || ar_die "Usage: 4rmory details <id>"; ar_details "$1" ;;
+    open) [ -n "${1:-}" ] || ar_die "Usage: 4rmory open <id>"; ar_open_url "$(ar_field "$1" 6)" ;;
     uninstall|rm) ar_uninstall "${1:-}" ;;
     installed) ar_installed ;;
     update|up) ar_update ;;

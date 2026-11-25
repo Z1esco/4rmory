@@ -63,7 +63,12 @@ ar_install() {
       return 1
     fi
     if [ "$AR_LAST_VERDICT" = "warn" ] && [ -z "$force" ]; then
-      ar_confirm "Install anyway?" || { ar_info "Not installed. Read the report above to decide."; return 0; }
+      # AR_WARN_POLICY (batch installs): ask (default) | skip | yes
+      case "${AR_WARN_POLICY:-ask}" in
+        skip) ar_info "Skipped: a scanner flagged it. Report: $AR_LAST_REPORT"; return 2 ;;
+        yes) ar_info "Installing although a scanner flagged it (your choice)." ;;
+        *) ar_confirm "Install anyway?" || { ar_info "Not installed. Read the report above to decide."; return 2; } ;;
+      esac
     fi
   fi
 
@@ -128,8 +133,8 @@ ar_installed() {
     local n; n="$(awk -F'\t' -v id="$id" '$1==id && $2!="-"' "$AR_INSTALLED" | wc -l | tr -d ' ')"
     local nm; nm="$(ar_field "$id" 4)"; [ -n "$nm" ] || nm="$id"
     local ag=""; for a in $agents; do ag="$ag$(ar_cap "$a") "; done
-    if [ "$n" -gt 0 ]; then printf '  %s✔%s %s%-30s%s %s%s Skill(s) · %s%s\n' "$C_GREEN" "$C_RESET" "$C_BOLD" "$(ar_cap "$nm")" "$C_RESET" "$C_GREY" "$n" "$ag" "$C_RESET"
-    else printf '  %s✔%s %s%-30s%s %sDownloaded Tool%s\n' "$C_GREEN" "$C_RESET" "$C_BOLD" "$(ar_cap "$nm")" "$C_RESET" "$C_GREY" "$C_RESET"; fi
+    if [ "$n" -gt 0 ]; then printf '%s  %s✔%s %s%-30s%s %s%s Skill(s) · %s%s\n' "$AR_M" "$C_GREEN" "$C_RESET" "$C_BOLD" "$(ar_cap "$nm")" "$C_RESET" "$C_GREY" "$n" "$ag" "$C_RESET"
+    else printf '%s  %s✔%s %s%-30s%s %sDownloaded Tool%s\n' "$AR_M" "$C_GREEN" "$C_RESET" "$C_BOLD" "$(ar_cap "$nm")" "$C_RESET" "$C_GREY" "$C_RESET"; fi
   done
 }
 
@@ -181,6 +186,55 @@ ar_pending_updates() {
 }
 
 # Guided first run: pick an agent, pick categories, install the skills in them.
+# ar_parse_picks "1-3,5" max -> one number per line, or nothing if the text is not a valid pick.
+ar_parse_picks() {
+  local text="${1// /}" max="$2" part a b i out=""
+  case "$text" in ''|*[!0-9,-]*) return 1 ;; esac
+  local IFS=,
+  for part in $text; do
+    case "$part" in
+      *-*) a="${part%-*}"; b="${part#*-}" ;;
+      *) a="$part"; b="$part" ;;
+    esac
+    case "$a" in ''|*[!0-9]*) return 1 ;; esac
+    case "$b" in ''|*[!0-9]*) return 1 ;; esac
+    [ "$a" -ge 1 ] && [ "$b" -le "$max" ] && [ "$a" -le "$b" ] || return 1
+    for ((i = a; i <= b; i++)); do out="$out$i"$'\n'; done
+  done
+  printf '%s' "$out" | awk 'NF && !seen[$0]++'
+}
+
+# Install several entries in one go: pick the agent once, choose what to do with "Needs review",
+# then each entry is scanned and installed. High risk is always blocked.
+ar_install_many() {
+  local agent="" ids=() id ok=0 skipped=0 blocked=0 rc policy
+  for id in "$@"; do ids+=("$id"); done
+  [ ${#ids[@]} -gt 0 ] || { ar_info "Nothing to install."; return 0; }
+  ar_title "Install ${#ids[@]} At Once"
+  for id in "${ids[@]}"; do
+    printf '%s  %s•%s %s %s(%s)%s\n' "$AR_M" "$C_CYAN" "$C_RESET" "$(ar_cap "$(ar_field "$id" 4)")" "$C_GREY" "$(ar_cap "$(ar_field "$id" 3)")" "$C_RESET"
+  done
+  if [ -n "${AR_AGENT:-}" ]; then agent="$AR_AGENT"; else agent="$(ar_pick_agent)" || { ar_info "Cancelled."; return 0; }; fi
+  ar_agent_dir "$agent" >/dev/null || ar_die "Unknown agent '$agent'. Use: $AR_AGENTS"
+  if [ -n "${AR_WARN_POLICY:-}" ]; then policy="$AR_WARN_POLICY"
+  elif [ -n "${AR_YES:-}" ]; then policy=yes
+  else
+    policy="$(ar_choose "If a scanner says Needs review" "Ask me each time" "Skip it" "Install it anyway")" || { ar_info "Cancelled."; return 0; }
+    case "$policy" in Skip*) policy=skip ;; Install*) policy=yes ;; *) policy=ask ;; esac
+  fi
+  ar_confirm "Scan and install these ${#ids[@]} for $(ar_cap "$agent")?" || { ar_info "Cancelled."; return 0; }
+  for id in "${ids[@]}"; do
+    printf '\n'; ar_rule
+    ( AR_WARN_POLICY="$policy" ar_install "$id" --agent "$agent" --all ); rc=$?
+    case "$rc" in 0) ok=$((ok + 1)) ;; 2) skipped=$((skipped + 1)) ;; *) blocked=$((blocked + 1)) ;; esac
+  done
+  printf '\n'; ar_rule
+  ar_ok "Done: $ok installed · $skipped skipped (needs review) · $blocked blocked or failed."
+  [ "$blocked" -gt 0 ] && ar_hint "Blocked ones were rated High risk or could not download. Reports: $AR_REPORTS"
+  ar_hint "Restart $(ar_cap "$agent") to load new skills. See all: 4rmory installed"
+  return 0
+}
+
 ar_setup() {
   ar_title "Guided Setup"
   ar_info "Pick your AI agent, then the areas you work in. 4rmory installs the agent skills for you,"
@@ -201,12 +255,7 @@ ar_setup() {
       < <(ar_rows | awk -F'\t' -v c="$c" '$2==c && $3=="skill" {print $1}')
   done
   [ ${#ids[@]} -gt 0 ] || { ar_warn "No installable agent skills in those areas. Browse tools with: 4rmory list <category>"; return 0; }
-  ar_info "Skills to install:"
-  for id in "${ids[@]}"; do printf '    %s•%s %s\n' "$C_CYAN" "$C_RESET" "$(ar_cap "$(ar_field "$id" 4)")"; done
-  ar_confirm "Install these ${#ids[@]} skill packs for $(ar_cap "$agent")?" || return 0
-  local id
-  for id in "${ids[@]}"; do AR_YES=1 ar_install "$id" --agent "$agent" --all || true; done
-  ar_ok "Setup finished. See what you have: 4rmory installed"
+  AR_AGENT="$agent" ar_install_many "${ids[@]}"
 }
 
 ar_pick_agent() {
