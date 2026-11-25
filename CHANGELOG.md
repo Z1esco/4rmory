@@ -28,6 +28,9 @@
 - **Added** [Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) to Motion: 99 code-rendered film styles
   (scan: needs review; code MIT, skill docs CC BY-NC 4.0). HyperFrames, FFmpeg, Whisper and Remotion
   from the same list were already in the catalog.
+- **Added 8 video-editing skills** (all scanned on add): Video Edit Skill, OpenFilm, MakeMyClip Editor,
+  Video Use, Cut Video, Claude Code Video Toolkit, Video Editor Skills (DaVinci Resolve) and Manim Skill.
+  Three rated high risk were reviewed by hand (false alarms) and added with a note.
 - **Added** a Tutorials section to the README.
 - **Added** [Terminal CLI Craft](skills/terminal-cli-craft) to Engineering: a general guide for building simple, polished and safe CLIs.
 - **Added** [AI MemoryCore](https://github.com/Kiyoraka/Project-AI-MemoryCore) to Essentials (scan: needs review).
