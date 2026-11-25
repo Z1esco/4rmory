@@ -115,7 +115,8 @@ ar_choose() {
   fi
   local i=1 item n
   echo >&2
-  for item in "$@"; do printf '  %s  %s\n' "$(ar_pill "$i")" "$item" >&2; i=$((i + 1)); done
+  # A blank line between rows keeps the round number badges from touching.
+  for item in "$@"; do printf '\n  %s  %s\n' "$(ar_pill "$i")" "$item" >&2; i=$((i + 1)); done
   while :; do
     n="$(ar_ask "$prompt ${C_GREY}(1-$#, Enter = ${AR_BACK_LABEL:-Back})${C_RESET}")"
     [ -z "$n" ] && return 1

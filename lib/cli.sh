@@ -108,14 +108,25 @@ ar_open_entry() {
   esac
 }
 
-ar_menu_item() { printf '  %s  %s%-26s%s %s%s%s\n' "$(ar_pill "$1")" "$C_BOLD" "$2" "$C_RESET" "$C_GREY" "$3" "$C_RESET"; }
+# The menu is drawn as one block, centred under the banner. AR_MENU_W is the block's visible width:
+# badge (4) + gap (2) + label (26) + space (1) + longest description (38).
+AR_MENU_W=71
+ar_menu_pad() { local p=$(( ($(ar_cols) - AR_MENU_W) / 2 )); [ "$p" -lt 2 ] && p=2; printf '%s' "$p"; }
+
+# One numbered row, with a blank line before it so the round badges never touch.
+ar_menu_item() {
+  printf '\n%*s%s  %s%-26s%s %s%s%s\n' "$AR_MPAD" '' "$(ar_pill "$1")" "$C_BOLD" "$2" "$C_RESET" "$C_GREY" "$3" "$C_RESET"
+}
+# Section title; the next row's leading newline ends its line, so there is no gap under it.
+ar_menu_section() { printf '\n%*s%s%s%s' "$AR_MPAD" '' "$C_GREY$C_BOLD" "$(printf '%s' "$1" | tr 'a-z' 'A-Z')" "$C_RESET"; }
 
 ar_menu_draw() {
-  local pending="$1"
-  ar_section "Find"
+  local pending="$1" hint="Type a number and press Enter · Type Exit anytime to leave" hp
+  AR_MPAD="$(ar_menu_pad)"
+  ar_menu_section "Find"
   ar_menu_item 1 "Search" "Find skills and tools by keyword"
   ar_menu_item 2 "Browse Categories" "Look through one area at a time"
-  ar_section "Install"
+  ar_menu_section "Install"
   ar_menu_item 3 "Guided Setup" "Pick your agent and areas, install all"
   ar_menu_item 4 "My Installed Skills" "See what you have"
   if [ -n "$pending" ] && [ "$pending" -gt 0 ] 2>/dev/null; then
@@ -123,15 +134,17 @@ ar_menu_draw() {
   else
     ar_menu_item 5 "Update" "Get newly added skills"
   fi
-  ar_section "Your List"
+  ar_menu_section "Your List"
   ar_menu_item 6 "Add A Skill Or Tool" "Save a new one to the list"
   ar_menu_item 7 "Edit Or Remove" "Change an entry"
-  ar_section "Safety & Help"
+  ar_menu_section "Safety & Help"
   ar_menu_item 8 "Scan For Malware" "Check a skill or a folder"
   ar_menu_item 9 "Doctor" "Check your setup"
   ar_menu_item 10 "Help" "All commands"
-  printf '\n  %s  %s\n' "$(ar_pill 0)" "Exit"
-  printf '\n  %sType a number and press Enter · Type Exit anytime to leave%s\n' "$C_GREY" "$C_RESET"
+  printf '\n'
+  ar_menu_item 0 "Exit" ""
+  hp=$(( ($(ar_cols) - ${#hint}) / 2 )); [ "$hp" -lt 2 ] && hp=2
+  printf '\n\n%*s%s%s%s\n' "$hp" '' "$C_GREY" "$hint" "$C_RESET"
 }
 
 ar_menu() {
@@ -142,7 +155,7 @@ ar_menu() {
   while :; do
     [ -n "$draw" ] && ar_menu_draw "$pending"
     draw=1
-    printf '\n%s❯%s Choose %s(0-10)%s ' "$C_CYAN" "$C_RESET" "$C_GREY" "$C_RESET"
+    printf '\n%*s%s❯%s Choose %s(0-10)%s ' "${AR_MPAD:-2}" '' "$C_CYAN" "$C_RESET" "$C_GREY" "$C_RESET"
     IFS= read -r choice || { echo; return 0; }
     case "$choice" in
       "") draw=""; continue ;;

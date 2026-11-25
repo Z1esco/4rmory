@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **Centred menu:** the main menu is drawn as one block centred under the banner, and every numbered
+  row (menu and pick lists) has a blank line between it and the next, so the round badges never touch.
 - **Scan on add:** `4rmory add` downloads and scans a repository before saving it; `edit … url` scans the
   new link; `publish` re-checks every new or changed row. *High risk* is not saved without `--force`;
   *Needs review* asks first.
