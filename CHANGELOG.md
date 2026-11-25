@@ -23,6 +23,9 @@
   Graphics (Barty-Bart), OneTake, Collage B-Roll, Pulupulu Motion, MotionClone. Security: Kuron Security,
   ARTEX, Claude-BugHunter, REA. Other: Paperclip, Dokploy, Meetily, rust-anything, Kiri.
   Scan notes are in each description where a scanner flagged something.
+- **Added** [Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) to Motion: 99 code-rendered film styles
+  (scan: needs review; code MIT, skill docs CC BY-NC 4.0). HyperFrames, FFmpeg, Whisper and Remotion
+  from the same list were already in the catalog.
 - **Added** a Tutorials section to the README.
 - **Added** [Terminal CLI Craft](skills/terminal-cli-craft) to Engineering: a general guide for building simple, polished and safe CLIs.
 - **Added** [AI MemoryCore](https://github.com/Kiyoraka/Project-AI-MemoryCore) to Essentials (scan: needs review).
