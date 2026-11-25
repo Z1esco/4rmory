@@ -208,3 +208,6 @@ claude-bughunter	security	skill	Claude-BugHunter	Bug-bounty and external red-tea
 rea	security	skill	REA	Reverse engineers apps, websites and native binaries with agents.	https://github.com/morluto/rea
 kiri	engineering	tool	Kiri	Small, fast Docker Desktop replacement written in Rust for macOS, Windows and Linux; works with the docker CLI and Compose.	https://github.com/libracoder/kiri
 lemo-opuscar	motion	skill	Lemo-Opuscar	99 film styles for coding agents: pick a style, bring a story, and the agent makes the film in code. Code is MIT; the skill and style guides are CC BY-NC 4.0 (noncommercial without a commercial licence); films you make are yours.	https://github.com/lemomo-ai/lemo-opuscar
+cut-video	youtube	skill	Cut Video	Removes ums, filler words and dead air from a recording locally with Whisper and FFmpeg. Built for macOS.	https://github.com/louisedesadeleer/cut-video
+video-editor-skills	youtube	skill	Video Editor Skills (DaVinci Resolve)	Claude does the first cut of vlogs and classes inside DaVinci Resolve Studio. Needs Resolve Studio and a speech-to-text API. CC BY-NC 4.0 (noncommercial).	https://github.com/appariciojunior/video-editor-skills
+video-use	youtube	skill	Video Use	Turns raw takes into a finished edited video, from the Browser Use team. Needs an ElevenLabs API key.	https://github.com/browser-use/video-use
