@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- **Added** [AI Engineering From Scratch](https://github.com/rohitg00/ai-engineering-from-scratch) to Data:
+  18 tutor skills for a free AI-engineering course (scan: needs review).
 - **Plain-language descriptions:** all 217 entries now say what they do for you in everyday words,
   written from each project's own page; safety and licence notes are in plain words too.
 - **Every page centred:** all screens share one centred column, like the main menu.
